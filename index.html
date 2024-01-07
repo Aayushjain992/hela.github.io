@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Copy Variable Text to Clipboard</title>
+  <title>Copy Multiline Variable Text to Clipboard</title>
 </head>
 <body>
-  <button onclick="copyVariableText1()">Neural Network/</button>
-  <button onclick="copyVariableText2()">McCulloch-Pitt</button>
-  <button onclick="copyVariableText3()">Decision Tree</button>
-  <button onclick="copyVariableText4()">SVM</button>
-  <button onclick="copyVariableText5()">K-Nearest Neighbor</button>
-  <button onclick="copyVariableText6()">Naive Bayes</button>
-  <button onclick="copyVariableText7()">K-Means</button>
+  <button onclick="copyMultilineText1()">Neural Network</button>
+  <button onclick="copyMultilineText2()">McCulloch-Pitt</button>
+  <button onclick="copyMultilineText3()">Decision Tree</button>
+  <button onclick="copyMultilineText4()">SVM</button>
+  <button onclick="copyMultilineText5()">K-Nearest Neighbor</button>
+  <button onclick="copyMultilineText6()">Naive Bayes</button>
+  <button onclick="copyMultilineText7()">K-Means</button>
 
 
   <script>
-    function copyVariableText1() {
-      // Your variable containing the text data
-      var yourVariable = "x=float(input("Enter value of x:"))
+    function copyMultilineText1() {
+      // Your variable containing multiline text data
+      var yourMultilineVariable = `x=float(input("Enter value of x:"))
 w=float(input("Enter value of w:"))
 b=float(input("Enter value of b:"))
 net = int(w*x+b)
@@ -53,21 +53,34 @@ print("The net input can be calculated as Yin = x1w1 + x2w2 + x3w3")
 Yin= []
 for i in range(0,n):
     Yin.append(inputs[i]*weights[i])
-print(round(sum(Yin),3))";
-      var text = yourVariable;
+print(round(sum(Yin),3))`;
+
+      // Assign the variable's value to the text variable
+      var text = yourMultilineVariable;
+
+      // Create a temporary textarea element to hold the text
       var tempTextArea = document.createElement("textarea");
       tempTextArea.value = text;
+
+      // Append the textarea element to the DOM
       document.body.appendChild(tempTextArea);
+
+      // Select the text in the textarea
       tempTextArea.select();
       tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea);
-      alert("Text copied to clipboard: " + text);
-    }
 
-    function copyVariableText2() {
-      // Your variable containing the text data
-      var yourVariable = "import numpy
+      // Copy the selected text to the clipboard
+      document.execCommand("copy");
+
+      // Remove the temporary textarea
+      document.body.removeChild(tempTextArea);
+
+      // Alert or any other action after copying
+      alert("Multiline text copied to clipboard:\n" + text);
+    }
+    function copyMultilineText2() {
+      // Your variable containing multiline text data
+      var yourMultilineVariable = `import numpy
 # enter the no of values
 num_ip = int(input("Enter the number of inputs:"))
 # set the weights with value 1
@@ -111,19 +124,34 @@ for i in range(0,num_ip):
     if(Yin[i]<1):
         ele=0
         Y.append(ele)
-print("Y=",Y)";
-      var text = yourVariable;
+print("Y=",Y)`;
+
+      // Assign the variable's value to the text variable
+      var text = yourMultilineVariable;
+
+      // Create a temporary textarea element to hold the text
       var tempTextArea = document.createElement("textarea");
       tempTextArea.value = text;
+
+      // Append the textarea element to the DOM
       document.body.appendChild(tempTextArea);
+
+      // Select the text in the textarea
       tempTextArea.select();
       tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea);
-      alert("Text copied to clipboard: " + text);    }
 
-    function copyVariableText3() {
-      var yourVariable = "import pandas as pd
+      // Copy the selected text to the clipboard
+      document.execCommand("copy");
+
+      // Remove the temporary textarea
+      document.body.removeChild(tempTextArea);
+
+      // Alert or any other action after copying
+      alert("Multiline text copied to clipboard:\n" + text);
+    }
+     function copyMultilineText3() {
+      // Your variable containing multiline text data
+      var yourMultilineVariable = `import pandas as pd
 #loading the Playtennis data
 data = pd.read_csv("OneDrive\Documents\MSc Part 1\Datasets/play_tennis.csv")
 data.head()
@@ -149,19 +177,34 @@ x.dtypes
 from sklearn import tree
 clf = tree.DecisionTreeClassifier(criterion = 'entropy')
 clf = clf.fit(x,y)
-tree.plot_tree(clf)";
-      var text = yourVariable;
+tree.plot_tree(clf)`;
+
+      // Assign the variable's value to the text variable
+      var text = yourMultilineVariable;
+
+      // Create a temporary textarea element to hold the text
       var tempTextArea = document.createElement("textarea");
       tempTextArea.value = text;
+
+      // Append the textarea element to the DOM
       document.body.appendChild(tempTextArea);
+
+      // Select the text in the textarea
       tempTextArea.select();
       tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+      // Copy the selected text to the clipboard
       document.execCommand("copy");
+
+      // Remove the temporary textarea
       document.body.removeChild(tempTextArea);
-      alert("Text copied to clipboard: " + text);
+
+      // Alert or any other action after copying
+      alert("Multiline text copied to clipboard:\n" + text);
     }
-    function copyVariableText4() {
-      var yourVariable = "import pandas as pd
+    function copyMultilineText4() {
+      // Your variable containing multiline text data
+      var yourMultilineVariable = `import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -200,19 +243,34 @@ support_vector_classifier.C
 support_vector_classifier
 y_pred=support_vector_classifier.predict(x_test)
 cm=confusion_matrix(y_test,y_pred)
-cm";
-      var text = yourVariable;
+cm`;
+
+      // Assign the variable's value to the text variable
+      var text = yourMultilineVariable;
+
+      // Create a temporary textarea element to hold the text
       var tempTextArea = document.createElement("textarea");
       tempTextArea.value = text;
+
+      // Append the textarea element to the DOM
       document.body.appendChild(tempTextArea);
+
+      // Select the text in the textarea
       tempTextArea.select();
       tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+      // Copy the selected text to the clipboard
       document.execCommand("copy");
+
+      // Remove the temporary textarea
       document.body.removeChild(tempTextArea);
-      alert("Text copied to clipboard: " + text);
+
+      // Alert or any other action after copying
+      alert("Multiline text copied to clipboard:\n" + text);
     }
-    function copyVariableText5() {
-      var yourVariable = "#WAP to implement k-nearest neighbour algorithm to classify the iris dataset
+    function copyMultilineText5() {
+      // Your variable containing multiline text data
+      var yourMultilineVariable = `#WAP to implement k-nearest neighbour algorithm to classify the iris dataset
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -279,19 +337,34 @@ knn = KNeighborsClassifier()
 knn_cv= GridSearchCV (knn, param_grid,cv=5)
 knn_cv.fit(x,y)
 knn_cv.best_score_
-knn_cv.best_params_";
-      var text = yourVariable;
+knn_cv.best_params_`;
+
+      // Assign the variable's value to the text variable
+      var text = yourMultilineVariable;
+
+      // Create a temporary textarea element to hold the text
       var tempTextArea = document.createElement("textarea");
       tempTextArea.value = text;
+
+      // Append the textarea element to the DOM
       document.body.appendChild(tempTextArea);
+
+      // Select the text in the textarea
       tempTextArea.select();
       tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+      // Copy the selected text to the clipboard
       document.execCommand("copy");
+
+      // Remove the temporary textarea
       document.body.removeChild(tempTextArea);
-      alert("Text copied to clipboard: " + text);
+
+      // Alert or any other action after copying
+      alert("Multiline text copied to clipboard:\n" + text);
     }
-    function copyVariableText6() {
-      var yourVariable = "import pandas as pd
+    function copyMultilineText6() {
+      // Your variable containing multiline text data
+      var yourMultilineVariable = `import pandas as pd
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
@@ -344,19 +417,34 @@ print(out)
 
 print("Confusion Matrix\n",confusion_matrix(y_test,y_pred))
 print("classification Matrix\n",classification_report(y_test,y_pred))
-print("Accuracy\n",accuracy_score(y_test,y_pred))";
-      var text = yourVariable;
+print("Accuracy\n",accuracy_score(y_test,y_pred))`;
+
+      // Assign the variable's value to the text variable
+      var text = yourMultilineVariable;
+
+      // Create a temporary textarea element to hold the text
       var tempTextArea = document.createElement("textarea");
       tempTextArea.value = text;
+
+      // Append the textarea element to the DOM
       document.body.appendChild(tempTextArea);
+
+      // Select the text in the textarea
       tempTextArea.select();
       tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+      // Copy the selected text to the clipboard
       document.execCommand("copy");
+
+      // Remove the temporary textarea
       document.body.removeChild(tempTextArea);
-      alert("Text copied to clipboard: " + text);
+
+      // Alert or any other action after copying
+      alert("Multiline text copied to clipboard:\n" + text);
     }
-    function copyVariableText7() {
-      var yourVariable = "import pandas as pd
+        function copyMultilineText7() {
+      // Your variable containing multiline text data
+      var yourMultilineVariable = `import pandas as pd
 #selecting only longitude, latitude, median_house_value from all the columns
 home_data = pd.read_csv('Documents/MSc Part 1/Datasets/housing.csv', usecols = ['longitude', 'latitude', 'median_house_value'])
 home_data.head()
@@ -407,17 +495,30 @@ sns.scatterplot(data = X_train, x = 'longitude', y = 'latitude', hue = fits[1].l
 sns.scatterplot(data = X_train, x = 'longitude', y = 'latitude', hue = fits[2].labels_)
 sns.lineplot(x = K, y = score)
 sns.scatterplot(data = X_train, x = 'longitude', y = 'latitude', hue = fits[3].labels_)
-sns.boxplot(x = fits[3].labels_, y = y_train['median_house_value'])";
+sns.boxplot(x = fits[3].labels_, y = y_train['median_house_value'])`;
 
-      var text = yourVariable;
+      // Assign the variable's value to the text variable
+      var text = yourMultilineVariable;
+
+      // Create a temporary textarea element to hold the text
       var tempTextArea = document.createElement("textarea");
       tempTextArea.value = text;
+
+      // Append the textarea element to the DOM
       document.body.appendChild(tempTextArea);
+
+      // Select the text in the textarea
       tempTextArea.select();
       tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+      // Copy the selected text to the clipboard
       document.execCommand("copy");
+
+      // Remove the temporary textarea
       document.body.removeChild(tempTextArea);
-      alert("Text copied to clipboard: " + text);
+
+      // Alert or any other action after copying
+      alert("Multiline text copied to clipboard:\n" + text);
     }
   </script>
 </body>
