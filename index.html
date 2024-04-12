@@ -18,7 +18,7 @@
   <script>
     function copyMultilineText1() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = 'import numpy as np
+      var yourMultilineVariable = `import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
@@ -33,7 +33,7 @@ knn_classifier.fit(X_train,Y_train)
 KNeighborsClassifier(n_neighbors=3)
 y_pred = knn_classifier.predict(X_test)
 accuracy = accuracy_score(Y_test,y_pred)
-print(accuracy)';
+print(accuracy)`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -58,7 +58,7 @@ print(accuracy)';
     }
     function copyMultilineText2() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = 'import numpy as np
+      var yourMultilineVariable = `import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
@@ -75,7 +75,7 @@ plt.scatter(X[:, 0], X[:, 1], c=cluster_label,cmap='viridis')
 plt.title("Kmeans Clustering")
 plt.xlabel("Sepal Length")
 plt.ylabel("Sepal Width")
-plt.show()';
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -101,7 +101,7 @@ plt.show()';
     }
      function copyMultilineText3() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = 'import pandas as pd
+      var yourMultilineVariable = `import pandas as pd
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
@@ -121,7 +121,7 @@ print(confusion_matrix(y_test,y_pred))
 print("Accuracy Score")
 print(accuracy_score(y_test,y_pred))
 print("Classification Report")
-print(classification_report(y_test,y_pred))';
+print(classification_report(y_test,y_pred))`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -146,7 +146,7 @@ print(classification_report(y_test,y_pred))';
     }
     function copyMultilineText4() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = 'import numpy as np
+      var yourMultilineVariable = `import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import PolynomialFeatures
@@ -190,7 +190,7 @@ plt.title('Polynomial Regression with Different Degrees ')
 plt.xlabel('X')
 plt.ylabel('Y')
 plt.legend()
-plt.show()';
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -216,7 +216,7 @@ plt.show()';
     }
     function copyMultilineText5() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = 'import numpy as np
+      var yourMultilineVariable = `import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -239,7 +239,7 @@ plt.plot(X_test,ypred,color='red', label='predict')
 plt.xlabel('Year of Experience')
 plt.ylabel('Salary')
 plt.legend()
-plt.show()';
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -264,7 +264,7 @@ plt.show()';
     }
     function copyMultilineText6() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = 'from sklearn.datasets import load_iris
+      var yourMultilineVariable = `from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_score,recall_score,accuracy_score,f1_score
 #load the iris dataset
@@ -283,7 +283,7 @@ print("Precision=",precision)
 recall=recall_score(y_predict,y_test,average='macro')
 print("Recall_score =",recall)
 f1=f1_score(y_predict,y_test,average='macro')
-print("F1 score =",f1)';
+print("F1 score =",f1)`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -308,7 +308,7 @@ print("F1 score =",f1)';
     }
         function copyMultilineText7() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = 'import numpy as np
+      var yourMultilineVariable = `import numpy as np
 # Sample data representing flower data
 data =np.array([[1,2],[1.5,1.8],[5,8],[8,8],[1,0.5],[7,9],[9,10],[5.5,8.5]])
 #definind the cluster
@@ -322,7 +322,7 @@ plt .scatter(data[:,0],data[:,1],c=cluster_labels)
 plt.xlabel('X_coordinate')
 plt.ylabel('Y_coordinate')
 plt.title('Kmean Clustering(k='+str(k)+')')
-plt.show()';
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -347,7 +347,7 @@ plt.show()';
     }
     function copyMultilineText8() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = 'from sklearn.cluster import KMeans
+      var yourMultilineVariable = `from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import pandas as pd
 data = pd.DataFrame({'Income': [25000,50000,75000,100000,125000,150000,175000,200000],
@@ -360,7 +360,7 @@ plt.scatter(data["Income"], data["Spending"], c=cluster_labels)
 plt.title("K-Means Clustering")
 plt.xlabel("X-Co-Ordinates")
 plt.ylabel("Y-Co-Ordinates")
-plt.show()';
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -385,7 +385,7 @@ plt.show()';
     }
  function copyMultilineText9() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = 'import numpy as np
+      var yourMultilineVariable = `import numpy as np
 import pandas as pd # Import Pandas for data loading
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier, plot_tree
@@ -406,7 +406,7 @@ print(f"Accuracy: {accuracy:.2f}")
 plt.figure(figsize=(12, 8))
 plot_tree(model, filled=True, feature_names=X.columns, class_names=y.unique().astype(str))
 plt.title("Decision Tree Visualization ")
-plt.show()';
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -431,7 +431,7 @@ plt.show()';
     }
  function copyMultilineText10() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = 'import numpy as np
+      var yourMultilineVariable = `import numpy as np
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.metrics import silhouette_score , completeness_score
 data=np.array([[1,1],[5,5],[8,8],[1,0],[5,4],[8,1]])
@@ -446,7 +446,7 @@ if linkage=='ward' and g != None :
   c=completeness_score(g,cluster_labels)
   print(c)
 else:
-  print("Not applicable")';
+  print("Not applicable")`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
