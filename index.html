@@ -608,7 +608,16 @@ x = np.array([59, 65, 45, 52, 60, 62, 70, 55, 45, 49])
 y = np.array([76, 70, 55, 65, 60, 64, 80, 65, 54, 61])
 slope_yx, intercept_yx, r_value_yx, p_value_yx, std_err_yx = stats.linregress(y, x)
 slope_xy, intercept_xy, r_value_xy, p_value_xy, std_err_xy = stats.linregress(x, y)
-estimate_yx = slope_yx * 61 + intercept_yx `;
+estimate_yx = slope_yx * 61 + intercept_yx 
+
+from scipy.stats import norm, uniform, expon, binom, poisson
+np.random.seed(42)
+normal_samples = np.random.normal(loc=0, scale=1, size=1000)
+uniform_samples = np.random.uniform(low=0, high=1, size=1000)
+exponential_samples = np.random.exponential(scale=1, size=1000)
+binomial_samples = np.random.binomial(n=10, p=0.5, size=1000)
+poisson_samples = np.random.poisson(lam=3, size=1000)
+`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
