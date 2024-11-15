@@ -4,39 +4,39 @@
   <title>x</title>
 </head>
 <body>
-  <button onclick="copyMultilineText1()">Linear</button>
-  <button onclick="copyMultilineText2()">Logis</button>
-  <button onclick="copyMultilineText3()">R</button>
-  <button onclick="copyMultilineText4()">KNN</button>
-  <button onclick="copyMultilineText5()">Naive</button>
-  <button onclick="copyMultilineText6()">Kmean</button>
-  <button onclick="copyMultilineText7()">visual</button>
-  <button onclick="copyMultilineText8()">pie,bar</button>
-  <button onclick="copyMultilineText9()">web</button>
-  <button onclick="copyMultilineText10()">vis(lib)</button>
-  <button onclick="copyMultilineText11()">decision</button>
+  <button onclick="copyMultilineText1()">1</button>
+  <button onclick="copyMultilineText2()">Ztest</button>
+  <button onclick="copyMultilineText3()">Nor</button>
+  <button onclick="copyMultilineText4()">Annova</button>
+  <button onclick="copyMultilineText5()">Lin</button>
+  <button onclick="copyMultilineText6()">Latin</button>
+  <button onclick="copyMultilineText7()">Trend</button>
+  <button onclick="copyMultilineText8()">stock</button>
+  <button onclick="copyMultilineText9()">Arima</button>
+  <button onclick="copyMultilineText10()">Sar</button>
+  <button onclick="copyMultilineText11()">least</button>
   <script>
     function copyMultilineText1() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import random
-from sklearn.linear_model import LinearRegression
-feature_set = []
-target_set = []
-rows = 200
-limit = 2000
-for i in range(0, rows):
-    x = random.randint(0, limit)
-    y = random.randint(0, limit)
-    z = random.randint(0, limit)
-    g = 10 * x + 2 * y + 3 * z
-    print("x=", x, "\ty=", y, "\tz=", z, "\tg=", g);
-    feature_set.append([x, y, z])
-    target_set.append(g)
-model = LinearRegression()
-model.fit(feature_set, target_set)
-Test_Data = [[1, 2, 1]]
-prediction = model.predict(Test_Data)
-print('Prediction:' + str(prediction) + '\t' + 'Coefficient:' + str(model.coef_))`;
+      var yourMultilineVariable = `import numpy as np
+from scipy import stats
+S=[90,96,80,92,95,85,95,89,90,84]
+S_Mean=np.mean(S)
+print("Mean:",S_Mean)
+S_Median=np.median(S)
+print("Median:",S_Median)
+Student_Scores_Mode=stats.mode(S)
+print("Mode:",Student_Scores_Mode[0])
+S_Std=np.std(S)
+print("Standard Deviation:",S_Std)
+S_Mean_Absolute_Deviation=np.mean(abs(S-S_Mean))
+print("Mean Absolute Deviation:",S_Mean_Absolute_Deviation)
+import matplotlib.pyplot as plt
+plt.hist(S,bins=5,edgecolor='black',alpha=0.7)
+plt.title("Distribution of scores")
+plt.xlabel("Scores")
+plt.ylabel("Frequency")
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -61,25 +61,26 @@ print('Prediction:' + str(prediction) + '\t' + 'Coefficient:' + str(model.coef_)
     }
     function copyMultilineText2() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix, accuracy_score
-dataset = pd.read_csv("diabetes.csv")
-print(dataset.head())
-x = dataset.iloc[:, [0, 1, 2, 3, 4, 5, 6, 7]].values
-y = dataset.iloc[:, [-1]].values
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=100)
-sc = StandardScaler()
-x_train = sc.fit_transform(x_train)
-x_test = sc.transform(x_test)
-model = LogisticRegression()
-model.fit(x_train, y_train)  
-y_pred = model.predict(x_test)
-cm = confusion_matrix(y_test, y_pred)
-print("Confusion Matrix :\n ", cm)
-print("Accuracy :", accuracy_score(y_test, y_pred) * 100)`;
+      var yourMultilineVariable = `import numpy as np
+from scipy import stats
+from statsmodels.stats.weightstats import ztest
+from scipy.stats import ttest_ind
+from scipy.stats import chi2_contingency
+chi2, p_value, _, _ = chi2_contingency(data)
+population_mean = 100
+population_std_dev = 15
+sample_mean = 140
+alpha = 0.05
+np.random.seed(0)
+sample_size = 30
+z_score = (sample_mean - population_mean)/(population_std_dev/np.sqrt(sample_size))
+p_value = 2*(1-stats.norm.cdf(abs(z_score)))
+print("z-score:", z_score)
+print("p-value:(Two tailed test)", p_value)
+if p_value < alpha:
+    print("Reject the null hypothesis")
+else:
+    print("Accept the null hypothesis")`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -105,22 +106,36 @@ print("Accuracy :", accuracy_score(y_test, y_pred) * 100)`;
     }
      function copyMultilineText3() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `var1 <- var2 <- var3 <- "Orange"
-print(var1)
-print(var2)
-print(var3)
-plot(1,1)#point
-plot(1:3, type="l",col=”blue”,lwd=3)#line
-line1 <- c(1,4,5,6,8,7)#multiline
-line2 <- c(4,2,4,6,7)
-plot(line1, type = "l", col = "blue",lwd=3)
-lines(line2, type="l", col = "red",lwd=2)
-x <- c(1,4,5,6,8)#scatter
-y <- c(4,2,4,6,7)
-plot(x, y,main="Observation of car",xlab="CarAge",ylab="Car Speed")
-x <- c(“A”,”B”,”C”,”D”,”E”) #bar
-y <- c(4,2,5,6,7)
-barplot(y,names.arg=x,main="Observation of car")`;
+      var yourMultilineVariable = `from scipy import stats
+import matplotlib.pyplot as plt
+import numpy as np
+overall_mean=74.5
+overall_std=8.0
+sample_mean=75.9
+sample_size=200
+alpha=0.05
+null_hypothesis = overall_mean>=sample_mean 
+alternative_hypothesis = not null_hypothesis 
+z_score= (sample_mean - overall_mean)/(overall_std/np.sqrt(sample_size))
+from scipy.stats import norm
+p_value = 1 - norm.cdf(z_score)
+if p_value < alpha:
+    print("We can support the higher mean at college")
+else:
+    print("We cannot support the higher mean at college")
+p_value_2 = 2 * (1 - norm.cdf(abs(z_score)))
+if p_value_2 < alpha:
+    print("Significane differnence found")
+else:
+    print("No Significane differnence found")
+x=np.linspace(overall_mean-3*overall_std,overall_mean+3*overall_std,100)
+plt.plot(x,norm.pdf(x,overall_mean,overall_std),label='Normal distribution')
+plt.axvline(x=sample_mean,color='r',linestyle='dashed' ,label='Sample mean')
+plt.xlabel('Exam Grade')
+plt.ylabel('Probability density')
+plt.title(' Normal distribution Visualization')
+plt.legend()
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -145,35 +160,30 @@ barplot(y,names.arg=x,main="Observation of car")`;
     }
     function copyMultilineText4() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import matplotlib.pyplot as plt
-from sklearn.neighbors import KNeighborsClassifier
-x = [4, 5, 10, 4, 3, 11, 14 , 8, 10, 12]
-y = [21, 19, 24, 17, 16, 25, 24, 22, 21, 21]
-classes = [0, 0, 1, 0, 0, 1, 1, 0, 1, 1]
-plt.scatter(x, y, c=classes)
-plt.title("Before classification")
-plt.show()
-data = list(zip(x, y))
-print(data)
-#model creation
-model = KNeighborsClassifier(n_neighbors=1)
-model.fit(data, classes)
-new_x = 8
-new_y = 21
-new_point = [(new_x, new_y)]
-prediction = model.predict(new_point)
-plt.scatter(x + [new_x], y + [new_y], c=classes + [prediction[0]])
-plt.text(x=new_x-1.7, y=new_y-0.7, s=f"new point, class: {prediction[0]}")
-plt.title("After classification with n_neighbors=1")
-plt.show()
-model = KNeighborsClassifier(n_neighbors=5)
-model.fit(data, classes)
-prediction = model.predict(new_point)
-print(prediction)
-plt.scatter(x + [new_x], y + [new_y], c=classes + [prediction[0]])
-plt.text(x=new_x-1.7, y=new_y-0.7, s=f"new point, class: {prediction[0]}")
-plt.title("After classification with n_neighbors=5")
-plt.show()`;
+      var yourMultilineVariable = `import pandas as pd
+from scipy.stats import f_oneway
+data={"Subject1":[85,95,98,90,84,88,97],
+      "Subject2":[88,93,94,93,80,89,86],
+      "Subject3":[83,90,93,94,88,92,84]}
+
+df=pd.DataFrame(data)
+df.head()
+print(df)
+f,p=f_oneway(df["Subject1"],df["Subject2"],df["Subject3"])
+
+print("F-statistic:",f)
+print("P-value:",p)
+if p<0.05:
+    print("Reject the null hypothesis")
+else:
+    print("Accept the null hypothesis")
+    
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+model=ols("values~C(Blend)+C(Crop)+C(Blend):C(Crop)",data=df).fit()
+print(model.summary())
+#anova_table=sm.stats.anova_lm(model,typ=2)
+#print(anova_table)`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -199,40 +209,67 @@ plt.show()`;
     }
     function copyMultilineText5() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `!pip install pgmpy
-import pandas as pd
-from pgmpy.estimators import MaximumLikelihoodEstimator
-from pgmpy.models import BayesianModel
-from pgmpy.inference import VariableElimination
-data = pd.read_csv("/content/ds4.csv")
-heart_disease = pd.DataFrame(data)
-print(heart_disease)
-model = BayesianModel([ ('age', 'Lifestyle'),
-    ('Gender', 'Lifestyle'),
-    ('Family', 'heartdisease'),
-    ('diet', 'cholestrol'),
-    ('Lifestyle', 'diet'),
-    ('cholestrol', 'heartdisease'),
-    ('diet', 'cholestrol')
-])
-model.fit(heart_disease, estimator=MaximumLikelihoodEstimator)
-HeartDisease_infer = VariableElimination(model)
-print('For Age enter SuperSeniorCitizen:0, SeniorCitizen:1, MiddleAged:2, Youth:3, Teen:4')
-print('For Gender enter Male:0, Female:1')
-print('For Family History enter Yes:1, No:0')
-print('For Diet enter High:0, Medium:1')
-print('for LifeStyle enter Athlete:0, Active:1, Moderate:2, Sedentary:3')
-print('for Cholesterol enter High:0, BorderLine:1, Normal:2')
-q = HeartDisease_infer.query(variables=['heartdisease'], 
-    evidence={
-    'age': int(input('Enter Age: ')),
-    'Gender': int(input('Enter Gender: ')),
-    'Family': int(input('Enter Family History: ')),
-    'diet': int(input('Enter Diet: ')),
-    'Lifestyle': int(input('Enter Lifestyle: ')),
-    'cholestrol': int(input('Enter Cholestrol: '))
+      var yourMultilineVariable = `import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+np.random.seed(42)
+sizes = np.random.normal(2000, 500, 1000).astype(int)
+bedrooms = np.random.choice([1, 2, 3, 4, 5], 1000)
+bathrooms = np.random.choice([1, 2, 3], 1000)
+ages = np.random.normal(15, 10, 1000).astype(int)
+locations = np.random.choice(['Urban', 'Suburban'], 1000)
+
+def calculate_price(size, bedrooms, bathrooms, age, location):
+    base_price = 50000
+    price = base_price + size * 150 + bedrooms * 25000 + bathrooms * 12000 - age * 2000
+    return price * (1.2 if location == 'Urban' else 1.0)
+
+prices = [calculate_price(sizes[i], bedrooms[i], bathrooms[i], ages[i], locations[i]) for i in range(1000)]
+
+# Create DataFrame
+house_data = pd.DataFrame({
+    'Size': sizes,
+    'Bedrooms': bedrooms,
+    'Bathrooms': bathrooms,
+    'Age': ages,
+    'Location': locations,
+    'Price': prices
 })
-print(q)`;
+
+# Linear Regression
+house_data = pd.get_dummies(house_data, columns=['Location'], drop_first=True)
+X = house_data.drop('Price', axis=1)
+y = house_data['Price']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+model = LinearRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+# Evaluation
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+print("\nModel Coefficients:")
+for i, col in enumerate(X.columns):
+    print(f"{col}: {model.coef_[i]}")
+
+print("\nMean Squared Error:", mse)
+print("R² Score:", r2)
+
+# Visualization
+plt.figure(figsize=(10, 6))
+plt.scatter(np.arange(len(y_test)), y_test, color='blue', label='Actual Prices', alpha=0.6)
+plt.scatter(np.arange(len(y_pred)), y_pred, color='red', label='Predicted Prices', alpha=0.6)
+plt.xlabel("Sample Index")
+plt.ylabel("House Prices")
+plt.title("Actual Prices vs Predicted Prices\n", fontsize=14)
+plt.axhline(0, color='black', linewidth=0.5, ls='--')
+plt.legend()
+plt.grid()
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -257,19 +294,37 @@ print(q)`;
     }
     function copyMultilineText6() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-x = [4, 5, 10, 4, 3, 11, 14 , 6, 10, 12]
-y = [21, 19, 24, 17, 16, 25, 24, 22, 21, 21]
-plt.scatter(x, y)
-plt.title("Scattering the points ")
-plt.show()
-data = list(zip(x, y))
-kmeans = KMeans(n_clusters=2)
-kmeans.fit(data)
-plt.scatter(x, y, c=kmeans.labels_)
-plt.title("K-Means Clustering ")
-plt.show()`;
+      var yourMultilineVariable = `import numpy as np
+import pandas as pd
+treatments = ['Drip Irrigation', 'Sprinkler Irrigation', 'Surface Irrigation']
+crops = ['Crop 1', 'Crop 2', 'Crop 3']
+seasons = ['Spring', 'Summer', 'Fall']
+
+latin_square = np.array([
+    [treatments[0], treatments[1], treatments[2]],  
+    [treatments[1], treatments[2], treatments[0]],  
+    [treatments[2], treatments[0], treatments[1]],  
+])
+experiment_design = pd.DataFrame(latin_square, columns=crops, index=seasons)
+print("Latin Square Design:")
+print(experiment_design)
+data = {
+    'Crop 1': [25, 30, 28], 
+    'Crop 2': [35, 32, 30],
+    'Crop 3': [29, 33, 31]
+}
+growth_data = pd.DataFrame(data, index=seasons)
+print("\nCollected Crop Growth Data (cm):")
+print(growth_data)
+
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+growth_data_melted = growth_data.reset_index().melt(id_vars='index', var_name='Crop', value_name='Growth')
+growth_data_melted.columns = ['Season', 'Crop', 'Growth']
+model = ols('Growth ~ C(Crop) + C(Season)', data=growth_data_melted).fit()
+anova_table = sm.stats.anova_lm(model, typ=2)
+print("\nANOVA Results:")
+print(anova_table)`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -294,27 +349,28 @@ plt.show()`;
     }
         function copyMultilineText7() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `#Scatter
+      var yourMultilineVariable = `import numpy as np
 import pandas as pd
-data = pd.read_csv("/content/tips.csv")
-display(data.head(10))
 import matplotlib.pyplot as plt
-plt.scatter(data['day'], data['tip'])
-plt.title("Scatter Plot")
-plt.xlabel('Day')
-plt.ylabel('Tip')
+np.random.seed(0)
+time= np.arange(100)
+trend= 0.5*time
+noise= np.random.normal(0,5,size=100)
+data = trend + noise
+df_trend = pd.DataFrame({'Time':time,'data':data})
+plt.figure(figsize=(10,6))
+plt.plot(df_trend['Time'],df_trend['data'],label='Data with Trend', color='blue')
+plt.plot(df_trend['Time'],trend,label='Linear',linestyle='--',color='red')
+plt.title('Trend Example with an upward trend')
+plt.xlabel('Time')
+plt.ylabel('Data')
+plt.legend()
 plt.show()
 
-#2scat
-import pandas as pd
-import matplotlib.pyplot as plt
-data = pd.read_csv("tips.csv")
-plt.scatter(data['day'], data['tip'], c=data['size'], s=data['total_bill'])
-plt.title("Scatter Plot ")
-plt.xlabel('Day')
-plt.ylabel('Tip')
-plt.colorbar()
-plt.show()`;
+seasonality = 10*np.sin(2*np.pi*time/12)
+noise = np.random.normal(0.2,size=100)
+data = 50 + seasonality + noise
+`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -339,24 +395,40 @@ plt.show()`;
     }
     function copyMultilineText8() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `#Bar
+      var yourMultilineVariable = `import yfinance as yf
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-data = pd.read_csv("tips.csv")
-plt.bar(data['day'], data['tip'])
-plt.title("Bar Chart")
-plt.xlabel('Day')
-plt.ylabel('Tip')
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+stock_symbol = 'SUZLON.NS'
+stock_data = yf.download(stock_symbol,start='2019-01-01', end='2024-09-28')
+print(stock_data.head())
+print(stock_data.tail())
+plt.figure(figsize=(12,6))
+plt.plot(stock_data.index, stock_data['Adj Close'], label='Adjusted Close Price', color='blue')
+plt.title('Stock Price Analysis')
+plt.xlabel('Date')
+plt.ylabel('Adjusted Close Price')
+plt.legend()
 plt.show()
 
-#Pie
-import numpy as np
-import matplotlib.pyplot as plt
-y=np.array([35,25,25,15])
-mylabels=["Apples","Banans","Cherries","Dates"]
-mycolors=["black","hotpink","b","#4CAF50"]
-plt.pie(y,labels=mylabels,colors=mycolors)
-plt.title("Pie Chart With label and personal colors")
+stock_data_monthly = stock_data['Adj Close'].resample('M').mean()
+decompose_result = seasonal_decompose(stock_data_monthly, model='multiplicative')
+decompose_result.plot()
+plt.suptitle('Decomposition of Stock Price',fontsize=10)
+plt.show()
+
+stock_data['SMA_50'] = stock_data['Adj Close'].rolling(window=15).mean()
+stock_data['SMA_200'] = stock_data['Adj Close'].rolling(window=200).mean()
+plt.figure(figsize=(12,6))
+plt.plot(stock_data.index, stock_data['Adj Close'], label='Adjusted Close Price', color='blue')
+plt.plot(stock_data.index, stock_data['SMA_50'], label='SMA_50', color='green')
+plt.plot(stock_data.index, stock_data['SMA_200'], label='SMA_200', color='red')
+plt.title('Stock Price Analysis with Moving Average')
+plt.xlabel('Date')
+plt.ylabel('Adjusted Close Price')
+plt.legend()
 plt.show()`;
 
       // Assign the variable's value to the text variable
@@ -382,22 +454,50 @@ plt.show()`;
     }
  function copyMultilineText9() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import requests
-from bs4 import BeautifulSoup
-def check_word_in_webpage(url, word):
-    response = requests.get(url)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.content, 'html.parser')
-        text_content = soup.get_text()
-        if word.lower() in text_content.lower():
-            print(f"The word '{word}' is present in the webpage.")
-        else:
-            print(f"The word '{word}' is not present in the webpage.")
-    else:
-        print("Failed to retrieve webpage.")
-url = input("Enter the url you want to Scrap :  ")
-word_to_check = input("Enter the text you want to know which is present or not :  ")
-check_word_in_webpage(url, word_to_check)`;
+      var yourMultilineVariable = `import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.tsa.arima.model import ARIMA
+data = {
+    'Date': [
+        '1981-01-01', '1981-01-02', '1981-01-03', '1981-01-04', '1981-01-05',
+        '1981-01-06', '1981-01-07', '1981-01-08', '1981-01-09', '1981-01-10'
+    ],
+    'Temp': [
+        20.7, 17.9, 18.8, 14.6, 15.8,
+        19.2, 22.1, 23.5, 21.0, 18.4
+    ]
+}
+df = pd.DataFrame(data)
+df['Date'] = pd.to_datetime(df['Date'])
+df.set_index('Date', inplace=True)
+print(df.head())
+print(df.tail())
+
+plt.figure(figsize=(12, 6))
+plt.plot(df['Temp'], label='Daily Minimum Temperature', color='blue')
+plt.title('Daily Minimum Temperature Over Time', fontsize=14)
+plt.xlabel('Date')
+plt.ylabel('Temperature (°C)')
+plt.legend()
+plt.show()
+decomposition = seasonal_decompose(df['Temp'], model='additive', period=5)  # Adjusted period
+decomposition.plot()
+plt.show()
+
+model = ARIMA(df['Temp'].dropna(), order=(1, 1, 0))  # Adjust parameters as needed
+model_fit = model.fit()
+forecast = model_fit.forecast(steps=30)
+forecast_dates = pd.date_range(start=df.index[-1] + pd.Timedelta(days=1), periods=30)
+plt.figure(figsize=(12, 6))
+plt.plot(df['Temp'], label='Historical Temperature', color='blue')
+plt.plot(forecast_dates, forecast, label='Forecasted Temperature', color='orange')
+plt.title('Temperature Forecast', fontsize=14)
+plt.xlabel('Date')
+plt.ylabel('Temperature (°C)')
+plt.legend()
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -422,42 +522,62 @@ check_word_in_webpage(url, word_to_check)`;
     }
  function copyMultilineText10() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import pandas as pd
-import matplotlib. pyplot as plt
-#Uploading Dataset
-data = pd.read_csv("/content/Nifty.csv")
-print(data)
-plt. plot(data['Open'],marker = "o",markeredgecolor="white", markerfacecolor="blue")
-plt. plot(data['Close'],marker = "o",markeredgecolor="white", markerfacecolor="orange")
-plt.grid()
-plt. title("Line Plot of NIFTY-50 by using Matplotlib")
-plt. xlabel('Open ')
-plt. ylabel('Close ')
-plt.legend(['Open', 'Close'])
-plt. show()
-#Seaborn
+      var yourMultilineVariable = `import numpy as np
 import pandas as pd
-import matplotlib. pyplot as plt
-import seaborn as sns
-data = pd.read_csv("/content/Nifty.csv")
-print(data)
-plt.figure(figsize=(10, 6))
-sns.lineplot(data=data[['Open','Close']], markers=True, marker='o', markeredgecolor="white", palette=['green', 'red'])
-plt.title("Line Plot of NIFTY-50 by using Seaborn")
-plt.xlabel('Index')
-plt.ylabel('Price')
-plt.grid(True)
+import matplotlib.pyplot as plt
+from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+df = pd.read_csv('Monthly.csv',parse_dates=['Date'])
+print(df.head(5))
+plt.figure(figsize=(12,6))
+plt.plot(df['Sales'],label='Monthly sales')
+plt.legend()
+plt.xlabel('Date')
+plt.ylabel('Sales')
 plt.show()
-#Plotly
-import pandas as pd
-import plotly.express as px
-data = pd.read_csv("/content/Nifty.csv")
-fig = px.line(data, x=data.index, y=['Open','Close'], markers=True,
-              title="Line Plot of NIFTY-50 using Plotly", labels={'index': 'Index', 'value': 'Price'},
-              color_discrete_sequence=['green', 'red'])
-fig.update_layout(legend_title='Price', legend=dict(x=0, y=1, traceorder='normal'),
-                  plot_bgcolor='rgba(0,0,0,0)')
-fig.show()`;
+
+decompose=seasonal_decompose(df['Sales'],model='additive',period=12)
+decompose.plot()
+plt.show()
+
+train_size=int(len(df)*0.8)
+train,test=df.iloc[:train_size],df.iloc[train_size:]
+print(len(train))
+print(len(test))
+model=SARIMAX(train['Sales'],order=(1,1,1),seasonal_order=(1,1,1,12),enforce_stationarity=False,enforce_invertibility=False)
+model_fit=model.fit(disp=False)
+print(model_fit.summary())
+forecast=model_fit.get_forecast(steps=len(df))
+forecast_index=test.index
+forecast_series=pd.Series(forecast.predicted_mean,index=forecast_index)
+conf_int=forecast.conf_int()
+forecast_series = forecast_series[:len(test.index)]
+conf_int = conf_int.iloc[:len(forecast_series)]
+plt.figure(figsize=(12, 6))
+plt.plot(test.index,test['Sales'],label='Actual',marker='o')
+plt.plot(test.index,forecast_series,label='forecast',marker='o',color='red')
+plt.fill_between(forecast_series.index,conf_int.iloc[:,0],conf_int.iloc[:,1],color='pink',alpha=0.3)
+plt.legend()
+plt.xlabel('Date')
+plt.ylabel('Sales')
+plt.show()
+
+final_model=SARIMAX(train['Sales'],order=(1,1,1),seasonal_order=(1,1,1,12),enforce_stationarity=False,enforce_invertibility=False)
+model_fit_f=final_model.fit(disp=False)
+last_date = pd.to_datetime(df.index[-1])
+f_forecast=model_fit.get_forecast(steps=12)
+f_forecast_index=pd.date_range( start=last_date + pd.DateOffset(months=1), periods=12,freq='MS')
+forecast_series=pd.Series(forecast.predicted_mean,index=f_forecast_index)
+f_forecast_series=f_forecast.predicted_mean
+f_conf_int=f_forecast.conf_int()
+plt.figure(figsize=(12, 6))
+plt.plot(df.index,df['Sales'],label='his',marker='o')
+plt.plot(f_forecast_series.index,f_forecast_series,label='furture',marker='o',color='red')
+plt.fill_between(f_forecast_series.index,f_conf_int.iloc[:,0],f_conf_int.iloc[:,1],color='pink',alpha=0.3)
+plt.legend()
+plt.xlabel('Date')
+plt.ylabel('Sales')
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -482,26 +602,13 @@ fig.show()`;
     }
   function copyMultilineText11() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import numpy as np
-import pandas as pd 
-import matplotlib.pyplot as plt
-from sklearn.tree import DecisionTreeClassifier, plot_tree
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-data = pd.read_csv('/content/iris.csv')
-print(data.head())
-X = data.drop('species', axis=1)
-y = data['species']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-model = DecisionTreeClassifier()
-model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
-print(f"Accuracy: {accuracy:.2f}")
-plt.figure(figsize=(12, 8))
-plot_tree(model, filled=True, feature_names=X.columns, class_names=y.unique().astype(str))
-plt.title("Decision Tree Visualization")
-plt.show() `;
+      var yourMultilineVariable = `import scipy.stats as stats
+import numpy as np
+x = np.array([59, 65, 45, 52, 60, 62, 70, 55, 45, 49])
+y = np.array([76, 70, 55, 65, 60, 64, 80, 65, 54, 61])
+slope_yx, intercept_yx, r_value_yx, p_value_yx, std_err_yx = stats.linregress(y, x)
+slope_xy, intercept_xy, r_value_xy, p_value_xy, std_err_xy = stats.linregress(x, y)
+estimate_yx = slope_yx * 61 + intercept_yx `;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
