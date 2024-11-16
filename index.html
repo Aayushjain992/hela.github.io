@@ -4,39 +4,26 @@
   <title>x</title>
 </head>
 <body>
-  <button onclick="copyMultilineText1()">1</button>
-  <button onclick="copyMultilineText2()">Ztest</button>
-  <button onclick="copyMultilineText3()">Nor</button>
-  <button onclick="copyMultilineText4()">Annova</button>
-  <button onclick="copyMultilineText5()">Lin</button>
-  <button onclick="copyMultilineText6()">Latin</button>
-  <button onclick="copyMultilineText7()">Trend</button>
-  <button onclick="copyMultilineText8()">stock</button>
-  <button onclick="copyMultilineText9()">Arima</button>
+  <button onclick="copyMultilineText1()">Sum</button>
+  <button onclick="copyMultilineText2()">if</button>
+  <button onclick="copyMultilineText3()">tab</button>
+  <button onclick="copyMultilineText4()">sub_fac</button>
+  <button onclick="copyMultilineText5()">alv</button>
+  <button onclick="copyMultilineText6()">alv2</button>
+  <button onclick="copyMultilineText7()">class</button>
+  <button onclick="copyMultilineText8()">join</button>
+  <!--<button onclick="copyMultilineText9()">Arima</button>
   <button onclick="copyMultilineText10()">Sar</button>
-  <button onclick="copyMultilineText11()">least</button>
+  <button onclick="copyMultilineText11()">least</button>-->
   <script>
     function copyMultilineText1() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import numpy as np
-from scipy import stats
-S=[90,96,80,92,95,85,95,89,90,84]
-S_Mean=np.mean(S)
-print("Mean:",S_Mean)
-S_Median=np.median(S)
-print("Median:",S_Median)
-Student_Scores_Mode=stats.mode(S)
-print("Mode:",Student_Scores_Mode[0])
-S_Std=np.std(S)
-print("Standard Deviation:",S_Std)
-S_Mean_Absolute_Deviation=np.mean(abs(S-S_Mean))
-print("Mean Absolute Deviation:",S_Mean_Absolute_Deviation)
-import matplotlib.pyplot as plt
-plt.hist(S,bins=5,edgecolor='black',alpha=0.7)
-plt.title("Distribution of scores")
-plt.xlabel("Scores")
-plt.ylabel("Frequency")
-plt.show()`;
+      var yourMultilineVariable = `REPORT Z_SUM.
+
+parameter: number1 type i,number2 type i.
+data Sum type i.
+Sum = number1 + number2.
+Write:/ Sum.`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -61,26 +48,15 @@ plt.show()`;
     }
     function copyMultilineText2() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import numpy as np
-from scipy import stats
-from statsmodels.stats.weightstats import ztest
-from scipy.stats import ttest_ind
-from scipy.stats import chi2_contingency
-chi2, p_value, _, _ = chi2_contingency(data)
-population_mean = 100
-population_std_dev = 15
-sample_mean = 140
-alpha = 0.05
-np.random.seed(0)
-sample_size = 30
-z_score = (sample_mean - population_mean)/(population_std_dev/np.sqrt(sample_size))
-p_value = 2*(1-stats.norm.cdf(abs(z_score)))
-print("z-score:", z_score)
-print("p-value:(Two tailed test)", p_value)
-if p_value < alpha:
-    print("Reject the null hypothesis")
-else:
-    print("Accept the null hypothesis")`;
+      var yourMultilineVariable = `REPORT ZWHATIF.
+PARAMETERS: num TYPE i.
+IF num > 0.
+  WRITE: /'The number is positive.'.
+ELSEIF num < 0.
+  WRITE: /'The number is negative.'.
+ELSE.
+  WRITE: /'The number is zero.'.
+ENDIF.`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -106,36 +82,7 @@ else:
     }
      function copyMultilineText3() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `from scipy import stats
-import matplotlib.pyplot as plt
-import numpy as np
-overall_mean=74.5
-overall_std=8.0
-sample_mean=75.9
-sample_size=200
-alpha=0.05
-null_hypothesis = overall_mean>=sample_mean 
-alternative_hypothesis = not null_hypothesis 
-z_score= (sample_mean - overall_mean)/(overall_std/np.sqrt(sample_size))
-from scipy.stats import norm
-p_value = 1 - norm.cdf(z_score)
-if p_value < alpha:
-    print("We can support the higher mean at college")
-else:
-    print("We cannot support the higher mean at college")
-p_value_2 = 2 * (1 - norm.cdf(abs(z_score)))
-if p_value_2 < alpha:
-    print("Significane differnence found")
-else:
-    print("No Significane differnence found")
-x=np.linspace(overall_mean-3*overall_std,overall_mean+3*overall_std,100)
-plt.plot(x,norm.pdf(x,overall_mean,overall_std),label='Normal distribution')
-plt.axvline(x=sample_mean,color='r',linestyle='dashed' ,label='Sample mean')
-plt.xlabel('Exam Grade')
-plt.ylabel('Probability density')
-plt.title(' Normal distribution Visualization')
-plt.legend()
-plt.show()`;
+      var yourMultilineVariable = `ZCUSTOMERSS`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -160,30 +107,23 @@ plt.show()`;
     }
     function copyMultilineText4() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import pandas as pd
-from scipy.stats import f_oneway
-data={"Subject1":[85,95,98,90,84,88,97],
-      "Subject2":[88,93,94,93,80,89,86],
-      "Subject3":[83,90,93,94,88,92,84]}
+      var yourMultilineVariable = `REPORT ZFACTORIALS.
+PARAMETERS: num TYPE i.
+DATA: fact TYPE i.
+fact = 1.
+PERFORM FACTORIAL.
+FORM FACTORIAL.
 
-df=pd.DataFrame(data)
-df.head()
-print(df)
-f,p=f_oneway(df["Subject1"],df["Subject2"],df["Subject3"])
-
-print("F-statistic:",f)
-print("P-value:",p)
-if p<0.05:
-    print("Reject the null hypothesis")
-else:
-    print("Accept the null hypothesis")
-    
-import statsmodels.api as sm
-from statsmodels.formula.api import ols
-model=ols("values~C(Blend)+C(Crop)+C(Blend):C(Crop)",data=df).fit()
-print(model.summary())
-#anova_table=sm.stats.anova_lm(model,typ=2)
-#print(anova_table)`;
+IF num = 0 or num = 1.
+WRITE:/'FACTORIAL is 1.'.
+ELSE.
+ WHILE num >= 1.
+  fact = fact * num.
+  num = num - 1.
+ ENDWHILE.
+ENDIF.
+WRITE:/'FACTORIAL is',fact.
+ENDFORM.`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -209,67 +149,28 @@ print(model.summary())
     }
     function copyMultilineText5() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
+      var yourMultilineVariable = `REPORT ZPRACT5_ALV_REPORT.
 
-np.random.seed(42)
-sizes = np.random.normal(2000, 500, 1000).astype(int)
-bedrooms = np.random.choice([1, 2, 3, 4, 5], 1000)
-bathrooms = np.random.choice([1, 2, 3], 1000)
-ages = np.random.normal(15, 10, 1000).astype(int)
-locations = np.random.choice(['Urban', 'Suburban'], 1000)
+* Define an internal table to hold employee data
+DATA: lt_employee_data TYPE TABLE OF ZEMPLOYEE_INFO.
 
-def calculate_price(size, bedrooms, bathrooms, age, location):
-    base_price = 50000
-    price = base_price + size * 150 + bedrooms * 25000 + bathrooms * 12000 - age * 2000
-    return price * (1.2 if location == 'Urban' else 1.0)
+* Fetch data from the custom table
+SELECT * FROM ZEMPLOYEE_INFO INTO TABLE lt_employee_data.
 
-prices = [calculate_price(sizes[i], bedrooms[i], bathrooms[i], ages[i], locations[i]) for i in range(1000)]
+* Display data in ALV grid
+CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+  EXPORTING
 
-# Create DataFrame
-house_data = pd.DataFrame({
-    'Size': sizes,
-    'Bedrooms': bedrooms,
-    'Bathrooms': bathrooms,
-    'Age': ages,
-    'Location': locations,
-    'Price': prices
-})
+    I_STRUCTURE_NAME = 'ZEMPLOYEE_INFO'  " Use table structure for automatic  columns
 
-# Linear Regression
-house_data = pd.get_dummies(house_data, columns=['Location'], drop_first=True)
-X = house_data.drop('Price', axis=1)
-y = house_data['Price']
+    I_GRID_TITLE = 'GRID VIEW - SHIPRA JANA - 014'   " Add title to Grid view
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-model = LinearRegression()
-model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
-# Evaluation
-mse = mean_squared_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
-print("\nModel Coefficients:")
-for i, col in enumerate(X.columns):
-    print(f"{col}: {model.coef_[i]}")
+  TABLES
+    t_outtab = lt_employee_data.  " Data to display in ALV
 
-print("\nMean Squared Error:", mse)
-print("R² Score:", r2)
-
-# Visualization
-plt.figure(figsize=(10, 6))
-plt.scatter(np.arange(len(y_test)), y_test, color='blue', label='Actual Prices', alpha=0.6)
-plt.scatter(np.arange(len(y_pred)), y_pred, color='red', label='Predicted Prices', alpha=0.6)
-plt.xlabel("Sample Index")
-plt.ylabel("House Prices")
-plt.title("Actual Prices vs Predicted Prices\n", fontsize=14)
-plt.axhline(0, color='black', linewidth=0.5, ls='--')
-plt.legend()
-plt.grid()
-plt.show()`;
+IF sy-subrc <> 0.
+* Implement suitable error handling here
+ENDIF.`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -294,37 +195,65 @@ plt.show()`;
     }
     function copyMultilineText6() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import numpy as np
-import pandas as pd
-treatments = ['Drip Irrigation', 'Sprinkler Irrigation', 'Surface Irrigation']
-crops = ['Crop 1', 'Crop 2', 'Crop 3']
-seasons = ['Spring', 'Summer', 'Fall']
+      var yourMultilineVariable = `
+REPORT ZALV_REPORT_.
 
-latin_square = np.array([
-    [treatments[0], treatments[1], treatments[2]],  
-    [treatments[1], treatments[2], treatments[0]],  
-    [treatments[2], treatments[0], treatments[1]],  
-])
-experiment_design = pd.DataFrame(latin_square, columns=crops, index=seasons)
-print("Latin Square Design:")
-print(experiment_design)
-data = {
-    'Crop 1': [25, 30, 28], 
-    'Crop 2': [35, 32, 30],
-    'Crop 3': [29, 33, 31]
-}
-growth_data = pd.DataFrame(data, index=seasons)
-print("\nCollected Crop Growth Data (cm):")
-print(growth_data)
+*This is structure Type for basic list
+TYPES: BEGIN OF lty_data,
+CUSTOMER_ID TYPE ZDE_IDS,
+CUSTOMER_NAME TYPE ZDE_NAMES,
+CUSTOMER_AGE TYPE ZDE_AGES,
+END OF lty_data.
+* This is Internal Table for basic list
+DATA : lt_data TYPE TABLE OF lty_data.
+*This is work Area for basic list
+DATA: lwa_data TYPE lty_data.
+*Below is the local variable for customer ID
+DATA : lv_CID TYPE ZDE_IDS.
+*ALV structure
+DATA: it_alv_design TYPE SLIS_T_FIELDCAT_ALV.
+DATA: wa_alv_design TYPE SLIS_FIELDCAT_ALV.
+*Taking Input in range from User
+SELECT-OPTIONS : s_CID FOR lv_CID.
+START-OF-SELECTION.
+*Open SQL Query and you have to select name because you're fetching and ID because from that you're searching
+SELECT CUSTOMER_ID CUSTOMER_NAME CUSTOMER_AGE
+FROM ZCUSTOMERSS
+INTO TABLE lt_data
+WHERE CUSTOMER_ID IN s_CID.
 
-import statsmodels.api as sm
-from statsmodels.formula.api import ols
-growth_data_melted = growth_data.reset_index().melt(id_vars='index', var_name='Crop', value_name='Growth')
-growth_data_melted.columns = ['Season', 'Crop', 'Growth']
-model = ols('Growth ~ C(Crop) + C(Season)', data=growth_data_melted).fit()
-anova_table = sm.stats.anova_lm(model, typ=2)
-print("\nANOVA Results:")
-print(anova_table)`;
+
+* applying loop so that all the data can be fetched at once
+*LOOP AT lt_data INTO lwa_data.
+* WRITE: / lwa_data-CUSTOMER_ID,lwa_data-CUSTOMER_NAME,LWA_DATA-CUSTOMER_AGE.
+* HIDE : lwa_data-CUSTOMER_ID,lwa_data-CUSTOMER_NAME,lwa_data-CUSTOMER_AGE.
+*ENDLOOP.
+* ALV custom report starts here
+*ctrl space
+CLEAR IT_ALV_DESIGN.
+*give proper space before after =
+* ALV Structure for Customer ID Column
+WA_ALV_DESIGN-ROW_POS = 1.
+WA_ALV_DESIGN-COL_POS = 1.
+WA_ALV_DESIGN-FIELDNAME = 'CUSTOMER_ID'.
+WA_ALV_DESIGN-TABNAME = 'lt_data'.
+WA_ALV_DESIGN-OUTPUTLEN = 20.
+WA_ALV_DESIGN-SELTEXT_M = 'Customer ID'.
+APPEND WA_ALV_DESIGN to IT_ALV_DESIGN.
+CLEAR WA_ALV_DESIGN.
+*change grid to list for ALV list
+CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+EXPORTING
+* I_CALLBACK_PROGRAM = ' '
+IT_FIELDCAT = IT_ALV_DESIGN
+TABLES
+T_OUTTAB = lt_data
+EXCEPTIONS
+PROGRAM_ERROR = 1
+OTHERS = 2 .
+IF SY-SUBRC <> 0.
+* Implement suitable error handling here
+ENDIF.`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -349,28 +278,56 @@ print(anova_table)`;
     }
         function copyMultilineText7() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-np.random.seed(0)
-time= np.arange(100)
-trend= 0.5*time
-noise= np.random.normal(0,5,size=100)
-data = trend + noise
-df_trend = pd.DataFrame({'Time':time,'data':data})
-plt.figure(figsize=(10,6))
-plt.plot(df_trend['Time'],df_trend['data'],label='Data with Trend', color='blue')
-plt.plot(df_trend['Time'],trend,label='Linear',linestyle='--',color='red')
-plt.title('Trend Example with an upward trend')
-plt.xlabel('Time')
-plt.ylabel('Data')
-plt.legend()
-plt.show()
+      var yourMultilineVariable = `
+REPORT ZCLASSP.
+CLASS person DEFINITION.
+PUBLIC SECTION.
+  DATA: name TYPE string,
+        age  TYPE i.
 
-seasonality = 10*np.sin(2*np.pi*time/12)
-noise = np.random.normal(0.2,size=100)
-data = 50 + seasonality + noise
-`;
+"Declare methods
+  METHODS:
+      set_name IMPORTING value_name TYPE string,
+      set_age IMPORTING value_age TYPE i,
+      get_name RETURNING VALUE(result) TYPE string,
+      get_age RETURNING VALUE(result) TYPE i.
+ENDCLASS.
+
+CLASS person IMPLEMENTATION.
+
+  METHOD set_name.
+    name = value_name.
+  ENDMETHOD.
+
+  METHOD set_age.
+    age = value_age.
+  ENDMETHOD.
+
+  METHOD get_name.
+    result = name.
+  ENDMETHOD.
+
+  METHOD get_age.
+    result = age.
+  ENDMETHOD.
+
+ENDCLASS.
+
+START-OF-SELECTION.
+
+  " Instantiate the class
+  DATA(lo_person) = NEW person( ).
+
+  " Set values for Name and Age
+  lo_person->set_name( 'Aaysuh Jain ' ).
+  lo_person->set_age( 23 ).
+
+  " Get and display the values
+  DATA(name) = lo_person->get_name( ).
+  DATA(age)  = lo_person->get_age( ).
+
+  WRITE: / 'Name:', name.
+  WRITE: / 'Age:', age.`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -395,41 +352,26 @@ data = 50 + seasonality + noise
     }
     function copyMultilineText8() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import yfinance as yf
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from statsmodels.tsa.seasonal import seasonal_decompose
+      var yourMultilineVariable = `REPORT ZJOIN.
+TYPES: BEGIN OF lts_join,
+CUSTOMER_ID TYPE ZDE_IDS,
+CUSTOMER_NAME TYPE ZDE_NAMES,
+PRODUCT_NAME TYPE ZD_PRODUCT,
+END OF lts_join.
 
-stock_symbol = 'SUZLON.NS'
-stock_data = yf.download(stock_symbol,start='2019-01-01', end='2024-09-28')
-print(stock_data.head())
-print(stock_data.tail())
-plt.figure(figsize=(12,6))
-plt.plot(stock_data.index, stock_data['Adj Close'], label='Adjusted Close Price', color='blue')
-plt.title('Stock Price Analysis')
-plt.xlabel('Date')
-plt.ylabel('Adjusted Close Price')
-plt.legend()
-plt.show()
+DATA: lt_join TYPE TABLE OF lts_join,
+      wa_join TYPE lts_join.
 
-stock_data_monthly = stock_data['Adj Close'].resample('M').mean()
-decompose_result = seasonal_decompose(stock_data_monthly, model='multiplicative')
-decompose_result.plot()
-plt.suptitle('Decomposition of Stock Price',fontsize=10)
-plt.show()
+SELECT C~CUSTOMER_ID, C~CUSTOMER_NAME, P~PRODUCT_NAME
+  FROM ZCUSTOMERSS AS C
+  INNER JOIN ZPRODUCT_P AS P
+  ON  C~CUSTOMER_ID = P~PURCHASE_ID INTO TABLE @lt_join.
 
-stock_data['SMA_50'] = stock_data['Adj Close'].rolling(window=15).mean()
-stock_data['SMA_200'] = stock_data['Adj Close'].rolling(window=200).mean()
-plt.figure(figsize=(12,6))
-plt.plot(stock_data.index, stock_data['Adj Close'], label='Adjusted Close Price', color='blue')
-plt.plot(stock_data.index, stock_data['SMA_50'], label='SMA_50', color='green')
-plt.plot(stock_data.index, stock_data['SMA_200'], label='SMA_200', color='red')
-plt.title('Stock Price Analysis with Moving Average')
-plt.xlabel('Date')
-plt.ylabel('Adjusted Close Price')
-plt.legend()
-plt.show()`;
+LOOP AT lt_join INTO wa_join.
+  WRITE: / wa_join-CUSTOMER_ID,
+     wa_join-CUSTOMER_NAME,
+     wa_join-PRODUCT_NAME.
+ENDLOOP.`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -452,7 +394,7 @@ plt.show()`;
       document.body.removeChild(tempTextArea);
 
     }
- function copyMultilineText9() {
+ <!-- function copyMultilineText9() {
       // Your variable containing multiline text data
       var yourMultilineVariable = `import pandas as pd
 import numpy as np
@@ -637,7 +579,7 @@ poisson_samples = np.random.poisson(lam=3, size=1000)
       document.execCommand("copy");
 
       // Remove the temporary textarea
-      document.body.removeChild(tempTextArea);
+      document.body.removeChild(tempTextArea);-->
 
     }
   </script>
