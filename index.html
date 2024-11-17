@@ -4,23 +4,65 @@
   <title>x</title>
 </head>
 <body>
-  <button onclick="copyMultilineText1()">Sum</button>
-  <button onclick="copyMultilineText2()">if</button>
-  <button onclick="copyMultilineText3()">tab</button>
-  <button onclick="copyMultilineText4()">sub_fac</button>
-  <button onclick="copyMultilineText5()">alv</button>
-  <button onclick="copyMultilineText6()">alv2</button>
-  <button onclick="copyMultilineText7()">class</button>
-  <button onclick="copyMultilineText8()">join</button>
+  <button onclick="copyMultilineText1()">S/N</button>
+  <button onclick="copyMultilineText2()">Apri</button>
+  <button onclick="copyMultilineText3()">Bcraw</button>
+  <button onclick="copyMultilineText4()">Senti</button>
+  <button onclick="copyMultilineText5()">Prank</button>
+  <button onclick="copyMultilineText6()">Sonline</button>
+  <button onclick="copyMultilineText7()">WCI</button>
+  <button onclick="copyMultilineText8()">Fcraw</button>
   <script>
     function copyMultilineText1() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `REPORT Z_SUM.
+      var yourMultilineVariable = `import tensorflow as tf
+import numpy as np
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-parameter: number1 type i,number2 type i.
-data Sum type i.
-Sum = number1 + number2.
-Write:/ Sum.`;
+Emails = ["Buy cheap watches! Freee Shipping!",
+"Meeting for Lunch today?",
+"Claim your Prize! You've won $100000!",
+"Important meeting at 3 PM"]
+
+labels = [1,0,1,0]
+print(Emails)
+
+from os import truncate
+max_words = 1000
+max_len = 50
+
+tokenizer = Tokenizer(num_words=max_words, oov_token="<OOV>")
+tokenizer.fit_on_texts(Emails)
+
+sequences = tokenizer.texts_to_sequences(Emails)
+x_padded = pad_sequences(sequences, maxlen=max_len,padding="post", truncating="post")
+print(x_padded)
+print(sequences)
+
+model = tf.keras.Sequential([
+tf.keras.layers.Embedding(input_dim=max_words, output_dim=16, input_length=max_len),
+tf.keras.layers.Flatten(),
+tf.keras.layers.Dense(16, activation='relu'),
+tf.keras.layers.Dense(1, activation='sigmoid')])
+model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
+training_padded = np.array(x_padded)
+training_labels = np.array(labels)
+model.fit(training_padded, training_labels, epochs=50)
+file_path = "/content/Spam.txt"
+with open (file_path, 'r', encoding = "utf-8") as file:
+sample_email_text = file.read()
+
+sequences_sample = tokenizer.texts_to_sequences([sample_email_text])
+sample_email_padded = pad_sequences(sequences_sample, maxlen=max_len,padding="post", truncating="post")
+
+prediction = model.predict(sample_email_padded)
+threshold = 0.5
+if prediction > threshold:
+print(f"Sample Email ('{file_path}') is spam ")
+else:
+print(f"sample email ('{file_path}') is not spam" )
+`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -45,15 +87,41 @@ Write:/ Sum.`;
     }
     function copyMultilineText2() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `REPORT ZWHATIF.
-PARAMETERS: num TYPE i.
-IF num > 0.
-  WRITE: /'The number is positive.'.
-ELSEIF num < 0.
-  WRITE: /'The number is negative.'.
-ELSE.
-  WRITE: /'The number is zero.'.
-ENDIF.`;
+      var yourMultilineVariable = `
+from mlxtend.frequent_patterns import apriori
+from mlxtend.frequent_patterns import association_rules
+import pandas as pd
+
+dataset = [
+['milk', 'bread', 'nuts'],
+['milk', 'bread'],
+['milk', 'eggs', 'nuts'],
+['milk', 'bread', 'eggs'],
+['bread', 'nuts'],
+]
+'''print("Sample Transaction Dataset")
+print(dataset)'''
+print("Sample Transaction Dataset:")
+
+for transaction in dataset:
+print(transaction)
+
+df = pd.DataFrame(dataset)
+print("Transaction database: ")
+print(df)
+
+df_encoded = pd.get_dummies(df, prefix='', prefix_sep='')
+print("Transaction encoded: ")
+print(df_encoded)
+
+frequewnt_itemsets = apriori(df_encoded, min_support=0.5, use_colnames=True)
+print("Frequent itemsets: ")
+print(frequewnt_itemsets)
+
+rules = association_rules(frequewnt_itemsets, metric="lift", min_threshold=1)
+print("Association Rules: ")
+print(rules)
+`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -79,7 +147,28 @@ ENDIF.`;
     }
      function copyMultilineText3() {
       // Your variable containing multiline text data
-     var yourMultilineVariable = `ZCUSTOMERSS`;
+     var yourMultilineVariable = `import requests
+from bs4 import BeautifulSoup
+import re
+
+def crawl_and_search(url, keyword):
+try:
+response = requests.get(url)
+response.raise_for_status() 
+page_content = response.text
+soup = BeautifulSoup(page_content, 'html.parser')
+text = soup.get_text()
+if re.search(keyword, text, re.IGNORECASE):
+print(f"Keyword '{keyword}' found in {url}")
+else:
+print(f"Keyword '{keyword}' not found in {url}")
+except requests.exceptions.RequestException as e:
+print(f"Failed to retrieve {url}: {e}")
+
+url = input("Enter the URL to crawl: ")
+keyword = input("Enter the keyword to search for: ")
+
+crawl_and_search(url, keyword)`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -104,23 +193,53 @@ ENDIF.`;
     }
     function copyMultilineText4() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `REPORT ZFACTORIALS.
-PARAMETERS: num TYPE i.
-DATA: fact TYPE i.
-fact = 1.
-PERFORM FACTORIAL.
-FORM FACTORIAL.
+      var yourMultilineVariable = `import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-IF num = 0 or num = 1.
-WRITE:/'FACTORIAL is 1.'.
-ELSE.
-WHILE num >= 1.
-  fact = fact * num.
-  num = num - 1.
-ENDWHILE.
-ENDIF.
-WRITE:/'FACTORIAL is',fact.
-ENDFORM.`;
+
+nltk.download('vader_lexicon')
+
+sia = SentimentIntensityAnalyzer()
+
+reviews = [
+"The product quality is amazing, I'm very satisfied!",
+"Terrible service, I will never buy from here again.",
+"Decent product, but shipping was too slow.",
+"Absolutely love it! Will recommend to everyone.",
+"Not worth the money, very disappointing.",
+"Great experience overall, but could improve the packaging.",
+"Mediocre, not what I expected.",
+"Excellent value for the price, highly recommended.",
+"Worst purchase I've made this year.",
+"It's okay, nothing special."
+]
+
+sentiments = []
+for review in reviews:
+sentiment_score = sia.polarity_scores(review)
+compound_score = sentiment_score['compound']
+if compound_score >= 0.05:
+sentiments.append('Positive')
+elif compound_score <= -0.05:
+sentiments.append('Negative')
+else: sentiments.append('Neutral')
+
+sentiment_counts = {
+'Positive': sentiments.count('Positive'),
+'Negative': sentiments.count('Negative'),
+'Neutral': sentiments.count('Neutral')
+}
+
+sns.set(style="whitegrid")
+plt.figure(figsize=(8, 6))
+sns.barplot(x=list(sentiment_counts.keys()), y=list(sentiment_counts.values()),
+palette="viridis")
+plt.title('\n Sentiment Analysis of Customer Reviews\n')
+plt.xlabel('\nSentiment ')
+plt.ylabel('Number of Reviews')
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -146,28 +265,22 @@ ENDFORM.`;
     }
     function copyMultilineText5() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `REPORT ZPRACT5_ALV_REPORT.
+      var yourMultilineVariable = `
+import networkx as nx
 
-* Define an internal table to hold employee data
-DATA: lt_employee_data TYPE TABLE OF ZEMPLOYEE_INFO.
+G = nx.random_k_out_graph(n=8, k=2, alpha=0.75)
 
-* Fetch data from the custom table
-SELECT * FROM ZEMPLOYEE_INFO INTO TABLE lt_employee_data.
+def draw_graph(G):
+nx.draw(G, with_labels=True, font_weight='bold', node_size=400)
+draw_graph(G)
+ranks_pr = nx.pagerank(G=G, alpha=0.85)
+'''# Print the PageRank values
+print("Page Rank: ")
+print(ranks_pr)'''
 
-* Display data in ALV grid
-CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
-  EXPORTING
-
-    I_STRUCTURE_NAME = 'ZEMPLOYEE_INFO'  " Use table structure for automatic  columns
-
-    I_GRID_TITLE = 'GRID VIEW - SHIPRA JANA - 014'   " Add title to Grid view
-
-  TABLES
-    t_outtab = lt_employee_data.  " Data to display in ALV
-
-IF sy-subrc <> 0.
-* Implement suitable error handling here
-ENDIF.`;
+print("Page Rank: ")
+for node, rank in ranks_pr.items():
+print(f"Node {node}: {rank}")`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -193,64 +306,22 @@ ENDIF.`;
     function copyMultilineText6() {
       // Your variable containing multiline text data
       var yourMultilineVariable = `
-REPORT ZALV_REPORT_.
-
-*This is structure Type for basic list
-TYPES: BEGIN OF lty_data,
-CUSTOMER_ID TYPE ZDE_IDS,
-CUSTOMER_NAME TYPE ZDE_NAMES,
-CUSTOMER_AGE TYPE ZDE_AGES,
-END OF lty_data.
-* This is Internal Table for basic list
-DATA : lt_data TYPE TABLE OF lty_data.
-*This is work Area for basic list
-DATA: lwa_data TYPE lty_data.
-*Below is the local variable for customer ID
-DATA : lv_CID TYPE ZDE_IDS.
-*ALV structure
-DATA: it_alv_design TYPE SLIS_T_FIELDCAT_ALV.
-DATA: wa_alv_design TYPE SLIS_FIELDCAT_ALV.
-*Taking Input in range from User
-SELECT-OPTIONS : s_CID FOR lv_CID.
-START-OF-SELECTION.
-*Open SQL Query and you have to select name because you're fetching and ID because from that you're searching
-SELECT CUSTOMER_ID CUSTOMER_NAME CUSTOMER_AGE
-FROM ZCUSTOMERSS
-INTO TABLE lt_data
-WHERE CUSTOMER_ID IN s_CID.
-
-
-* applying loop so that all the data can be fetched at once
-*LOOP AT lt_data INTO lwa_data.
-* WRITE: / lwa_data-CUSTOMER_ID,lwa_data-CUSTOMER_NAME,LWA_DATA-CUSTOMER_AGE.
-* HIDE : lwa_data-CUSTOMER_ID,lwa_data-CUSTOMER_NAME,lwa_data-CUSTOMER_AGE.
-*ENDLOOP.
-* ALV custom report starts here
-*ctrl space
-CLEAR IT_ALV_DESIGN.
-*give proper space before after =
-* ALV Structure for Customer ID Column
-WA_ALV_DESIGN-ROW_POS = 1.
-WA_ALV_DESIGN-COL_POS = 1.
-WA_ALV_DESIGN-FIELDNAME = 'CUSTOMER_ID'.
-WA_ALV_DESIGN-TABNAME = 'lt_data'.
-WA_ALV_DESIGN-OUTPUTLEN = 20.
-WA_ALV_DESIGN-SELTEXT_M = 'Customer ID'.
-APPEND WA_ALV_DESIGN to IT_ALV_DESIGN.
-CLEAR WA_ALV_DESIGN.
-*change grid to list for ALV list
-CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
-EXPORTING
-* I_CALLBACK_PROGRAM = ' '
-IT_FIELDCAT = IT_ALV_DESIGN
-TABLES
-T_OUTTAB = lt_data
-EXCEPTIONS
-PROGRAM_ERROR = 1
-OTHERS = 2 .
-IF SY-SUBRC <> 0.
-* Implement suitable error handling here
-ENDIF.`;
+import requests
+from bs4 import BeautifulSoup
+def check_word_in_webpage(url, word):
+response = requests.get(url)
+if response.status_code == 200:
+soup = BeautifulSoup(response.content, 'html.parser')
+text_content = soup.get_text()
+if word.lower() in text_content.lower():
+print(f"The word '{word}' is present in the webpage.")
+else:
+print(f"The word '{word}' is not present in the webpage.")
+else:
+print("Failed to retrieve webpage.")
+url = input("Enter the URL you want to scrape: ")
+word_to_check = input("Enter the text you want to check for presence in the webpage: ")
+check_word_in_webpage(url, word_to_check)`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -275,56 +346,64 @@ ENDIF.`;
     }
         function copyMultilineText7() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `
-REPORT ZCLASSP.
-CLASS person DEFINITION.
-PUBLIC SECTION.
-  DATA: name TYPE string,
-        age  TYPE i.
+      var yourMultilineVariable = `import nltk
+nltk.download('stopwords')
+import nltk
+nltk.download('punkt_tab') #(pycharm needed)
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+import re
+nltk.download('stopwords')
+nltk.download('punkt')
 
-"Declare methods
-  METHODS:
-      set_name IMPORTING value_name TYPE string,
-      set_age IMPORTING value_age TYPE i,
-      get_name RETURNING VALUE(result) TYPE string,
-      get_age RETURNING VALUE(result) TYPE i.
-ENDCLASS.
+stop_words = set(stopwords.words('english'))
 
-CLASS person IMPLEMENTATION.
+seed_urls = [
+'https://www.bbc.com/news',
+'https://edition.cnn.com',
+'https://www.theguardian.com',
+'https://www.yelp.com/search?find_desc=Restaurants&find_loc=New+York%2C+NY',
+'https://ny.eater.com'
+]
 
-  METHOD set_name.
-    name = value_name.
-  ENDMETHOD.
+keywords = ['restaurant', 'food', 'local']
 
-  METHOD set_age.
-    age = value_age.
-  ENDMETHOD.
+visited = set()
+def is_relevant(content, keywords):
+"""
+Check if the content is relevant based on the keywords.
+"""
+words =s word_tokenize(content.lower())
+words = [w for w in words if w.isalnum() and w not in stop_words]
+return any(keyword in words for keyword in keywords)
+def crawl(url):
+"""
+Crawl a single webpage.
+"""
+try:
+response = requests.get(url)
+response.raise_for_status() # Raise an HTTPError for bad responses
+soup = BeautifulSoup(response.content, 'html.parser')
+text = soup.get_text()
 
-  METHOD get_name.
-    result = name.
-  ENDMETHOD.
+if is_relevant(text, keywords):
+print(f"Relevant content found at: {url}")
 
-  METHOD get_age.
-    result = age.
-  ENDMETHOD.
+for link in soup.find_all('a', href=True):
+new_url = urljoin(url, link['href'])
+if new_url not in visited and re.match(r'^https?://', new_url):
+visited.add(new_url)
+crawl(new_url)
+except requests.exceptions.RequestException as e:
+print(f"Error crawling {url}: {e}")
 
-ENDCLASS.
-
-START-OF-SELECTION.
-
-  " Instantiate the class
-  DATA(lo_person) = NEW person( ).
-
-  " Set values for Name and Age
-  lo_person->set_name( 'Aaysuh Jain ' ).
-  lo_person->set_age( 23 ).
-
-  " Get and display the values
-  DATA(name) = lo_person->get_name( ).
-  DATA(age)  = lo_person->get_age( ).
-
-  WRITE: / 'Name:', name.
-  WRITE: / 'Age:', age.`;
+for url in seed_urls:
+if url not in visited:
+visited.add(url)
+crawl(url)`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -349,26 +428,19 @@ START-OF-SELECTION.
     }
     function copyMultilineText8() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `REPORT ZJOIN.
-TYPES: BEGIN OF lts_join,
-CUSTOMER_ID TYPE ZDE_IDS,
-CUSTOMER_NAME TYPE ZDE_NAMES,
-PRODUCT_NAME TYPE ZD_PRODUCT,
-END OF lts_join.
+      var yourMultilineVariable = `!pip install praw
 
-DATA: lt_join TYPE TABLE OF lts_join,
-      wa_join TYPE lts_join.
+import praw
+import pandas as pd
 
-SELECT C~CUSTOMER_ID, C~CUSTOMER_NAME, P~PRODUCT_NAME
-  FROM ZCUSTOMERSS AS C
-  INNER JOIN ZPRODUCT_P AS P
-  ON  C~CUSTOMER_ID = P~PURCHASE_ID INTO TABLE @lt_join.
-
-LOOP AT lt_join INTO wa_join.
-  WRITE: / wa_join-CUSTOMER_ID,
-     wa_join-CUSTOMER_NAME,
-     wa_join-PRODUCT_NAME.
-ENDLOOP.`;
+reddit = praw.Reddit(client_id='cYmnMoha8Z-jhwIPqp-1BA',client_secret='-jVQ__B3QBwDFnOEe96AVU3pQpYc4A',user_agent='my_reddit_app') 
+sub_name = input("enter the Keyword")
+max_posts = 5
+reddit.read_only = True
+title=[]
+for submission in reddit.subreddit(sub_name).new(limit=max_posts):
+title.append(submission.title)
+print(title)`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
