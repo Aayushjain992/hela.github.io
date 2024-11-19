@@ -348,8 +348,24 @@ plt.show()`;
     }
     function copyMultilineText8() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `Cassandra
-      `;
+      var yourMultilineVariable = `
+      1: Download Cassandra and set path of Cassandra_Home in environment variable.
+(Note: Java is previously installed and setup, otherwise install java)
+2: Open Command Prompt and write command  ”Cassandra”.
+3: To interactive with Apache Cassandra use command cqlsh (Cassandra Query Language Shell). 
+1.Help command: 
+Displays a list of available commands and their usage
+2.show host :
+ Displays the current host and port of the Cassandra node.
+3.show version : Shows the version of Cassandra and CQLSH.
+4.Consistency command: Sets the consistency level for queries.
+5.describe tables; command: Lists all tables in the current keyspace.
+describe cluster;
+describe keyspaces;
+tracing on;
+create keyspace Aayush
+with replication={'class':'SimpleStrategy','replication_factor':3;
+`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
