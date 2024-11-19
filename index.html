@@ -517,7 +517,23 @@ print("=====================================================")`;
 function copyMultilineText10() {
       // Your variable containing multiline text data
       var yourMultilineVariable = `
-      Mongo`;
+      #Python 
+import pymongo
+myclient = pymongo.MongoClient("mongodb://localhost:27017")
+mydb=myclient["KC_DATA"]
+print("Database Created Successfully")
+mycol=mydb["ITPART2"]
+print(myclient.list_database_names())
+mydict=[{"name":"XYZ","address":"Mumbai"},{"name":"Ruben","address":"Haryana"}]
+x=mycol.insert_many(mydict)
+
+
+#R
+install.packages("mongolite")
+library(mongolite)
+m=mongo("MyDataset", url="mongodb://localhost:27017/admin")
+m$insert('{"name":"XYZ", "marks":20}')
+`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
