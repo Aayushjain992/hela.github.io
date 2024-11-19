@@ -4,65 +4,35 @@
   <title>x</title>
 </head>
 <body>
-  <button onclick="copyMultilineText1()">S/N</button>
-  <button onclick="copyMultilineText2()">Apri</button>
-  <button onclick="copyMultilineText3()">Bcraw</button>
-  <button onclick="copyMultilineText4()">Senti</button>
-  <button onclick="copyMultilineText5()">Prank</button>
-  <button onclick="copyMultilineText6()">Sonline</button>
-  <button onclick="copyMultilineText7()">WCI</button>
-  <button onclick="copyMultilineText8()">Fcraw</button>
+  <button onclick="copyMultilineText1()">color</button>
+  <button onclick="copyMultilineText2()">Geo</button>
+  <button onclick="copyMultilineText3()">Folium</button>
+  <button onclick="copyMultilineText4()">Astorpy</button>
+  <button onclick="copyMultilineText5()">Plotly</button>
+  <button onclick="copyMultilineText6()">Linear</button>
+  <button onclick="copyMultilineText7()">Word</button>
+  <button onclick="copyMultilineText8()">Cassandra</button>
+  <button onclick="copyMultilineText9()">V<->I</button>
+  <button onclick="copyMultilineText10()">Mongo</button>
+  <button onclick="copyMultilineText11()">A_CSV&I_CSV</button>
+  <button onclick="copyMultilineText12()">12</button>
   <script>
     function copyMultilineText1() {
       // Your variable containing multiline text data
       var yourMultilineVariable = `
-      import tensorflow as tf
+      import matplotlib.pyplot as plt
 import numpy as np
-from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-Emails = ["Buy cheap watches! Freee Shipping!",
-"Meeting for Lunch today?",
-"Claim your Prize! You've won $100000!",
-"Important meeting at 3 PM"]
-
-labels = [1,0,1,0]
-print(Emails)
-
-from os import truncate
-max_words = 1000
-max_len = 50
-
-tokenizer = Tokenizer(num_words=max_words, oov_token="<OOV>")
-tokenizer.fit_on_texts(Emails)
-
-sequences = tokenizer.texts_to_sequences(Emails)
-x_padded = pad_sequences(sequences, maxlen=max_len,padding="post", truncating="post")
-print(x_padded)
-print(sequences)
-
-model = tf.keras.Sequential([
-tf.keras.layers.Embedding(input_dim=max_words, output_dim=16, input_length=max_len),
-tf.keras.layers.Flatten(),
-tf.keras.layers.Dense(16, activation='relu'),
-tf.keras.layers.Dense(1, activation='sigmoid')])
-model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
-training_padded = np.array(x_padded)
-training_labels = np.array(labels)
-model.fit(training_padded, training_labels, epochs=50)
-file_path = "/content/Spam.txt"
-with open (file_path, 'r', encoding = "utf-8") as file:
-  sample_email_text = file.read()
-
-sequences_sample = tokenizer.texts_to_sequences([sample_email_text])
-sample_email_padded = pad_sequences(sequences_sample, maxlen=max_len,padding="post", truncating="post")
-
-prediction = model.predict(sample_email_padded)
-threshold = 0.5
-if prediction > threshold:
-  print(f"Sample Email ('{file_path}') is spam ")
-else:
-  print(f"sample email ('{file_path}') is not spam" )
+for i in plt.colormaps():
+  sTitle='Color Map:' + i
+  fig=plt.figure(figsize=(10, 10))
+  plt.title(sTitle)
+  imgplot = plt.imshow(np.random.rand(10,10))
+  if i != "cividis":
+    imgplot.set_cmap(i)
+    plt.show()
+  else:
+    break
 `;
 
       // Assign the variable's value to the text variable
@@ -89,39 +59,30 @@ else:
     function copyMultilineText2() {
       // Your variable containing multiline text data
       var yourMultilineVariable = `
-from mlxtend.frequent_patterns import apriori
-from mlxtend.frequent_patterns import association_rules
-import pandas as pd
+!pip install geopandas
+!pip install shapely
+!pip install fiona
+import geopandas as gpd
+import matplotlib.pyplot as plt
+from shapely.geometry import Point
 
-dataset = [
-['milk', 'bread', 'nuts'],
-['milk', 'bread'],
-['milk', 'eggs', 'nuts'],
-['milk', 'bread', 'eggs'],
-['bread', 'nuts'],
-]
-'''print("Sample Transaction Dataset")
-print(dataset)'''
-print("Sample Transaction Dataset:")
+mapshp = "/content/india_st.shx"  # Ensure this file and others are uploaded
+india_gdf = gpd.read_file(mapshp)
 
-for transaction in dataset:
-  print(transaction)
+# Mumbai City
+mumbai = gpd.GeoDataFrame([{'City': 'Mumbai', 'geometry': Point(72.877, 19.0760)}], crs="EPSG:4326")
 
-df = pd.DataFrame(dataset)
-print("Transaction database: ")
-print(df)
+fig, ax = plt.subplots(figsize=(7, 7))
+india_gdf.plot(ax=ax, color='white', edgecolor="black")
+mumbai.plot(ax=ax, color='red', marker='o', markersize=100, label='Mumbai')
 
-df_encoded = pd.get_dummies(df, prefix='', prefix_sep='')
-print("Transaction encoded: ")
-print(df_encoded)
+ax.text(72.877, 19.0760, 'Mumbai', fontsize=10, fontweight='bold', color='black')
 
-frequewnt_itemsets = apriori(df_encoded, min_support=0.5, use_colnames=True)
-print("Frequent itemsets: ")
-print(frequewnt_itemsets)
+plt.title("Bharat", fontsize=10, fontweight='bold')
+plt.legend()
 
-rules = association_rules(frequewnt_itemsets, metric="lift", min_threshold=1, support_only=False,num_itemsets=frequewnt_itemsets['support'])   
-print("Association Rules: ")
-print(rules)
+ax.set_axis_off()
+plt.show()
 
 `;
 
@@ -150,28 +111,25 @@ print(rules)
      function copyMultilineText3() {
       // Your variable containing multiline text data
      var yourMultilineVariable = `
-     import requests
-from bs4 import BeautifulSoup
-import re
+    import folium
+m = folium.Map(location=[20.5937, 78.9629], zoom_start=5)
+cities = [
+{"name": "New Delhi", "location": [28.6139, 77.2090], "population": "21.75 million"},
+{"name": "Mumbai", "location": [19.0760, 72.8777], "population": "20.18 million"},
+{"name": "Bengaluru", "location": [12.9716, 77.5946], "population": "8.42 million"},
+{"name": "Chennai", "location": [13.0827, 80.2707], "population": "10.97 million"},
+{"name": "Kolkata", "location": [22.5726, 88.3639], "population": "14.85 million"},
+{"name": "Rajasthan", "location": [27.0238, 74.2179], "population": "68 million"}
+]
 
-def crawl_and_search(url, keyword):
-  try:
-    response = requests.get(url)
-    response.raise_for_status() 
-    page_content = response.text
-    soup = BeautifulSoup(page_content, 'html.parser')
-    text = soup.get_text()
-    if re.search(keyword, text, re.IGNORECASE):
-      print(f"Keyword '{keyword}' found in {url}")
-    else:
-      print(f"Keyword '{keyword}' not found in {url}")
-  except requests.exceptions.RequestException as e:
-    print(f"Failed to retrieve {url}: {e}")
-
-url = input("Enter the URL to crawl: ")
-keyword = input("Enter the keyword to search for: ")
-
-crawl_and_search(url, keyword)
+for city in cities:
+  folium.Marker(
+      location=city['location'],
+      popup=f"<b>{city['name']}</b><br>Population: {city['population']}",
+      tooltip=city['name']
+  ).add_to(m)
+m.save('india_map.html')
+m
 `;
 
       // Assign the variable's value to the text variable
@@ -198,52 +156,23 @@ crawl_and_search(url, keyword)
     function copyMultilineText4() {
       // Your variable containing multiline text data
       var yourMultilineVariable = `
-      import nltk
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
+     from astropy.coordinates import solar_system_ephemeris, get_moon, AltAz, EarthLocation
+import astropy.units as u
 import matplotlib.pyplot as plt
-import seaborn as sns
-
-
-nltk.download('vader_lexicon')
-
-sia = SentimentIntensityAnalyzer()
-
-reviews = [
-"The product quality is amazing, I'm very satisfied!",
-"Terrible service, I will never buy from here again.",
-"Decent product, but shipping was too slow.",
-"Absolutely love it! Will recommend to everyone.",
-"Not worth the money, very disappointing.",
-"Great experience overall, but could improve the packaging.",
-"Mediocre, not what I expected.",
-"Excellent value for the price, highly recommended.",
-"Worst purchase I've made this year.",
-"It's okay, nothing special."
-]
-
-sentiments = []
-for review in reviews:
-  sentiment_score = sia.polarity_scores(review)
-  compound_score = sentiment_score['compound']
-  if compound_score >= 0.05:
-    sentiments.append('Positive')
-  elif compound_score <= -0.05:
-    sentiments.append('Negative')
-  else: sentiments.append('Neutral')
-
-sentiment_counts = {
-'Positive': sentiments.count('Positive'),
-'Negative': sentiments.count('Negative'),
-'Neutral': sentiments.count('Neutral')
-}
-
-sns.set(style="whitegrid")
-plt.figure(figsize=(8, 6))
-sns.barplot(x=list(sentiment_counts.keys()), y=list(sentiment_counts.values()),
-palette="viridis")
-plt.title(' Sentiment Analysis of Customer Reviews')
-plt.xlabel('Sentiment')
-plt.ylabel('Number of Reviews')
+from astropy.time import Time
+solar_system_ephemeris.set('builtin')
+time_utc = Time.now()
+moon = get_moon(time_utc)
+location = EarthLocation.of_site('Kitt Peak')
+moon_altaz = moon.transform_to(AltAz(obstime=time_utc, location=location))
+print(f'Moon coordinates (RA, Dec): {moon.ra}, {moon.dec}')
+print(f'Moon Altitude: {moon_altaz.alt}')
+print(f'Moon Azimuth: {moon_altaz.az}')
+plt.figure(figsize=(10, 8))
+plt.subplot(111, projection='polar')
+plt.title('Moon Position', y=1.1)
+plt.polar(moon.ra.radian, moon.dec.radian, 'o', markersize=10)
+plt.grid(True)
 plt.show()
 `;
 
@@ -272,21 +201,34 @@ plt.show()
     function copyMultilineText5() {
       // Your variable containing multiline text data
       var yourMultilineVariable = `
-import networkx as nx
+import pandas as pd
+import plotly.express as px
+url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+df=pd.read_csv(url)
+country='India'
+df_country=df[df['location']==country]
+df_country=df_country[['date','new_cases']]
+fig=px.line(df_country,x='date',y='new_cases',title=f'Corona Cases in {country} over time')
+fig.show()
 
-G = nx.random_k_out_graph(n=5, k=2, alpha=0.75)
+---
 
-def draw_graph(G):
-  nx.draw(G, with_labels=True, font_weight='bold', node_size=400)
-draw_graph(G)
-ranks_pr = nx.pagerank(G=G, alpha=0.85)
-'''# Print the PageRank values
-print("Page Rank: ")
-print(ranks_pr)'''
+import pandas as pd
+import plotly.express as px
+url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+df=pd.read_csv(url)
+country='Morocco'
+df_country=df[df['location']==country]
+if df_country.empty:
+  raise ValueError(f"Country {country} not found in dataset")
+df_country['date']=pd.to_datetime(df_country['date'])
+df_country['month']=df_country['date'].dt.to_period('M')
+#Aggregate the data to get total cases per month
+monthly_cases=df_country.groupby('month')['new_cases'].sum().reset_index()
+monthly_cases['month']=monthly_cases['month'].astype(str)
+fig=px.bar(monthly_cases,x='month',y='new_cases',title=f'Corona Cases in {country} per Month')
+fig.show()
 
-print("Page Rank: ")
-for node, rank in ranks_pr.items():
-  print(f"Node {node}: {rank}")
 `;
 
       // Assign the variable's value to the text variable
@@ -313,23 +255,33 @@ for node, rank in ranks_pr.items():
     function copyMultilineText6() {
       // Your variable containing multiline text data
       var yourMultilineVariable = `
-import requests
-from bs4 import BeautifulSoup
-def check_word_in_webpage(url, word):
-  response = requests.get(url)
-  if response.status_code == 200:
-    soup = BeautifulSoup(response.content, 'html.parser')
-    text_content = soup.get_text()
-    if word.lower() in text_content.lower():
-      print(f"The word '{word}' is present in the webpage.")
-    else:
-      print(f"The word '{word}' is not present in the webpage.")
-  else:
-    print("Failed to retrieve webpage.")
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn import datasets, linear_model
+from sklearn.metrics import mean_squared_error, r2_score
 
-url = input("Enter the URL you want to scrape: ")
-word_to_check = input("Enter the text you want to check for presence in the webpage: ")
-check_word_in_webpage(url, word_to_check)
+diabetes = datasets.load_diabetes()
+diabetes_X = diabetes.data[:, np.newaxis, 2]
+diabetes_X_train = diabetes_X[:-30]
+diabetes_X_test = diabetes_X[-50:]
+diabetes_y_train = diabetes.target[:-30]
+diabetes_y_test = diabetes.target[-50:]
+regr = linear_model.LinearRegression()
+regr.fit(diabetes_X_train, diabetes_y_train)
+diabetes_y_pred = regr.predict(diabetes_X_test)
+
+print('Coefficients: \n', regr.coef_)
+print("Mean squared error: %.2f" % mean_squared_error(diabetes_y_test, diabetes_y_pred))
+print('Variance score: %.2f' % r2_score(diabetes_y_test, diabetes_y_pred))
+plt.scatter(diabetes_X_test, diabetes_y_test, color='blue')
+plt.plot(diabetes_X_test, diabetes_y_pred, color='red', linewidth=2)
+plt.xticks(())
+plt.yticks(())
+plt.axis('tight')
+plt.title("Diabetes")
+plt.xlabel("BMI")
+plt.ylabel("Age")
+plt.show()
 `;
 
       // Assign the variable's value to the text variable
@@ -355,58 +307,23 @@ check_word_in_webpage(url, word_to_check)
     }
         function copyMultilineText7() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import nltk
-nltk.download('stopwords')
-import nltk
-nltk.download('punkt_tab') #(pycharm needed)
-import requests
-from bs4 import BeautifulSoup
-from urllib.parse import urljoin
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-import re
-nltk.download('stopwords')
-nltk.download('punkt')
+      var yourMultilineVariable = `from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+# Sample text related to data science
+text = """
+Data Science involves using scientific methods, processes, , and systems to extract
+knowledge and insights from structured and unstructured data.
+Key topics include data analysis, machine learning, statistical modeling, data visualization, and big
+data technologies.
+"""
 
-stop_words = set(stopwords.words('english'))
+wordcloud = WordCloud(width=800, height=800, background_color='white').generate(text)
 
-seed_urls = [
-'https://www.bbc.com/news',
-'https://edition.cnn.com',
-'https://www.theguardian.com',
-'https://www.yelp.com/search?find_desc=Restaurants&find_loc=New+York%2C+NY',
-'https://ny.eater.com'
-]
-
-keywords = ['restaurant', 'food', 'local']
-
-visited = set()
-
-def is_relevant(content, keywords):
-  words =word_tokenize(content.lower())
-  words = [w for w in words if w.isalnum() and w not in stop_words]
-  return any(keyword in words for keyword in keywords)
-
-def crawl(url):
-  try:
-    response = requests.get(url)
-    response.raise_for_status() # Raise an HTTPError for bad responses
-    soup = BeautifulSoup(response.content, 'html.parser')
-    text = soup.get_text()
-    if is_relevant(text, keywords):
-      print(f"Relevant content found at: {url}")
-    for link in soup.find_all('a', href=True):
-      new_url = urljoin(url, link['href'])
-      if new_url not in visited and re.match(r'^https?://', new_url):
-        visited.add(new_url)
-        crawl(new_url)
-  except requests.exceptions.RequestException as e:
-    print(f"Error crawling {url}: {e}")
-
-for url in seed_urls:
-  if url not in visited:
-    visited.add(url)
-    crawl(url)`;
+plt.figure(figsize=(12, 12))
+plt.title("\n Word Cloud")
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis("off")
+plt.show()`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -431,21 +348,8 @@ for url in seed_urls:
     }
     function copyMultilineText8() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `
-      https://www.reddit.com/prefs/apps
-      !pip install praw
-
-import praw
-import pandas as pd
-
-reddit = praw.Reddit(client_id='cYmnMoha8Z-jhwIPqp-1BA',client_secret='-jVQ__B3QBwDFnOEe96AVU3pQpYc4A',user_agent='my_reddit_app') 
-sub_name = input("enter the Keyword")
-max_posts = 5
-reddit.read_only = True
-title=[]
-for submission in reddit.subreddit(sub_name).new(limit=max_posts):
-  title.append(submission.title)
-  print(title)`;
+      var yourMultilineVariable = `Cassandra
+      `;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -470,50 +374,108 @@ for submission in reddit.subreddit(sub_name).new(limit=max_posts):
     }
 function copyMultilineText9() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from statsmodels.tsa.seasonal import seasonal_decompose
-from statsmodels.tsa.arima.model import ARIMA
-data = {
-    'Date': [
-        '1981-01-01', '1981-01-02', '1981-01-03', '1981-01-04', '1981-01-05',
-        '1981-01-06', '1981-01-07', '1981-01-08', '1981-01-09', '1981-01-10'
-    ],
-    'Temp': [
-        20.7, 17.9, 18.8, 14.6, 15.8,
-        19.2, 22.1, 23.5, 21.0, 18.4
-    ]
-}
-df = pd.DataFrame(data)
-df['Date'] = pd.to_datetime(df['Date'])
-df.set_index('Date', inplace=True)
-print(df.head())
-print(df.tail())
+      var yourMultilineVariable = `
+      # Video to Image ======================
+import os
+import shutil
+import cv2
 
-plt.figure(figsize=(12, 6))
-plt.plot(df['Temp'], label='Daily Minimum Temperature', color='blue')
-plt.title('Daily Minimum Temperature Over Time', fontsize=14)
-plt.xlabel('Date')
-plt.ylabel('Temperature (°C)')
-plt.legend()
-plt.show()
-decomposition = seasonal_decompose(df['Temp'], model='additive', period=5)  # Adjusted period
-decomposition.plot()
-plt.show()
+sInputFileName = '/content/xyz.mp4'
+sDataBaseDir = '/content/Video to Images'
 
-model = ARIMA(df['Temp'].dropna(), order=(1, 1, 0))  # Adjust parameters as needed
-model_fit = model.fit()
-forecast = model_fit.forecast(steps=30)
-forecast_dates = pd.date_range(start=df.index[-1] + pd.Timedelta(days=1), periods=30)
-plt.figure(figsize=(12, 6))
-plt.plot(df['Temp'], label='Historical Temperature', color='blue')
-plt.plot(forecast_dates, forecast, label='Forecasted Temperature', color='orange')
-plt.title('Temperature Forecast', fontsize=14)
-plt.xlabel('Date')
-plt.ylabel('Temperature (°C)')
-plt.legend()
-plt.show()`;
+if os.path.exists(sDataBaseDir):
+  shutil.rmtree(sDataBaseDir)
+if not os.path.exists(sDataBaseDir):
+  os.makedirs(sDataBaseDir)
+
+print('=====================================================')
+print('Start Movie to Frames')
+print('=====================================================')
+vidcap = cv2.VideoCapture(sInputFileName)
+success, image = vidcap.read()
+count = 0
+
+while success:
+    success, image = vidcap.read()  
+    if not success:
+        break
+
+    sFrame = sDataBaseDir + str('/pic-frame-' + str(format(count, '04d')) + '.jpg')
+    print('Extracted: ', sFrame)
+
+    cv2.imwrite(sFrame, image)
+
+    if os.path.getsize(sFrame) == 0:
+        count -= 1  
+        os.remove(sFrame)  
+        print('Removed: ', sFrame)
+
+    if cv2.waitKey(10) == 27:
+        break
+    
+    if count > 100:
+        break
+   
+    count += 1
+
+print('=====================================================')
+print('Generated : ', count, ' Frames')
+print('=====================================================')
+print('Movie to Frames HORUS - Done')
+print('=====================================================')
+
+#Image to Vedio 
+import cv2
+import os
+sDataBaseDir = "/content/Videos to Images"  #input
+output_video_file ="/content/vedio_output" #output
+os.makedirs(os.path.dirname(output_video_file), exist_ok=True)
+
+if not os.path.exists(sDataBaseDir):
+  print(f"Error: Directory not found: {sDataBaseDir}")
+  exit()
+
+frame_files = [f for f in os.listdir(sDataBaseDir) if f.endswith('.jpg')]
+frame_files.sort() 
+
+if not frame_files:
+  print("No frames found in the directory.")
+  exit()
+
+
+first_frame_path = os.path.join(sDataBaseDir, frame_files[0])
+first_frame = cv2.imread(first_frame_path)
+
+if first_frame is None:
+  print(f"Error reading the first frame: {first_frame_path}")
+  exit()
+
+height, width, _ = first_frame.shape
+
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')  
+fps = 30  
+out = cv2.VideoWriter(output_video_file, fourcc, fps, (width, height))
+
+print("===================================================")
+print("Creating video from frames")
+print("===================================================")
+
+
+for frame_file in frame_files:
+  frame_path = os.path.join(sDataBaseDir, frame_file)
+  frame = cv2.imread(frame_path)
+  if frame is not None:
+    out.write(frame)
+    print(f"Added frame: {frame_path}")
+  else:
+    print(f"Failed to read frame: {frame_path}")
+
+
+out.release()
+
+print("=====================================================")
+print(f'Video saved as: {output_video_file}')
+print("=====================================================")`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -538,62 +500,8 @@ plt.show()`;
     }
 function copyMultilineText10() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from statsmodels.tsa.seasonal import seasonal_decompose
-from statsmodels.tsa.statespace.sarimax import SARIMAX
-df = pd.read_csv('Monthly.csv',parse_dates=['Date'])
-print(df.head(5))
-plt.figure(figsize=(12,6))
-plt.plot(df['Sales'],label='Monthly sales')
-plt.legend()
-plt.xlabel('Date')
-plt.ylabel('Sales')
-plt.show()
-
-decompose=seasonal_decompose(df['Sales'],model='additive',period=12)
-decompose.plot()
-plt.show()
-
-train_size=int(len(df)*0.8)
-train,test=df.iloc[:train_size],df.iloc[train_size:]
-print(len(train))
-print(len(test))
-model=SARIMAX(train['Sales'],order=(1,1,1),seasonal_order=(1,1,1,12),enforce_stationarity=False,enforce_invertibility=False)
-model_fit=model.fit(disp=False)
-print(model_fit.summary())
-forecast=model_fit.get_forecast(steps=len(df))
-forecast_index=test.index
-forecast_series=pd.Series(forecast.predicted_mean,index=forecast_index)
-conf_int=forecast.conf_int()
-forecast_series = forecast_series[:len(test.index)]
-conf_int = conf_int.iloc[:len(forecast_series)]
-plt.figure(figsize=(12, 6))
-plt.plot(test.index,test['Sales'],label='Actual',marker='o')
-plt.plot(test.index,forecast_series,label='forecast',marker='o',color='red')
-plt.fill_between(forecast_series.index,conf_int.iloc[:,0],conf_int.iloc[:,1],color='pink',alpha=0.3)
-plt.legend()
-plt.xlabel('Date')
-plt.ylabel('Sales')
-plt.show()
-
-final_model=SARIMAX(train['Sales'],order=(1,1,1),seasonal_order=(1,1,1,12),enforce_stationarity=False,enforce_invertibility=False)
-model_fit_f=final_model.fit(disp=False)
-last_date = pd.to_datetime(df.index[-1])
-f_forecast=model_fit.get_forecast(steps=12)
-f_forecast_index=pd.date_range( start=last_date + pd.DateOffset(months=1), periods=12,freq='MS')
-forecast_series=pd.Series(forecast.predicted_mean,index=f_forecast_index)
-f_forecast_series=f_forecast.predicted_mean
-f_conf_int=f_forecast.conf_int()
-plt.figure(figsize=(12, 6))
-plt.plot(df.index,df['Sales'],label='his',marker='o')
-plt.plot(f_forecast_series.index,f_forecast_series,label='furture',marker='o',color='red')
-plt.fill_between(f_forecast_series.index,f_conf_int.iloc[:,0],f_conf_int.iloc[:,1],color='pink',alpha=0.3)
-plt.legend()
-plt.xlabel('Date')
-plt.ylabel('Sales')
-plt.show()`;
+      var yourMultilineVariable = `
+      Mongo`;
 
       // Assign the variable's value to the text variable
       var text = yourMultilineVariable;
@@ -618,21 +526,96 @@ plt.show()`;
     }
   function copyMultilineText11() {
       // Your variable containing multiline text data
-      var yourMultilineVariable = `import scipy.stats as stats
+      var yourMultilineVariable = `
+      #Audio to csv
+from scipy.io import wavfile
+import pandas as pd
+import matplotlib.pyplot as plt
 import numpy as np
-x = np.array([59, 65, 45, 52, 60, 62, 70, 55, 45, 49])
-y = np.array([76, 70, 55, 65, 60, 64, 80, 65, 54, 61])
-slope_yx, intercept_yx, r_value_yx, p_value_yx, std_err_yx = stats.linregress(y, x)
-slope_xy, intercept_xy, r_value_xy, p_value_xy, std_err_xy = stats.linregress(x, y)
-estimate_yx = slope_yx * 61 + intercept_yx 
 
-from scipy.stats import norm, uniform, expon, binom, poisson
-np.random.seed(42)
-normal_samples = np.random.normal(loc=0, scale=1, size=1000)
-uniform_samples = np.random.uniform(low=0, high=1, size=1000)
-exponential_samples = np.random.exponential(scale=1, size=1000)
-binomial_samples = np.random.binomial(n=10, p=0.5, size=1000)
-poisson_samples = np.random.poisson(lam=3, size=1000)
+def show_info(aname, a, r):
+    print(f"Audio: {aname}\nRate: {r}\nShape: {a.shape}")
+    plot_info(aname, a, r)
+
+def plot_info(aname, a, r):
+    plt.title(f'Signal Wave - {aname} at {r}hz')
+    sLegend = []
+    for c in range(a.shape[1]):
+        sLabel = 'Ch' + str(c + 1)
+        sLegend.append(sLabel)
+        plt.plot(a[:, c], label=sLabel)
+    plt.legend(sLegend)
+    plt.show()
+
+sInputFileName = '/content/6ch-sound.wav'
+print('Processing: ', sInputFileName)
+
+
+InputRate, InputData = wavfile.read(sInputFileName)
+show_info("4 channel", InputData, InputRate)
+
+
+ProcessData = pd.DataFrame(InputData)
+ProcessData.columns = ['Ch1', 'Ch2', 'Ch3', 'Ch4','Ch5','Ch6']
+
+
+sOutputFileName = '/content/Output/AudioToCSV.csv'
+ProcessData.to_csv(sOutputFileName, index=False)
+
+print(ProcessData)
+----------------------------------
+
+#Image to csv
+from PIL import Image
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+def image_to_csv_and_show(image_path, csv_output_path):
+    img = Image.open(image_path).convert('RGB')
+
+    img_array = np.array(img)
+    print(f"Image Path: {image_path}")
+    print(f"Shape: {img_array.shape}")
+    print(f"Dtype: {img_array.dtype}")
+    print(f"Min, Max: {img_array.min()}, {img_array.max()}")
+
+    df = pd.DataFrame(img_array.reshape(-1, 3), columns=['R', 'G', 'B'])
+
+    df.to_csv(csv_output_path, index=False, header=False)  
+    plt.imshow(img_array)
+    plt.title('Image Preview')
+    plt.axis('off')  # Hide axis
+    plt.show()
+
+def visualize_csv(csv_path, image_shape):
+    df = pd.read_csv(csv_path, header=None, names=['R', 'G', 'B'])
+    img_array = df.values.reshape(image_shape)
+    mid_row = img_array.shape[0] // 2
+    plt.figure(figsize=(15, 5))
+
+    plt.subplot(3, 1, 1)
+    plt.plot(img_array[mid_row, :, 0], color='red')
+    plt.title('Red Channel Pixel Values')
+
+    plt.subplot(3, 1, 2)
+    plt.plot(img_array[mid_row, :, 1], color='green')
+    plt.title('Green Channel Pixel Values')
+
+    plt.subplot(3, 1, 3)
+    plt.plot(img_array[mid_row, :, 2], color='blue')
+    plt.title('Blue Channel Pixel Values')
+
+    plt.tight_layout()
+    plt.show()
+
+image_path = '/content/Output/pic-frame-0050.jpg'  
+csv_output_path = '/content/Output/ImageToCSV.csv' 
+
+img_array = np.array(Image.open(image_path).convert('RGB'))
+shape = img_array.shape
+image_to_csv_and_show(image_path, csv_output_path)
+visualize_csv(csv_output_path, shape)
+
 `;
 
       // Assign the variable's value to the text variable
@@ -656,6 +639,93 @@ poisson_samples = np.random.poisson(lam=3, size=1000)
       document.body.removeChild(tempTextArea);
 
     }
+  function copyMultilineText12() {
+      // Your variable containing multiline text data
+      var yourMultilineVariable = `#Binning
+import pandas as pd
+ages=[18,23,22,25,46,34,45,87]
+bins=[0,25,50,75,100]
+bin_labels=["Young","Middle Age","Senior","Old"]
+age_bins=pd.cut(ages,bins=bins,labels=bin_labels,right=True)
+print("Age Bins: ", age_bins)
+
+#Location Average
+import pandas as pd
+import numpy as np
+
+LatitudeData=pd.Series(np.array(range(-90,91,1)))
+LongitudeData=pd.Series(np.array(range(-180,181,1)))
+
+LatitudeSet=LatitudeData.sample(10)
+LongitudeSet=LongitudeData.sample(10)
+
+LatitudeAverage=np.average(LatitudeSet)
+LongitudeAverage=np.average(LongitudeSet)
+
+print("LatitudeSet:\n",LatitudeSet,"\n")
+print("LongitudeSet:\n",LongitudeSet,"\n")
+print("LatitudeAverage:",LatitudeAverage)
+print("LongitudeAverage:",LongitudeAverage)
+
+#Random Coordinates and Plotting with Base Map
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.basemap import Basemap
+LatitudeData = pd.Series(np.array(range(8, 38, 1)))  
+LongitudeData = pd.Series(np.array(range(68, 98, 1)))  
+LatitudeSet = LatitudeData.sample(10)
+LongitudeSet = LongitudeData.sample(10)
+LatitudeAverage = np.average(LatitudeSet)
+LongitudeAverage = np.average(LongitudeSet)
+
+print('Latitude')
+print(LatitudeSet)
+print('Latitude (Avg):', LatitudeAverage)
+print('##############')
+print('Longitude')
+print(LongitudeSet)
+print('Longitude (Avg):', LongitudeAverage)
+
+plt.figure(figsize=(8, 8))
+map = Basemap(projection='mill', llcrnrlat=8, urcrnrlat=38,
+              llcrnrlon=68, urcrnrlon=98, resolution='c')
+map.drawcoastlines()
+map.drawcountries()
+map.drawmapboundary(fill_color='aqua')
+map.fillcontinents(color='lightgreen', lake_color='aqua')
+
+x, y = map(LongitudeSet.values, LatitudeSet.values)
+map.scatter(x, y, marker='o', color='red', s=100, label='Sampled Points')
+avg_x, avg_y = map(LongitudeAverage, LatitudeAverage)
+map.scatter(avg_x, avg_y, marker='X', color='blue', s=200, label='Average Point')
+plt.title('Randomly Sampled Latitude and Longitude Points on India Map')
+plt.legend()
+plt.show()
+`;
+
+      // Assign the variable's value to the text variable
+      var text = yourMultilineVariable;
+
+      // Create a temporary textarea element to hold the text
+      var tempTextArea = document.createElement("textarea");
+      tempTextArea.value = text;
+
+      // Append the textarea element to the DOM
+      document.body.appendChild(tempTextArea);
+
+      // Select the text in the textarea
+      tempTextArea.select();
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+      // Copy the selected text to the clipboard
+      document.execCommand("copy");
+
+      // Remove the temporary textarea
+      document.body.removeChild(tempTextArea);
+
+    }
+
   </script>
 </body>
 </html>
