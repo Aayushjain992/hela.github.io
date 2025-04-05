@@ -19,7 +19,17 @@
 
 
   <script>
+    function copyToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+
     function copyVariableText1() {
+const text = `
       // Your variable containing the text data
 !pip install pyspark
 from pyspark.sql import SparkSession
@@ -40,11 +50,13 @@ hdfs dfs -ls /
 hdfs dfsadmin -report 
 hdfs dfs -mkdir /user/hadoop
 hdfs dfs -put C:\ha\p.txt /user/hadoop
+  `;
+      copyToClipboard(text);
 
     }
 
     function copyVariableText2() {
-      // Your variable containing the text data
+const text = `
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 spark = SparkSession.builder.appName('CombineDataframe').getOrCreate()
@@ -74,10 +86,12 @@ df6 = spar1.read.option('header',True).csv('/content/Department.csv')
 df6.show()
 comb_df2 = df.join(df6,on = 'Department_Id',how = 'inner')
 comb_df2.show()
-
+  `;
+      copyToClipboard(text);
  }
 
     function copyVariableText3() {
+ const text = `
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.appName("SalesTotal").getOrCreate()
 sc = spark.sparkContext 
@@ -100,6 +114,7 @@ for product, total in result:
 spark.stop()
     }
     function copyVariableText4() {
+ const text = `
 from pyspark.sql import SparkSession
 spark=SparkSession.builder.appName("SparkSessionExample").config("SparkConfig","config-value").getOrCreate()
 from pyspark.sql import Row
@@ -124,8 +139,11 @@ df.filter(df.age>24).show()
 df.where(df.city=="ms").show()
 output_path="1.csv"
 df.write.option("header",True).csv(output_path)
+  `;
+      copyToClipboard(text);
     }
     function copyVariableText5() {
+ const text = `
 from pyspark.sql import SparkSession
 from pyspark.sql import Row
 spark=SparkSession.builder.appName('TemperoryViewExample').getOrCreate()
@@ -159,8 +177,11 @@ plt.title("Sales Amount by Category ")
 plt.xlabel("Category")
 plt.ylabel("Sales Amount")
 plt.show()
+  `;
+      copyToClipboard(text);
     }
     function copyVariableText6() { 
+ const text = `
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import udf
 from pyspark.sql.types import StringType
@@ -181,8 +202,11 @@ def age_group(age):
 age_group_udf=udf(age_group,StringType()) 
 df=df.withColumn("age_group",age_group_udf(df["age"]))
 df.show()
+  `;
+      copyToClipboard(text);
     }
     function copyVariableText7() {
+ const text = `
 from pyspark.sql import SparkSession
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.regression import LinearRegression
@@ -204,8 +228,11 @@ print("Root Mean Squared error:",training_summary.rootMeanSquaredError)
 print("R2:",training_summary.r2)
 prediction=lr_model.transform(df)
 prediction.select("features","target","prediction").show()
+  `;
+      copyToClipboard(text);
     }
     function copyVariableText8() {
+ const text = `
 from pyspark.sql import SparkSession
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.clustering import KMeans
@@ -223,8 +250,11 @@ prediction=model.transform(res)
 prediction.show()
 for center in model.clusterCenters():
   print(center)
+  `;
+      copyToClipboard(text);
     }
     function copyVariableText9() {
+ const text = `
 from pyspark.sql import SparkSession
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.classification import LogisticRegression
@@ -250,8 +280,11 @@ lr=LogisticRegression(featuresCol="idf_features",labelCol="label")
 model=lr.fit(df1)
 prediction=model.transform(df1)
 prediction.show()
+  `;
+      copyToClipboard(text);
     }
     function copyVariableText10() {
+ const text = `
 from pyspark.sql import SparkSession
 from pyspark.ml.classification import NaiveBayes
 from pyspark.ml.feature import VectorAssembler, StringIndexer
@@ -286,8 +319,11 @@ evaluator = MulticlassClassificationEvaluator(labelCol="label", predictionCol="p
 accuracy = evaluator.evaluate(predictions)
 print(f"Test Accuracy: {accuracy:.2f}")
 predictions.select("label", "features", "prediction").show()
+  `;
+      copyToClipboard(text);
     }
     function copyVariableText11() {
+ const text = `
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.appName("WordCount").getOrCreate()
 sc = spark.sparkContext  
@@ -304,8 +340,12 @@ result = word_counts.collect()
 for word, count in result:
     print(f"{word}: {count}")
 spark.stop()
+  `;
+      copyToClipboard(text);
     }
-    function copyVariableText12() {
+    function copyVariableText12() 
+{
+ const text = `
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import explode,split
 from pyspark.sql.functions import col
@@ -318,8 +358,9 @@ word_df=df.withColumn("words",explode(split(col("text")," ")))
 word_df.show()
 word_count=word_df.groupBy("words").count().orderBy(col('count').desc())
 word_count.show()
-    }
-
-  </script>
+  `;
+      copyToClipboard(text);
+}
+</script>
 </body>
 </html>
