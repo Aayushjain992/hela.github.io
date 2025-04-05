@@ -1,366 +1,1167 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Copy Variable Text to Clipboard</title>
-</head>
-<body>
-  <button onclick="copyVariableText1()">read</button>
-  <button onclick="copyVariableText2()">comb</button>
-  <button onclick="copyVariableText3()">mapre</button>
-  <button onclick="copyVariableText4()">conf</button>
-  <button onclick="copyVariableText5()">temview</button>
-  <button onclick="copyVariableText6()">udf</button>
-  <button onclick="copyVariableText7()">lin</button>
-  <button onclick="copyVariableText8()">kmean</button>
-  <button onclick="copyVariableText9()">log</button>
-  <button onclick="copyVariableText10()">naiv</button>
-  <button onclick="copyVariableText11()">stream</button>
-  <button onclick="copyVariableText12()">count manip</button>
 
+<html>
+
+<head>
+
+  <title>x</title>
+
+</head>
+
+<body>
+
+  <button onclick="copyMultilineText1()">Sum</button>
+
+  <button onclick="copyMultilineText2()">if</button>
+
+  <button onclick="copyMultilineText3()">tab</button>
+
+  <button onclick="copyMultilineText4()">sub_fac</button>
+
+  <button onclick="copyMultilineText5()">alv</button>
+
+  <button onclick="copyMultilineText6()">alv2</button>
+
+  <button onclick="copyMultilineText7()">class</button>
+
+  <button onclick="copyMultilineText8()">join</button>
 
   <script>
-    function copyToClipboard(text) {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
+
+    function copyMultilineText1() {
+
+      // Your variable containing multiline text data
+
+      var yourMultilineVariable = `REPORT Z_SUM.
+
+ 
+
+parameter: number1 type i,number2 type i.
+
+data Sum type i.
+
+Sum = number1 + number2.
+
+Write:/ Sum.`;
+
+ 
+
+      // Assign the variable's value to the text variable
+
+      var text = yourMultilineVariable;
+
+ 
+
+      // Create a temporary textarea element to hold the text
+
+      var tempTextArea = document.createElement("textarea");
+
+      tempTextArea.value = text;
+
+ 
+
+      // Append the textarea element to the DOM
+
+      document.body.appendChild(tempTextArea);
+
+ 
+
+      // Select the text in the textarea
+
+      tempTextArea.select();
+
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+ 
+
+      // Copy the selected text to the clipboard
+
+      document.execCommand("copy");
+
+ 
+
+      // Remove the temporary textarea
+
+      document.body.removeChild(tempTextArea);
+
+ 
+
     }
 
-    function copyVariableText1() {
-const text = `
-      // Your variable containing the text data
-!pip install pyspark
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import *
-spark = SparkSession.builder.appName('test').getOrCreate()
-df = spark.read.option('header', True).csv('/content/Employee.csv')
-df.show()
-df.select('salary').show(5)
-df.printSchema()
-panda_df = df.toPandas()
-panda_df.head()
+    function copyMultilineText2() {
 
-hdfs namenode -format
-start-dfs.cmd
-start-yarn.cmd
-jps
-hdfs dfs -ls /
-hdfs dfsadmin -report 
-hdfs dfs -mkdir /user/hadoop
-hdfs dfs -put C:\ha\p.txt /user/hadoop
-  `;
-      copyToClipboard(text);
+      // Your variable containing multiline text data
+
+      var yourMultilineVariable = `REPORT ZWHATIF.
+
+PARAMETERS: num TYPE i.
+
+IF num > 0.
+
+  WRITE: /'The number is positive.'.
+
+ELSEIF num < 0.
+
+  WRITE: /'The number is negative.'.
+
+ELSE.
+
+  WRITE: /'The number is zero.'.
+
+ENDIF.`;
+
+ 
+
+      // Assign the variable's value to the text variable
+
+      var text = yourMultilineVariable;
+
+ 
+
+      // Create a temporary textarea element to hold the text
+
+      var tempTextArea = document.createElement("textarea");
+
+      tempTextArea.value = text;
+
+ 
+
+      // Append the textarea element to the DOM
+
+      document.body.appendChild(tempTextArea);
+
+ 
+
+      // Select the text in the textarea
+
+      tempTextArea.select();
+
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+ 
+
+      // Copy the selected text to the clipboard
+
+      document.execCommand("copy");
+
+ 
+
+      // Remove the temporary textarea
+
+      document.body.removeChild(tempTextArea);
+
+ 
+
+ 
 
     }
 
-    function copyVariableText2() {
-const text = `
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
-spark = SparkSession.builder.appName('CombineDataframe').getOrCreate()
-data1 = [(1, 'xy', 2), (2, 'ys', 3), (3, 'ko', 5)]
-data2 = [(4,'s', 5), (5, 'rp', 2), (6, 'os', 2)]
-columns = ['ID', 'Name', 'Age']
-df1 = spark.createDataFrame(data1, columns)
-df2 = spark.createDataFrame(data2, columns)
-df1.show()
-df2.show()
-combine_df = df1.union(df2)
-combine_df.show()
-data4 =[(1, 'js'), (2, 'la'), (3, 'us'), (4, 'ca'), (5, 'ma'), (3, 'an')]
-columns4 = ['ID', 'City']
-df4 = spark.createDataFrame(data4, columns4)
-df4.show()
-join_df = combine_df.join(df4, on='ID', how='inner')
-join_df.show()
-df1 = df1.withColumn('country', col('Age'))
-df1.show()
+     function copyMultilineText3() {
 
-//file
-df1= spark.read.option('header',True).csv('/content/Employee.csv')
-df2= spark.read.option('header',True).csv('/content/Department.csv')
-spar1 = SparkSession.builder.appName('JoindiffCSV').getOrCreate()
-df6 = spar1.read.option('header',True).csv('/content/Department.csv')
-df6.show()
-comb_df2 = df.join(df6,on = 'Department_Id',how = 'inner')
-comb_df2.show()
-  `;
-      copyToClipboard(text);
- }
+      // Your variable containing multiline text data
 
-    function copyVariableText3() {
- const text = `
-from pyspark.sql import SparkSession
-spark = SparkSession.builder.appName("SalesTotal").getOrCreate()
-sc = spark.sparkContext 
-sales_data = [
-    ("Laptop", 1000),
-    ("Mobile", 500),
-    ("Laptop", 1200),
-    ("Tablet", 700),
-    ("Mobile", 450),
-    ("Tablet", 650),
-    ("Laptop", 1100),
-    ("Mobile", 520),
-]
-rdd = sc.parallelize(sales_data)
-mapped_rdd = rdd.map(lambda x: (x[0], x[1]))
-total_sales_rdd = mapped_rdd.reduceByKey(lambda a, b: a + b)
-result = total_sales_rdd.collect()
-for product, total in result:
-    print(f"{product}: ${total}")
-spark.stop()
+     var yourMultilineVariable = `ZCUSTOMERSS`;
+
+ 
+
+      // Assign the variable's value to the text variable
+
+      var text = yourMultilineVariable;
+
+ 
+
+      // Create a temporary textarea element to hold the text
+
+      var tempTextArea = document.createElement("textarea");
+
+      tempTextArea.value = text;
+
+ 
+
+      // Append the textarea element to the DOM
+
+      document.body.appendChild(tempTextArea);
+
+ 
+
+      // Select the text in the textarea
+
+      tempTextArea.select();
+
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+ 
+
+      // Copy the selected text to the clipboard
+
+      document.execCommand("copy");
+
+ 
+
+      // Remove the temporary textarea
+
+      document.body.removeChild(tempTextArea);
+
+ 
+
     }
-    function copyVariableText4() {
- const text = `
-from pyspark.sql import SparkSession
-spark=SparkSession.builder.appName("SparkSessionExample").config("SparkConfig","config-value").getOrCreate()
-from pyspark.sql import Row
-data=[Row(name="al",Age=34),Row(name="r",Age=30),Row(name="sd",Age=35)]
-df=spark.createDataFrame(data)
-df.show()
-df.printSchema()
-#user
-num_rows = int(input("Enter the number of rows: "))
-data=[]
-for i in range(num_rows):
-    name = input(f"Enter the name  : ")
-    age = int(input(f"Enter the age : "))
-    city=input(f"Enter the city : ")
-    data.append((name,age,city))
 
-column=["name","age","city"]
-df=spark.createDataFrame(data,schema=column)
-df.show()
-df.printSchema()
-df.filter(df.age>24).show()
-df.where(df.city=="ms").show()
-output_path="1.csv"
-df.write.option("header",True).csv(output_path)
-  `;
-      copyToClipboard(text);
+    function copyMultilineText4() {
+
+      // Your variable containing multiline text data
+
+      var yourMultilineVariable = `REPORT ZFACTORIALS.
+
+PARAMETERS: num TYPE i.
+
+DATA: fact TYPE i.
+
+fact = 1.
+
+PERFORM FACTORIAL.
+
+FORM FACTORIAL.
+
+ 
+
+IF num = 0 or num = 1.
+
+WRITE:/'FACTORIAL is 1.'.
+
+ELSE.
+
+WHILE num >= 1.
+
+  fact = fact * num.
+
+  num = num - 1.
+
+ENDWHILE.
+
+ENDIF.
+
+WRITE:/'FACTORIAL is',fact.
+
+ENDFORM.`;
+
+ 
+
+      // Assign the variable's value to the text variable
+
+      var text = yourMultilineVariable;
+
+ 
+
+      // Create a temporary textarea element to hold the text
+
+      var tempTextArea = document.createElement("textarea");
+
+      tempTextArea.value = text;
+
+ 
+
+      // Append the textarea element to the DOM
+
+      document.body.appendChild(tempTextArea);
+
+ 
+
+      // Select the text in the textarea
+
+      tempTextArea.select();
+
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+ 
+
+      // Copy the selected text to the clipboard
+
+      document.execCommand("copy");
+
+ 
+
+      // Remove the temporary textarea
+
+      document.body.removeChild(tempTextArea);
+
+ 
+
+ 
+
     }
-    function copyVariableText5() {
- const text = `
-from pyspark.sql import SparkSession
-from pyspark.sql import Row
-spark=SparkSession.builder.appName('TemperoryViewExample').getOrCreate()
-data=[Row(id=1,name="ABC",age=25,city="ss"),Row(id=2,name="DEF",age=35,city="hi"),Row(id=3,name="GHI",age=15,city="ra"),Row(id=4,name="XYZ",age=38,city="js")]
-df=spark.createDataFrame(data)
-df.show()
-df.createOrReplaceTempView("Employee")
-result=spark.sql("select * from Employee")
-result.show()
-result1=spark.sql("select * from Employee where age>30")
-result1.show()
-#Sales 
 
-data=[Row(1,"Electronic",1000,"2025-03-01"),
-      Row(2,"Electronic",3000,"2025-01-01")]
-columns=["sales_id","category","amount","date"]
-df=spark.createDataFrame(data,columns)
-df.createOrReplaceTempView("Sales")
-result=spark.sql("select * from Sales")
-result2=spark.sql("select category,AVG(amount) as Avg_Amt from Sales group by category")
-result2.show()
-result3=spark.sql("select * from Sales order by amount desc limit 1")
+    function copyMultilineText5() {
+
+      // Your variable containing multiline text data
+
+      var yourMultilineVariable = `REPORT ZPRACT5_ALV_REPORT.
+
+ 
+
+* Define an internal table to hold employee data
+
+DATA: lt_employee_data TYPE TABLE OF ZEMPLOYEE_INFO.
+
+ 
+
+* Fetch data from the custom table
+
+SELECT * FROM ZEMPLOYEE_INFO INTO TABLE lt_employee_data.
+
+ 
+
+* Display data in ALV grid
+
+CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+
+  EXPORTING
+
+ 
+
+    I_STRUCTURE_NAME = 'ZEMPLOYEE_INFO'  " Use table structure for automatic  columns
+
+ 
+
+    I_GRID_TITLE = 'GRID VIEW - SHIPRA JANA - 014'   " Add title to Grid view
+
+ 
+
+  TABLES
+
+    t_outtab = lt_employee_data.  " Data to display in ALV
+
+ 
+
+IF sy-subrc <> 0.
+
+* Implement suitable error handling here
+
+ENDIF.`;
+
+ 
+
+      // Assign the variable's value to the text variable
+
+      var text = yourMultilineVariable;
+
+ 
+
+      // Create a temporary textarea element to hold the text
+
+      var tempTextArea = document.createElement("textarea");
+
+      tempTextArea.value = text;
+
+ 
+
+      // Append the textarea element to the DOM
+
+      document.body.appendChild(tempTextArea);
+
+ 
+
+      // Select the text in the textarea
+
+      tempTextArea.select();
+
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+ 
+
+      // Copy the selected text to the clipboard
+
+      document.execCommand("copy");
+
+ 
+
+      // Remove the temporary textarea
+
+      document.body.removeChild(tempTextArea);
+
+ 
+
+    }
+
+    function copyMultilineText6() {
+
+      // Your variable containing multiline text data
+
+      var yourMultilineVariable = `
+
+REPORT ZALV_REPORT_.
+
+ 
+
+*This is structure Type for basic list
+
+TYPES: BEGIN OF lty_data,
+
+CUSTOMER_ID TYPE ZDE_IDS,
+
+CUSTOMER_NAME TYPE ZDE_NAMES,
+
+CUSTOMER_AGE TYPE ZDE_AGES,
+
+END OF lty_data.
+
+* This is Internal Table for basic list
+
+DATA : lt_data TYPE TABLE OF lty_data.
+
+*This is work Area for basic list
+
+DATA: lwa_data TYPE lty_data.
+
+*Below is the local variable for customer ID
+
+DATA : lv_CID TYPE ZDE_IDS.
+
+*ALV structure
+
+DATA: it_alv_design TYPE SLIS_T_FIELDCAT_ALV.
+
+DATA: wa_alv_design TYPE SLIS_FIELDCAT_ALV.
+
+*Taking Input in range from User
+
+SELECT-OPTIONS : s_CID FOR lv_CID.
+
+START-OF-SELECTION.
+
+*Open SQL Query and you have to select name because you're fetching and ID because from that you're searching
+
+SELECT CUSTOMER_ID CUSTOMER_NAME CUSTOMER_AGE
+
+FROM ZCUSTOMERSS
+
+INTO TABLE lt_data
+
+WHERE CUSTOMER_ID IN s_CID.
+
+ 
+
+ 
+
+* applying loop so that all the data can be fetched at once
+
+*LOOP AT lt_data INTO lwa_data.
+
+* WRITE: / lwa_data-CUSTOMER_ID,lwa_data-CUSTOMER_NAME,LWA_DATA-CUSTOMER_AGE.
+
+* HIDE : lwa_data-CUSTOMER_ID,lwa_data-CUSTOMER_NAME,lwa_data-CUSTOMER_AGE.
+
+*ENDLOOP.
+
+* ALV custom report starts here
+
+*ctrl space
+
+CLEAR IT_ALV_DESIGN.
+
+*give proper space before after =
+
+* ALV Structure for Customer ID Column
+
+WA_ALV_DESIGN-ROW_POS = 1.
+
+WA_ALV_DESIGN-COL_POS = 1.
+
+WA_ALV_DESIGN-FIELDNAME = 'CUSTOMER_ID'.
+
+WA_ALV_DESIGN-TABNAME = 'lt_data'.
+
+WA_ALV_DESIGN-OUTPUTLEN = 20.
+
+WA_ALV_DESIGN-SELTEXT_M = 'Customer ID'.
+
+APPEND WA_ALV_DESIGN to IT_ALV_DESIGN.
+
+CLEAR WA_ALV_DESIGN.
+
+*change grid to list for ALV list
+
+CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+
+EXPORTING
+
+* I_CALLBACK_PROGRAM = ' '
+
+IT_FIELDCAT = IT_ALV_DESIGN
+
+TABLES
+
+T_OUTTAB = lt_data
+
+EXCEPTIONS
+
+PROGRAM_ERROR = 1
+
+OTHERS = 2 .
+
+IF SY-SUBRC <> 0.
+
+* Implement suitable error handling here
+
+ENDIF.`;
+
+ 
+
+      // Assign the variable's value to the text variable
+
+      var text = yourMultilineVariable;
+
+ 
+
+      // Create a temporary textarea element to hold the text
+
+      var tempTextArea = document.createElement("textarea");
+
+      tempTextArea.value = text;
+
+ 
+
+      // Append the textarea element to the DOM
+
+      document.body.appendChild(tempTextArea);
+
+ 
+
+      // Select the text in the textarea
+
+      tempTextArea.select();
+
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+ 
+
+      // Copy the selected text to the clipboard
+
+      document.execCommand("copy");
+
+ 
+
+      // Remove the temporary textarea
+
+      document.body.removeChild(tempTextArea);
+
+ 
+
+    }
+
+        function copyMultilineText7() {
+
+      // Your variable containing multiline text data
+
+      var yourMultilineVariable = `
+
+REPORT ZCLASSP.
+
+CLASS person DEFINITION.
+
+PUBLIC SECTION.
+
+  DATA: name TYPE string,
+
+        age  TYPE i.
+
+ 
+
+"Declare methods
+
+  METHODS:
+
+      set_name IMPORTING value_name TYPE string,
+
+      set_age IMPORTING value_age TYPE i,
+
+      get_name RETURNING VALUE(result) TYPE string,
+
+      get_age RETURNING VALUE(result) TYPE i.
+
+ENDCLASS.
+
+ 
+
+CLASS person IMPLEMENTATION.
+
+ 
+
+  METHOD set_name.
+
+    name = value_name.
+
+  ENDMETHOD.
+
+ 
+
+  METHOD set_age.
+
+    age = value_age.
+
+  ENDMETHOD.
+
+ 
+
+  METHOD get_name.
+
+    result = name.
+
+  ENDMETHOD.
+
+ 
+
+  METHOD get_age.
+
+    result = age.
+
+  ENDMETHOD.
+
+ 
+
+ENDCLASS.
+
+ 
+
+START-OF-SELECTION.
+
+ 
+
+  " Instantiate the class
+
+  DATA(lo_person) = NEW person( ).
+
+ 
+
+  " Set values for Name and Age
+
+  lo_person->set_name( 'Aaysuh Jain ' ).
+
+  lo_person->set_age( 23 ).
+
+ 
+
+  " Get and display the values
+
+  DATA(name) = lo_person->get_name( ).
+
+  DATA(age)  = lo_person->get_age( ).
+
+ 
+
+  WRITE: / 'Name:', name.
+
+  WRITE: / 'Age:', age.`;
+
+ 
+
+      // Assign the variable's value to the text variable
+
+      var text = yourMultilineVariable;
+
+ 
+
+      // Create a temporary textarea element to hold the text
+
+      var tempTextArea = document.createElement("textarea");
+
+      tempTextArea.value = text;
+
+ 
+
+      // Append the textarea element to the DOM
+
+      document.body.appendChild(tempTextArea);
+
+ 
+
+      // Select the text in the textarea
+
+      tempTextArea.select();
+
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+ 
+
+      // Copy the selected text to the clipboard
+
+      document.execCommand("copy");
+
+ 
+
+      // Remove the temporary textarea
+
+      document.body.removeChild(tempTextArea);
+
+ 
+
+    }
+
+    function copyMultilineText8() {
+
+      // Your variable containing multiline text data
+
+      var yourMultilineVariable = `REPORT ZJOIN.
+
+TYPES: BEGIN OF lts_join,
+
+CUSTOMER_ID TYPE ZDE_IDS,
+
+CUSTOMER_NAME TYPE ZDE_NAMES,
+
+PRODUCT_NAME TYPE ZD_PRODUCT,
+
+END OF lts_join.
+
+ 
+
+DATA: lt_join TYPE TABLE OF lts_join,
+
+      wa_join TYPE lts_join.
+
+ 
+
+SELECT C~CUSTOMER_ID, C~CUSTOMER_NAME, P~PRODUCT_NAME
+
+  FROM ZCUSTOMERSS AS C
+
+  INNER JOIN ZPRODUCT_P AS P
+
+  ON  C~CUSTOMER_ID = P~PURCHASE_ID INTO TABLE @lt_join.
+
+ 
+
+LOOP AT lt_join INTO wa_join.
+
+  WRITE: / wa_join-CUSTOMER_ID,
+
+     wa_join-CUSTOMER_NAME,
+
+     wa_join-PRODUCT_NAME.
+
+ENDLOOP.`;
+
+ 
+
+      // Assign the variable's value to the text variable
+
+      var text = yourMultilineVariable;
+
+ 
+
+      // Create a temporary textarea element to hold the text
+
+      var tempTextArea = document.createElement("textarea");
+
+      tempTextArea.value = text;
+
+ 
+
+      // Append the textarea element to the DOM
+
+      document.body.appendChild(tempTextArea);
+
+ 
+
+      // Select the text in the textarea
+
+      tempTextArea.select();
+
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+ 
+
+      // Copy the selected text to the clipboard
+
+      document.execCommand("copy");
+
+ 
+
+      // Remove the temporary textarea
+
+      document.body.removeChild(tempTextArea);
+
+ 
+
+    }
+
+function copyMultilineText9() {
+
+      // Your variable containing multiline text data
+
+      var yourMultilineVariable = `import pandas as pd
+
+import numpy as np
+
 import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
-df_query1=result2.toPandas()
-#barplot
-plt.figure(figsize=(8,5))
-sns.barplot(x="category",y="Avg_Amt",data=df_query1)
-plt.title("Sales Amount by Category ")
-plt.xlabel("Category")
-plt.ylabel("Sales Amount")
-plt.show()
-  `;
-      copyToClipboard(text);
-    }
-    function copyVariableText6() { 
- const text = `
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import udf
-from pyspark.sql.types import StringType
 
-spark= SparkSession.builder.appName("UDF_Example").getOrCreate()
-data=[("os",65),("pa",12),("jo",45)]
-columns=["name","age"]
-df=spark.createDataFrame(data,schema=columns)
-df.printSchema()
-def age_group(age):
-  if age<18:
-    return "Minor"
-  elif age >= 18 and age <= 60:
-    return "Adult"
-  else:
-    return "Senior Citizen"
+from statsmodels.tsa.seasonal import seasonal_decompose
 
-age_group_udf=udf(age_group,StringType()) 
-df=df.withColumn("age_group",age_group_udf(df["age"]))
-df.show()
-  `;
-      copyToClipboard(text);
-    }
-    function copyVariableText7() {
- const text = `
-from pyspark.sql import SparkSession
-from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.regression import LinearRegression
+from statsmodels.tsa.arima.model import ARIMA
 
-spark = SparkSession.builder.appName("RegressionExample").getOrCreate()
-data=[(1,100),(2,110),(3,120),(4,130),(5,105)]
-columns=["feature","target"]
-df=spark.createDataFrame(data,schema=columns)
-df.show()
-assembled=VectorAssembler(inputCols=["feature"],outputCol="features")
-df=assembled.transform(df).select("features","target")
-df.show()
-lr=LinearRegression(featuresCol="features",labelCol="target")
-lr_model=lr.fit(df)
-print("Coefficients:",lr_model.coefficients)
-print("Intercept:",lr_model.intercept)
-training_summary=lr_model.summary
-print("Root Mean Squared error:",training_summary.rootMeanSquaredError)
-print("R2:",training_summary.r2)
-prediction=lr_model.transform(df)
-prediction.select("features","target","prediction").show()
-  `;
-      copyToClipboard(text);
-    }
-    function copyVariableText8() {
- const text = `
-from pyspark.sql import SparkSession
-from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.clustering import KMeans
-spark=SparkSession.builder.appName('Kmeans').getOrCreate()
-data=[(1.0,2.0),(1.5,1.8),(5.0,8.0),(8.0,8.0),(1.0,0.6),(9.0,11.0)]
-columns=["sub1","sub2"]
-df=spark.createDataFrame(data,columns)
-df.show()
-assembler=VectorAssembler(inputCols=["sub1","sub2"],outputCol="features")
-res=assembler.transform(df)
-res.show()
-kmeans=KMeans(k=2,seed=1)
-model=kmeans.fit(res)
-prediction=model.transform(res)
-prediction.show()
-for center in model.clusterCenters():
-  print(center)
-  `;
-      copyToClipboard(text);
-    }
-    function copyVariableText9() {
- const text = `
-from pyspark.sql import SparkSession
-from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.classification import LogisticRegression
-from pyspark.ml.feature import CountVectorizer,IDF,Tokenizer
-spark=SparkSession.builder.appName('Log').getOrCreate()
-data=[(1,"Win a free Iphone"),(1,"You won a lottery"),(0,"Hello Lets meet for lunch"),(0,"Dont forget to complete the assignment")]
-columns=["label","text"]
-df=spark.createDataFrame(data,columns)
-df.show()
-tokenizer=Tokenizer(inputCol="text",outputCol="Tokens") # Now Tokenizer should be defined
-res=tokenizer.transform(df)
-res.show()
-vectorizer=CountVectorizer(inputCol="Tokens",outputCol="features")
-Vector_model=vectorizer.fit(res)
-vec=Vector_model.transform(res)
-vec.show()
-idf=IDF(inputCol="features",outputCol="idf_features")
-idf_model=idf.fit(vec)
-res=idf_model.transform(vec)
-res.show()
-df1=res.select("label","idf_features")
-lr=LogisticRegression(featuresCol="idf_features",labelCol="label")
-model=lr.fit(df1)
-prediction=model.transform(df1)
-prediction.show()
-  `;
-      copyToClipboard(text);
-    }
-    function copyVariableText10() {
- const text = `
-from pyspark.sql import SparkSession
-from pyspark.ml.classification import NaiveBayes
-from pyspark.ml.feature import VectorAssembler, StringIndexer
-from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+data = {
 
-spark = SparkSession.builder.appName("NaiveBayesWeather").getOrCreate()
-data = [
-    ("Sunny", 30, 50, 10),
-    ("Rainy", 22, 85, 20),
-    ("Cloudy", 25, 70, 15),
-    ("Sunny", 35, 40, 8),
-    ("Rainy", 20, 90, 25),
-    ("Cloudy", 28, 65, 12),
-    ("Sunny", 32, 45, 7),
-    ("Rainy", 19, 95, 30),
-    ("Cloudy", 26, 75, 18),
-]
-columns = ["weather", "temperature", "humidity", "wind_speed"]
-df = spark.createDataFrame(data, columns)
-df.show()
-indexer = StringIndexer(inputCol="weather", outputCol="label")
-df = indexer.fit(df).transform(df)
-df.show()
-vector_assembler = VectorAssembler(inputCols=["temperature", "humidity", "wind_speed"], outputCol="features")
-df = vector_assembler.transform(df).select("label", "features")
+    'Date': [
 
-train_data, test_data = df.randomSplit([0.8, 0.2], seed=42)
-nb = NaiveBayes(modelType="multinomial")
-model = nb.fit(train_data)
-predictions = model.transform(test_data)
-evaluator = MulticlassClassificationEvaluator(labelCol="label", predictionCol="prediction", metricName="accuracy")
-accuracy = evaluator.evaluate(predictions)
-print(f"Test Accuracy: {accuracy:.2f}")
-predictions.select("label", "features", "prediction").show()
-  `;
-      copyToClipboard(text);
-    }
-    function copyVariableText11() {
- const text = `
-from pyspark.sql import SparkSession
-spark = SparkSession.builder.appName("WordCount").getOrCreate()
-sc = spark.sparkContext  
-data = [
-    "hello world",
-    "hello pyspark",
-    "pyspark map reduce example",
-    "reduce and map are powerful",
-]
-rdd = sc.parallelize(data)
-mapped_rdd = rdd.flatMap(lambda line: line.split(" ")).map(lambda word: (word, 1))
-word_counts = mapped_rdd.reduceByKey(lambda a, b: a + b)
-result = word_counts.collect()
-for word, count in result:
-    print(f"{word}: {count}")
-spark.stop()
-  `;
-      copyToClipboard(text);
-    }
-    function copyVariableText12() 
-{
- const text = `
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import explode,split
-from pyspark.sql.functions import col
-spark=SparkSession.builder.appName('Word').getOrCreate()
-data=[("Hello World",),("Hello , How are you",),("I am fine =",)]
-columns=["text"]
-df=spark.createDataFrame(data,columns)
-df.show(truncate=False)
-word_df=df.withColumn("words",explode(split(col("text")," ")))
-word_df.show()
-word_count=word_df.groupBy("words").count().orderBy(col('count').desc())
-word_count.show()
-  `;
-      copyToClipboard(text);
+        '1981-01-01', '1981-01-02', '1981-01-03', '1981-01-04', '1981-01-05',
+
+        '1981-01-06', '1981-01-07', '1981-01-08', '1981-01-09', '1981-01-10'
+
+    ],
+
+    'Temp': [
+
+        20.7, 17.9, 18.8, 14.6, 15.8,
+
+        19.2, 22.1, 23.5, 21.0, 18.4
+
+    ]
+
 }
-</script>
+
+df = pd.DataFrame(data)
+
+df['Date'] = pd.to_datetime(df['Date'])
+
+df.set_index('Date', inplace=True)
+
+print(df.head())
+
+print(df.tail())
+
+ 
+
+plt.figure(figsize=(12, 6))
+
+plt.plot(df['Temp'], label='Daily Minimum Temperature', color='blue')
+
+plt.title('Daily Minimum Temperature Over Time', fontsize=14)
+
+plt.xlabel('Date')
+
+plt.ylabel('Temperature (°C)')
+
+plt.legend()
+
+plt.show()
+
+decomposition = seasonal_decompose(df['Temp'], model='additive', period=5)  # Adjusted period
+
+decomposition.plot()
+
+plt.show()
+
+ 
+
+model = ARIMA(df['Temp'].dropna(), order=(1, 1, 0))  # Adjust parameters as needed
+
+model_fit = model.fit()
+
+forecast = model_fit.forecast(steps=30)
+
+forecast_dates = pd.date_range(start=df.index[-1] + pd.Timedelta(days=1), periods=30)
+
+plt.figure(figsize=(12, 6))
+
+plt.plot(df['Temp'], label='Historical Temperature', color='blue')
+
+plt.plot(forecast_dates, forecast, label='Forecasted Temperature', color='orange')
+
+plt.title('Temperature Forecast', fontsize=14)
+
+plt.xlabel('Date')
+
+plt.ylabel('Temperature (°C)')
+
+plt.legend()
+
+plt.show()`;
+
+ 
+
+      // Assign the variable's value to the text variable
+
+      var text = yourMultilineVariable;
+
+ 
+
+      // Create a temporary textarea element to hold the text
+
+      var tempTextArea = document.createElement("textarea");
+
+      tempTextArea.value = text;
+
+ 
+
+      // Append the textarea element to the DOM
+
+      document.body.appendChild(tempTextArea);
+
+ 
+
+      // Select the text in the textarea
+
+      tempTextArea.select();
+
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+ 
+
+      // Copy the selected text to the clipboard
+
+      document.execCommand("copy");
+
+ 
+
+      // Remove the temporary textarea
+
+      document.body.removeChild(tempTextArea);
+
+ 
+
+    }
+
+function copyMultilineText10() {
+
+      // Your variable containing multiline text data
+
+      var yourMultilineVariable = `import numpy as np
+
+import pandas as pd
+
+import matplotlib.pyplot as plt
+
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+
+df = pd.read_csv('Monthly.csv',parse_dates=['Date'])
+
+print(df.head(5))
+
+plt.figure(figsize=(12,6))
+
+plt.plot(df['Sales'],label='Monthly sales')
+
+plt.legend()
+
+plt.xlabel('Date')
+
+plt.ylabel('Sales')
+
+plt.show()
+
+ 
+
+decompose=seasonal_decompose(df['Sales'],model='additive',period=12)
+
+decompose.plot()
+
+plt.show()
+
+ 
+
+train_size=int(len(df)*0.8)
+
+train,test=df.iloc[:train_size],df.iloc[train_size:]
+
+print(len(train))
+
+print(len(test))
+
+model=SARIMAX(train['Sales'],order=(1,1,1),seasonal_order=(1,1,1,12),enforce_stationarity=False,enforce_invertibility=False)
+
+model_fit=model.fit(disp=False)
+
+print(model_fit.summary())
+
+forecast=model_fit.get_forecast(steps=len(df))
+
+forecast_index=test.index
+
+forecast_series=pd.Series(forecast.predicted_mean,index=forecast_index)
+
+conf_int=forecast.conf_int()
+
+forecast_series = forecast_series[:len(test.index)]
+
+conf_int = conf_int.iloc[:len(forecast_series)]
+
+plt.figure(figsize=(12, 6))
+
+plt.plot(test.index,test['Sales'],label='Actual',marker='o')
+
+plt.plot(test.index,forecast_series,label='forecast',marker='o',color='red')
+
+plt.fill_between(forecast_series.index,conf_int.iloc[:,0],conf_int.iloc[:,1],color='pink',alpha=0.3)
+
+plt.legend()
+
+plt.xlabel('Date')
+
+plt.ylabel('Sales')
+
+plt.show()
+
+ 
+
+final_model=SARIMAX(train['Sales'],order=(1,1,1),seasonal_order=(1,1,1,12),enforce_stationarity=False,enforce_invertibility=False)
+
+model_fit_f=final_model.fit(disp=False)
+
+last_date = pd.to_datetime(df.index[-1])
+
+f_forecast=model_fit.get_forecast(steps=12)
+
+f_forecast_index=pd.date_range( start=last_date + pd.DateOffset(months=1), periods=12,freq='MS')
+
+forecast_series=pd.Series(forecast.predicted_mean,index=f_forecast_index)
+
+f_forecast_series=f_forecast.predicted_mean
+
+f_conf_int=f_forecast.conf_int()
+
+plt.figure(figsize=(12, 6))
+
+plt.plot(df.index,df['Sales'],label='his',marker='o')
+
+plt.plot(f_forecast_series.index,f_forecast_series,label='furture',marker='o',color='red')
+
+plt.fill_between(f_forecast_series.index,f_conf_int.iloc[:,0],f_conf_int.iloc[:,1],color='pink',alpha=0.3)
+
+plt.legend()
+
+plt.xlabel('Date')
+
+plt.ylabel('Sales')
+
+plt.show()`;
+
+ 
+
+      // Assign the variable's value to the text variable
+
+      var text = yourMultilineVariable;
+
+ 
+
+      // Create a temporary textarea element to hold the text
+
+      var tempTextArea = document.createElement("textarea");
+
+      tempTextArea.value = text;
+
+ 
+
+      // Append the textarea element to the DOM
+
+      document.body.appendChild(tempTextArea);
+
+ 
+
+      // Select the text in the textarea
+
+      tempTextArea.select();
+
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+ 
+
+      // Copy the selected text to the clipboard
+
+      document.execCommand("copy");
+
+ 
+
+      // Remove the temporary textarea
+
+      document.body.removeChild(tempTextArea);
+
+ 
+
+    }
+
+  function copyMultilineText11() {
+
+      // Your variable containing multiline text data
+
+      var yourMultilineVariable = `import scipy.stats as stats
+
+import numpy as np
+
+x = np.array([59, 65, 45, 52, 60, 62, 70, 55, 45, 49])
+
+y = np.array([76, 70, 55, 65, 60, 64, 80, 65, 54, 61])
+
+slope_yx, intercept_yx, r_value_yx, p_value_yx, std_err_yx = stats.linregress(y, x)
+
+slope_xy, intercept_xy, r_value_xy, p_value_xy, std_err_xy = stats.linregress(x, y)
+
+estimate_yx = slope_yx * 61 + intercept_yx
+
+ 
+
+from scipy.stats import norm, uniform, expon, binom, poisson
+
+np.random.seed(42)
+
+normal_samples = np.random.normal(loc=0, scale=1, size=1000)
+
+uniform_samples = np.random.uniform(low=0, high=1, size=1000)
+
+exponential_samples = np.random.exponential(scale=1, size=1000)
+
+binomial_samples = np.random.binomial(n=10, p=0.5, size=1000)
+
+poisson_samples = np.random.poisson(lam=3, size=1000)
+
+`;
+
+ 
+
+      // Assign the variable's value to the text variable
+
+      var text = yourMultilineVariable;
+
+ 
+
+      // Create a temporary textarea element to hold the text
+
+      var tempTextArea = document.createElement("textarea");
+
+      tempTextArea.value = text;
+
+ 
+
+      // Append the textarea element to the DOM
+
+      document.body.appendChild(tempTextArea);
+
+ 
+
+      // Select the text in the textarea
+
+      tempTextArea.select();
+
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+
+ 
+
+      // Copy the selected text to the clipboard
+
+      document.execCommand("copy");
+
+ 
+
+      // Remove the temporary textarea
+
+      document.body.removeChild(tempTextArea);
+
+ 
+
+    }
+
+  </script>
+
 </body>
+
 </html>
