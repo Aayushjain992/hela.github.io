@@ -4,21 +4,30 @@
   <title>x</title>
 </head>
 <body>
-  <button onclick="copyVariableText1()">read</button>
-  <button onclick="copyVariableText2()">comb</button>
-  <button onclick="copyVariableText3()">mapre</button>
-  <button onclick="copyVariableText4()">conf</button>
-  <button onclick="copyVariableText5()">temview</button>
-  <button onclick="copyVariableText6()">udf</button>
-  <button onclick="copyVariableText7()">lin</button>
-  <button onclick="copyVariableText8()">kmean</button>
-  <button onclick="copyVariableText9()">log</button>
-  <button onclick="copyVariableText10()">naiv</button>
-  <button onclick="copyVariableText11()">stream</button>
-  <button onclick="copyVariableText12()">count manip</button>
+  <button onclick="copyMultilineText1()">read</button>
+  <button onclick="copyMultilineText2()">comb</button>
+  <button onclick="copyMultilineText3()">mapre</button>
+  <button onclick="copyMultilineText4()">conf</button>
+  <button onclick="copyMultilineText5()">temview</button>
+  <button onclick="copyMultilineText6()">udf</button>
+  <button onclick="copyMultilineText7()">lin</button>
+  <button onclick="copyMultilineText8()">kmean</button>
+  <button onclick="copyMultilineText9()">log</button>
+  <button onclick="copyMultilineText10()">naiv</button>
+  <button onclick="copyMultilineText11()">stream</button>
+  <button onclick="copyMultilineText12()">count manip</button>
   <script>
-    function copyMultilineText1() {
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          alert("Text copied to clipboard");
+        })
+        .catch(err => {
+          console.error('Error copying text: ', err);
+        });
+    }
 
+    function copyMultilineText1() {
       var yourMultilineVariable = `!pip install pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
@@ -37,17 +46,11 @@ jps
 hdfs dfs -ls /
 hdfs dfsadmin -report 
 hdfs dfs -mkdir /user/hadoop
-hdfs dfs -put C:\ha\p.txt /user/hadoop
+hdfs dfs -put C:\\ha\\p.txt /user/hadoop
 `;
-    var text = yourMultilineVariable;
-    var tempTextArea = document.createElement("textarea");
-      tempTextArea.value = text;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea);
+      copyToClipboard(yourMultilineVariable);
     }
+
     function copyMultilineText2() {
       var yourMultilineVariable = `from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
@@ -69,38 +72,12 @@ join_df = combine_df.join(df4, on='ID', how='inner')
 join_df.show()
 df1 = df1.withColumn('country', col('Age'))
 df1.show()
-
-//file
-df1= spark.read.option('header',True).csv('/content/Employee.csv')
-df2= spark.read.option('header',True).csv('/content/Department.csv')
-spar1 = SparkSession.builder.appName('JoindiffCSV').getOrCreate()
-df6 = spar1.read.option('header',True).csv('/content/Department.csv')
-df6.show()
-comb_df2 = df.join(df6,on = 'Department_Id',how = 'inner')
-comb_df2.show()
-
 `;
-      var text = yourMultilineVariable;
-
-      var tempTextArea = document.createElement("textarea");
-
-      tempTextArea.value = text;
-
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-
-      tempTextArea.setSelectionRange(0, 99999); 
-
-      document.execCommand("copy");
-
-      document.body.removeChild(tempTextArea);
+      copyToClipboard(yourMultilineVariable);
     }
 
-     function copyMultilineText3() {
-
-      // Your variable containing multiline text data
-
-     var yourMultilineVariable = `from pyspark.sql import SparkSession
+    function copyMultilineText3() {
+      var yourMultilineVariable = `from pyspark.sql import SparkSession
 spark = SparkSession.builder.appName("SalesTotal").getOrCreate()
 sc = spark.sparkContext 
 sales_data = [
@@ -121,433 +98,11 @@ for product, total in result:
     print(f"{product}: ${total}")
 spark.stop()
 `;
-      var text = yourMultilineVariable;
-      var tempTextArea = document.createElement("textarea");
-      tempTextArea.value = text;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea);
+      copyToClipboard(yourMultilineVariable);
     }
 
-    function copyMultilineText4() {
+    // Repeat for other functions as needed
 
-      // Your variable containing multiline text data
-
-      var yourMultilineVariable = `
-from pyspark.sql import SparkSession
-spark=SparkSession.builder.appName("SparkSessionExample").config("SparkConfig","config-value").getOrCreate()
-from pyspark.sql import Row
-data=[Row(name="al",Age=34),Row(name="r",Age=30),Row(name="sd",Age=35)]
-df=spark.createDataFrame(data)
-df.show()
-df.printSchema()
-#user
-num_rows = int(input("Enter the number of rows: "))
-data=[]
-for i in range(num_rows):
-    name = input(f"Enter the name  : ")
-    age = int(input(f"Enter the age : "))
-    city=input(f"Enter the city : ")
-    data.append((name,age,city))
-
-column=["name","age","city"]
-df=spark.createDataFrame(data,schema=column)
-df.show()
-df.printSchema()
-df.filter(df.age>24).show()
-df.where(df.city=="ms").show()
-output_path="1.csv"
-df.write.option("header",True).csv(output_path)
-`;
-
- 
-
-      // Assign the variable's value to the text variable
-
-      var text = yourMultilineVariable;
-
- 
-
-      // Create a temporary textarea element to hold the text
-
-      var tempTextArea = document.createElement("textarea");
-
-      tempTextArea.value = text;
-
- 
-
-      // Append the textarea element to the DOM
-
-      document.body.appendChild(tempTextArea);
-
- 
-
-      // Select the text in the textarea
-
-      tempTextArea.select();
-
-      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
-
- 
-
-      // Copy the selected text to the clipboard
-
-      document.execCommand("copy");
-
- 
-
-      // Remove the temporary textarea
-
-      document.body.removeChild(tempTextArea);
-
- 
-
- 
-
-    }
-
-    function copyMultilineText5() {
-
-      // Your variable containing multiline text data
-
-      var yourMultilineVariable = `from pyspark.sql import SparkSession
-from pyspark.sql import Row
-spark=SparkSession.builder.appName('TemperoryViewExample').getOrCreate()
-data=[Row(id=1,name="ABC",age=25,city="ss"),Row(id=2,name="DEF",age=35,city="hi"),Row(id=3,name="GHI",age=15,city="ra"),Row(id=4,name="XYZ",age=38,city="js")]
-df=spark.createDataFrame(data)
-df.show()
-df.createOrReplaceTempView("Employee")
-result=spark.sql("select * from Employee")
-result.show()
-result1=spark.sql("select * from Employee where age>30")
-result1.show()
-#Sales 
-
-data=[Row(1,"Electronic",1000,"2025-03-01"),
-      Row(2,"Electronic",3000,"2025-01-01")]
-columns=["sales_id","category","amount","date"]
-df=spark.createDataFrame(data,columns)
-df.createOrReplaceTempView("Sales")
-result=spark.sql("select * from Sales")
-result2=spark.sql("select category,AVG(amount) as Avg_Amt from Sales group by category")
-result2.show()
-result3=spark.sql("select * from Sales order by amount desc limit 1")
-import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
-df_query1=result2.toPandas()
-#barplot
-plt.figure(figsize=(8,5))
-sns.barplot(x="category",y="Avg_Amt",data=df_query1)
-plt.title("Sales Amount by Category ")
-plt.xlabel("Category")
-plt.ylabel("Sales Amount")
-plt.show()
-`;
-     var text = yourMultilineVariable;
-      var tempTextArea = document.createElement("textarea");
-      tempTextArea.value = text;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea);
-    }
-
-    function copyMultilineText6() {
-
-      // Your variable containing multiline text data
-
-      var yourMultilineVariable = `
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import udf
-from pyspark.sql.types import StringType
-
-spark= SparkSession.builder.appName("UDF_Example").getOrCreate()
-data=[("os",65),("pa",12),("jo",45)]
-columns=["name","age"]
-df=spark.createDataFrame(data,schema=columns)
-df.printSchema()
-def age_group(age):
-  if age<18:
-    return "Minor"
-  elif age >= 18 and age <= 60:
-    return "Adult"
-  else:
-    return "Senior Citizen"
-
-age_group_udf=udf(age_group,StringType()) 
-df=df.withColumn("age_group",age_group_udf(df["age"]))
-df.show()
-`;
-
- 
-
-      // Assign the variable's value to the text variable
-
-      var text = yourMultilineVariable;
-
- 
-
-      // Create a temporary textarea element to hold the text
-
-      var tempTextArea = document.createElement("textarea");
-
-      tempTextArea.value = text;
-
- 
-
-      // Append the textarea element to the DOM
-
-      document.body.appendChild(tempTextArea);
-
- 
-
-      // Select the text in the textarea
-
-      tempTextArea.select();
-
-      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
-
- 
-
-      // Copy the selected text to the clipboard
-
-      document.execCommand("copy");
-
- 
-
-      // Remove the temporary textarea
-
-      document.body.removeChild(tempTextArea);
-
- 
-
-    }
-
-        function copyMultilineText7() {
-
-      // Your variable containing multiline text data
-
-      var yourMultilineVariable = `
-from pyspark.sql import SparkSession
-from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.regression import LinearRegression
-
-spark = SparkSession.builder.appName("RegressionExample").getOrCreate()
-data=[(1,100),(2,110),(3,120),(4,130),(5,105)]
-columns=["feature","target"]
-df=spark.createDataFrame(data,schema=columns)
-df.show()
-assembled=VectorAssembler(inputCols=["feature"],outputCol="features")
-df=assembled.transform(df).select("features","target")
-df.show()
-lr=LinearRegression(featuresCol="features",labelCol="target")
-lr_model=lr.fit(df)
-print("Coefficients:",lr_model.coefficients)
-print("Intercept:",lr_model.intercept)
-training_summary=lr_model.summary
-print("Root Mean Squared error:",training_summary.rootMeanSquaredError)
-print("R2:",training_summary.r2)
-prediction=lr_model.transform(df)
-prediction.select("features","target","prediction").show()
-`;
-      var text = yourMultilineVariable;
-      var tempTextArea = document.createElement("textarea");
-      tempTextArea.value = text;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      tempTextArea.setSelectionRange(0, 99999); 
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea);
-
- 
-
-    }
-
-    function copyMultilineText8() {
-
-      // Your variable containing multiline text data
-
-      var yourMultilineVariable = `
-from pyspark.sql import SparkSession
-from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.clustering import KMeans
-spark=SparkSession.builder.appName('Kmeans').getOrCreate()
-data=[(1.0,2.0),(1.5,1.8),(5.0,8.0),(8.0,8.0),(1.0,0.6),(9.0,11.0)]
-columns=["sub1","sub2"]
-df=spark.createDataFrame(data,columns)
-df.show()
-assembler=VectorAssembler(inputCols=["sub1","sub2"],outputCol="features")
-res=assembler.transform(df)
-res.show()
-kmeans=KMeans(k=2,seed=1)
-model=kmeans.fit(res)
-prediction=model.transform(res)
-prediction.show()
-for center in model.clusterCenters():
-  print(center)`;
-      var text = yourMultilineVariable;
-       var tempTextArea = document.createElement("textarea");
-      tempTextArea.value = text;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      tempTextArea.setSelectionRange(0, 99999); 
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea);
-
-    }
-
-function copyMultilineText9() {
-
-      // Your variable containing multiline text data
-
-      var yourMultilineVariable = `from pyspark.sql import SparkSession
-from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.classification import LogisticRegression
-from pyspark.ml.feature import CountVectorizer,IDF,Tokenizer
-spark=SparkSession.builder.appName('Log').getOrCreate()
-data=[(1,"Win a free Iphone"),(1,"You won a lottery"),(0,"Hello Lets meet for lunch"),(0,"Dont forget to complete the assignment")]
-columns=["label","text"]
-df=spark.createDataFrame(data,columns)
-df.show()
-tokenizer=Tokenizer(inputCol="text",outputCol="Tokens") # Now Tokenizer should be defined
-res=tokenizer.transform(df)
-res.show()
-vectorizer=CountVectorizer(inputCol="Tokens",outputCol="features")
-Vector_model=vectorizer.fit(res)
-vec=Vector_model.transform(res)
-vec.show()
-idf=IDF(inputCol="features",outputCol="idf_features")
-idf_model=idf.fit(vec)
-res=idf_model.transform(vec)
-res.show()
-df1=res.select("label","idf_features")
-lr=LogisticRegression(featuresCol="idf_features",labelCol="label")
-model=lr.fit(df1)
-prediction=model.transform(df1)
-prediction.show()
-`;      var text = yourMultilineVariable;
-      var tempTextArea = document.createElement("textarea");
-      tempTextArea.value = text;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea);
-    }
-
-function copyMultilineText10() {
-
-      // Your variable containing multiline text data
-
-      var yourMultilineVariable = `
-from pyspark.sql import SparkSession
-from pyspark.ml.classification import NaiveBayes
-from pyspark.ml.feature import VectorAssembler, StringIndexer
-from pyspark.ml.evaluation import MulticlassClassificationEvaluator
-
-spark = SparkSession.builder.appName("NaiveBayesWeather").getOrCreate()
-data = [
-    ("Sunny", 30, 50, 10),
-    ("Rainy", 22, 85, 20),
-    ("Cloudy", 25, 70, 15),
-    ("Sunny", 35, 40, 8),
-    ("Rainy", 20, 90, 25),
-    ("Cloudy", 28, 65, 12),
-    ("Sunny", 32, 45, 7),
-    ("Rainy", 19, 95, 30),
-    ("Cloudy", 26, 75, 18),
-]
-columns = ["weather", "temperature", "humidity", "wind_speed"]
-df = spark.createDataFrame(data, columns)
-df.show()
-indexer = StringIndexer(inputCol="weather", outputCol="label")
-df = indexer.fit(df).transform(df)
-df.show()
-vector_assembler = VectorAssembler(inputCols=["temperature", "humidity", "wind_speed"], outputCol="features")
-df = vector_assembler.transform(df).select("label", "features")
-
-train_data, test_data = df.randomSplit([0.8, 0.2], seed=42)
-nb = NaiveBayes(modelType="multinomial")
-model = nb.fit(train_data)
-predictions = model.transform(test_data)
-evaluator = MulticlassClassificationEvaluator(labelCol="label", predictionCol="prediction", metricName="accuracy")
-accuracy = evaluator.evaluate(predictions)
-print(f"Test Accuracy: {accuracy:.2f}")
-predictions.select("label", "features", "prediction").show()
-`;
-
- 
-
-      // Assign the variable's value to the text variable
-
-      var text = yourMultilineVariable;
-      var tempTextArea = document.createElement("textarea");
-      tempTextArea.value = text;
-      document.body.appendChild(tempTextArea);
-       tempTextArea.select();
-      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea)
-    }
-
-  function copyMultilineText11() {
-
-      // Your variable containing multiline text data
-
-      var yourMultilineVariable = `
-from pyspark.sql import SparkSession
-spark = SparkSession.builder.appName("WordCount").getOrCreate()
-sc = spark.sparkContext  
-data = [
-    "hello world",
-    "hello pyspark",
-    "pyspark map reduce example",
-    "reduce and map are powerful",
-]
-rdd = sc.parallelize(data)
-mapped_rdd = rdd.flatMap(lambda line: line.split(" ")).map(lambda word: (word, 1))
-word_counts = mapped_rdd.reduceByKey(lambda a, b: a + b)
-result = word_counts.collect()
-for word, count in result:
-    print(f"{word}: {count}")
-spark.stop()`;
-      var text = yourMultilineVariable;
-      var tempTextArea = document.createElement("textarea");
-      tempTextArea.value = text;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea);
-}
-    function copyVariableText12() 
-{      var yourMultilineVariable = `
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import explode,split
-from pyspark.sql.functions import col
-spark=SparkSession.builder.appName('Word').getOrCreate()
-data=[("Hello World",),("Hello , How are you",),("I am fine =",)]
-columns=["text"]
-df=spark.createDataFrame(data,columns)
-df.show(truncate=False)
-word_df=df.withColumn("words",explode(split(col("text")," ")))
-word_df.show()
-word_count=word_df.groupBy("words").count().orderBy(col('count').desc())
-word_count.show()
-`;
-      var text = yourMultilineVariable;
-      var tempTextArea = document.createElement("textarea");
-      tempTextArea.value = text;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
-      document.execCommand("copy");
-      document.body.removeChild(tempTextArea);
-    }
   </script>
 </body>
 </html>
