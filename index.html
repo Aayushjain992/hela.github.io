@@ -374,6 +374,28 @@ result = word_counts.collect()
 for word, count in result:
     print(f"{word}: {count}")
 spark.stop()
+
+# mapp
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName("SalesTotal").getOrCreate()
+sc = spark.sparkContext 
+sales_data = [
+    ("Laptop", 1000),
+    ("Mobile", 500),
+    ("Laptop", 1200),
+    ("Tablet", 700),
+    ("Mobile", 450),
+    ("Tablet", 650),
+    ("Laptop", 1100),
+    ("Mobile", 520),
+]
+rdd = sc.parallelize(sales_data)
+mapped_rdd = rdd.map(lambda x: (x[0], x[1]))
+total_sales_rdd = mapped_rdd.reduceByKey(lambda a, b: a + b)
+result = total_sales_rdd.collect()
+for product, total in result:
+    print(f"{product}: ${total}")
+spark.stop()
 `;
       copyToClipboard(yourMultilineVariable);
     }
