@@ -374,15 +374,6 @@ result = word_counts.collect()
 for word, count in result:
     print(f"{word}: {count}")
 spark.stop()
-
-# mapp
-sales_data = [
-    ("Laptop", 1000),
-]
-mapped_rdd = rdd.map(lambda x: (x[0], x[1]))
-result = total_sales_rdd.collect()
-for product, total in result:
-    print(f"{product}: ${total}")
 `;
       copyToClipboard(yourMultilineVariable);
     }
