@@ -485,43 +485,13 @@ predictions.select("label", "features", "prediction").show()
       // Assign the variable's value to the text variable
 
       var text = yourMultilineVariable;
-
- 
-
-      // Create a temporary textarea element to hold the text
-
       var tempTextArea = document.createElement("textarea");
-
       tempTextArea.value = text;
-
- 
-
-      // Append the textarea element to the DOM
-
       document.body.appendChild(tempTextArea);
-
- 
-
-      // Select the text in the textarea
-
-      tempTextArea.select();
-
+       tempTextArea.select();
       tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
-
- 
-
-      // Copy the selected text to the clipboard
-
       document.execCommand("copy");
-
- 
-
-      // Remove the temporary textarea
-
-      document.body.removeChild(tempTextArea);
-
- 
-
+      document.body.removeChild(tempTextArea)
     }
 
   function copyMultilineText11() {
@@ -544,10 +514,18 @@ word_counts = mapped_rdd.reduceByKey(lambda a, b: a + b)
 result = word_counts.collect()
 for word, count in result:
     print(f"{word}: {count}")
-spark.stop()
-    }
+spark.stop()`;
+      var text = yourMultilineVariable;
+      var tempTextArea = document.createElement("textarea");
+      tempTextArea.value = text;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      tempTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+      document.execCommand("copy");
+      document.body.removeChild(tempTextArea);
+}
     function copyVariableText12() 
-{
+{      var yourMultilineVariable = `
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import explode,split
 from pyspark.sql.functions import col
