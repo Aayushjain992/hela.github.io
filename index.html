@@ -4,18 +4,18 @@
   <title>x</title>
 </head>
 <body>
-  <button onclick="copyMultilineText1()">read</button>
-  <button onclick="copyMultilineText2()">comb</button>
-  <button onclick="copyMultilineText3()">mapre</button>
-  <button onclick="copyMultilineText4()">conf</button>
-  <button onclick="copyMultilineText5()">temview</button>
-  <button onclick="copyMultilineText6()">udf</button>
-  <button onclick="copyMultilineText7()">lin</button>
-  <button onclick="copyMultilineText8()">kmean</button>
-  <button onclick="copyMultilineText9()">log</button>
-  <button onclick="copyMultilineText10()">naiv</button>
-  <button onclick="copyMultilineText11()">stream</button>
-  <button onclick="copyMultilineText12()">count manip</button>
+  <button onclick="copyMultilineText1()">1</button>
+  <button onclick="copyMultilineText2()">2</button>
+  <button onclick="copyMultilineText3()">3</button>
+  <button onclick="copyMultilineText4()">4</button>
+  <button onclick="copyMultilineText5()">5</button>
+  <button onclick="copyMultilineText6()">6</button>
+  <button onclick="copyMultilineText7()">7</button>
+  <button onclick="copyMultilineText8()">8</button>
+  <button onclick="copyMultilineText9()">9</button>
+  <button onclick="copyMultilineText10()">10</button>
+  <button onclick="copyMultilineText11()">11</button>
+  <button onclick="copyMultilineText12()">12</button>
   <script>
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text)
@@ -25,104 +25,342 @@
     }
 
     function copyMultilineText1() {
-      var yourMultilineVariable = `!pip install pyspark
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import *
-spark = SparkSession.builder.appName('test').getOrCreate()
-df = spark.read.option('header', True).csv('/content/Employee.csv')
-df.show()
-df.select('salary').show(5)
-df.printSchema()
-panda_df = df.toPandas()
-panda_df.head()
+      var yourMultilineVariable = `#Importing the required packages
 
-hdfs namenode -format
-start-dfs.cmd
-start-yarn.cmd
-jps
-hdfs dfs -ls /
-hdfs dfsadmin -report 
-hdfs dfs -mkdir /user/hadoop
-hdfs dfs -put C:\\ha\\p.txt /user/hadoop
+import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
+
+df1 = pd.read_csv(r'/content/movies.csv')
+df2 = pd.read_csv(r'/content/ratings.csv')
+df = df2.merge(df1, left_on='movieId', right_on='movieId', how='left')
+df
+
+del df['timestamp']
+del df['genres']
+df.head()
+user_movie_matrix = pd.pivot_table(df, values = 'rating', index='movieId', columns = 'userId')
+user_movie_matrix
+user_movie_matrix = user_movie_matrix.fillna(0)
+user_movie_matrix.head()
+#user-based collaborative filtering 
+
+user_user_matrix = user_movie_matrix.corr(method='pearson')
+user_user_matrix
+#Extarcing top 10 similar users for User2 by sorting them in descending order based on their similarties
+
+
+
+user_user_matrix.loc[2].sort_values(ascending=False).head(10)
+df_2 = pd.DataFrame(user_user_matrix.loc[2].sort_values(ascending=False).head(10))
+df_2 = df_2.reset_index()
+df_2.columns = ['userId', 'similarity']
+df_2 = df_2.drop((df_2[df_2['userId'] ==2]).index)
+df_2
+#Now we are creating a new DF which has all the similar users and their rated movies
+
+final_df = df_2.merge(df, left_on='userId', right_on='userId', how='left')
+final_df
+final_df['score'] = final_df['similarity']*final_df['rating']
+final_df
+watched_df = df[df['userId'] == 2]
+watched_df
+cond = final_df['movieId'].isin(watched_df['movieId'])
+final_df.drop(final_df[cond].index, inplace = True)
+recommended_df = final_df.sort_values(by = 'score', ascending = False)['title'].head(10)
+recommended_df = recommended_df.reset_index()
+del recommended_df['index']
+recommended_df
+
 `;
       copyToClipboard(yourMultilineVariable);
     }
 
     function copyMultilineText2() {
-      var yourMultilineVariable = `from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
-spark = SparkSession.builder.appName('CombineDataframe').getOrCreate()
-data1 = [(1, 'xy', 2), (2, 'ys', 3), (3, 'ko', 5)]
-data2 = [(4,'s', 5), (5, 'rp', 2), (6, 'os', 2)]
-columns = ['ID', 'Name', 'Age']
-df1 = spark.createDataFrame(data1, columns)
-df2 = spark.createDataFrame(data2, columns)
-df1.show()
-df2.show()
-combine_df = df1.union(df2)
-combine_df.show()
-data4 =[(1, 'js'), (2, 'la'), (3, 'us'), (4, 'ca'), (5, 'ma'), (3, 'an')]
-columns4 = ['ID', 'City']
-df4 = spark.createDataFrame(data4, columns4)
-df4.show()
-join_df = combine_df.join(df4, on='ID', how='inner')
-join_df.show()
-df1 = df1.withColumn('country', col('Age'))
-df1.show()
+      var yourMultilineVariable = `import os
+import sys
+from pathlib import Path
+
+import pandas as pd
+import numpy as np
+
+# Options for pandas
+pd.options.display.max_columns = 50
+pd.options.display.max_rows = 30
+pd.options.display.float_format = '{:,.4f}'.format
+
+# autoreload extension
+%load_ext autoreload
+%autoreload 2
+
+
+sys.path.insert(0, str(Path.cwd().parent))
+
+import ast
+from PIL import Image
+REPO_PATH = Path.cwd()
+
+report_path = '/content/BigData_sizes.csv'
+df = pd.read_csv(report_path, converters={'logo_path': str, 'description_html': str,
+                                          'logo_rendering': ast.literal_eval,
+                                          'arrow_specs': ast.literal_eval
+                                          })
+
+df
+
+sort_idx = df.sort_values('size_PB').index
+df.loc[sort_idx]
+
+import plotly.graph_objects as go
+
+big_lbls = df.loc[df.size_label.str.contains('EB'), 'size_label']
+df.loc[df.size_label.str.contains('EB'), 'size_label'] = ''
+
+
+layout = {
+    'template': "plotly_white",
+    'paper_bgcolor': 'rgba(0,0,0,0)',
+    'plot_bgcolor': 'rgba(0,0,0,0)',
+    'title': {
+        'x': 0.5, 'xanchor': 'center'
+    },
+    'font': dict(
+        family="Helvetica",
+        size=18,
+    ),
+    'showlegend': False,
+    'autosize': False,
+    'width': 1400,
+    'height': 720,
+    'margin': dict(l=0, r=0, t=0, b=0),
+}
+
+# Bubble plot
+fig = go.Figure(data=[
+    go.Scatter(
+        x=df.x, y=df.size_PB,
+        #         x0=1,dx=6,
+        mode='markers+text',
+        marker=dict(
+            size=df.area_size,
+            color=df.color,
+            opacity=[0.7]*(df.shape[0]-1) + [0.4],
+            sizemin=12,
+            sizemode='area',
+            sizeref=2. * df.area_size.max() / (840 ** 2)
+        ),
+        text=df.size_label.str.replace('yr', 'y'),
+        textposition='bottom center',
+        textfont=dict(size=14),
+    )
+]
+)
+
+# Big bubbles labels
+fig.add_trace(go.Scatter(
+    x=[42, 74, 71],
+    y=[20000, 3800, 25],
+    mode="text",
+    text=big_lbls,
+    textposition="bottom center",
+    textfont=dict(size=[14, 14, 18])
+))
+
+# Image annotations
+logos_path = REPO_PATH / "/content/"
+
+for v in df[['logo_path', 'logo_rendering']].itertuples():
+    if not v.logo_path:
+        continue
+    src = Image.open(logos_path / v.logo_path)  # logos_path + v.logo_path
+
+    xpos, ypos, xs, ys = v.logo_rendering
+    fig.add_layout_image(
+        dict(
+            source=src,
+            xref="paper", yref="paper",
+            x=xpos, y=ypos,
+            sizex=xs, sizey=ys,
+            xanchor="right", yanchor="bottom"
+        )
+    )
+
+
+# Text annotations
+for v in df[['description_html', 'arrow_specs']].itertuples():
+    if not v.arrow_specs:
+        continue
+    xpos, ypos, xlen, ylen = v.arrow_specs
+    fig.add_annotation(
+        xref="x", yref="y domain",
+        x=xpos, y=ypos,
+        ax=xlen, ay=ylen,
+        text=v.description_html,
+        showarrow=True,
+        arrowhead=0,
+        font=dict(size=14),
+    )
+
+# Layout
+fig.update_layout(
+    yaxis=dict(
+        type="log",
+        range=[1, 7.5],
+        visible=True,
+    ),
+    yaxis_title="log size (PB)",
+    xaxis_title="source Aayush Jain 12",
+    xaxis=dict(
+        range=[-4.5, df.x.max()+2],
+        visible=True,
+        showticklabels=False,
+    ),
+)
+
+fig.update_layout(layout)
+
+fig.show()
 `;
       copyToClipboard(yourMultilineVariable);
     }
 
     function copyMultilineText3() {
-      var yourMultilineVariable = `from pyspark.sql import SparkSession
-spark = SparkSession.builder.appName("SalesTotal").getOrCreate()
-sc = spark.sparkContext 
-sales_data = [
-    ("Laptop", 1000),
-    ("Mobile", 500),
-    ("Laptop", 1200),
-    ("Tablet", 700),
-    ("Mobile", 450),
-    ("Tablet", 650),
-    ("Laptop", 1100),
-    ("Mobile", 520),
-]
-rdd = sc.parallelize(sales_data)
-mapped_rdd = rdd.map(lambda x: (x[0], x[1]))
-total_sales_rdd = mapped_rdd.reduceByKey(lambda a, b: a + b)
-result = total_sales_rdd.collect()
-for product, total in result:
-    print(f"{product}: ${total}")
-spark.stop()
+      var yourMultilineVariable = `import pandas as pd
+import plotly.graph_objects as go
+
+# Load the dataset
+file_path = '/content/my_experiment.csv'
+data = pd.read_csv(file_path)
+
+# Ensure 'area_size' is numeric
+data['area_size'] = pd.to_numeric(data['area_size'], errors='coerce')
+
+# Handle missing or NaN values (if any)
+data['area_size'] = data['area_size'].fillna(0)  # Replace NaN with 0 or use .dropna()
+
+# Calculate sizeref after ensuring numeric values
+sizeref = 2. * data['area_size'].max() / (840 ** 2)
+
+# Prepare the layout for the plot
+layout = {
+    'template': "plotly_white",
+    'paper_bgcolor': 'rgba(0,0,0,0)',
+    'plot_bgcolor': 'rgba(0,0,0,0)',
+    'title': {
+        'text': "Storage Systems Visualization",
+        'x': 0.5, 'xanchor': 'center'
+    },
+    'font': dict(
+        family="Helvetica",
+        size=18,
+    ),
+    'showlegend': False,
+    'autosize': False,
+    'width': 1400,
+    'height': 720,
+    'margin': dict(l=0, r=0, t=50, b=0),
+    'images': [
+        # Example of adding logos, adjust the 'x', 'y' coordinates and 'sizing'
+        {
+            'source': '/content/google_icon.png',  # Replace with the URL or path to the logo
+            'xref': 'paper',  # Relative to paper coordinates
+            'yref': 'paper',
+            'x': 0.05,  # Horizontal position (between 0 and 1)
+            'y': 0.95,  # Vertical position (between 0 and 1)
+            'sizex': 0.1,  # Width as a fraction of the plot size
+            'sizey': 0.1,  # Height as a fraction of the plot size
+            'opacity': 0.7,
+            'layer': 'above'
+        },
+        {
+            'source': '/content/IBM.png',  # Replace with the URL or path to another logo
+            'xref': 'paper',
+            'yref': 'paper',
+            'x': 0.9,
+            'y': 0.05,
+            'sizex': 0.1,
+            'sizey': 0.1,
+            'opacity': 0.7,
+            'layer': 'above'
+        }
+    ]
+}
+
+# Create a bubble plot
+fig = go.Figure(data=[
+    go.Scatter(
+        x=data['source'],
+        y=data['size_PB'],
+        mode='markers+text',
+        marker=dict(
+            size=data['area_size'],
+            color=data['color'],
+            opacity=0.7,
+            sizemode='area',
+            sizeref=sizeref
+        ),
+        text=data['source'],
+        textposition='top center',
+        textfont=dict(size=14),
+    )
+])
+
+# Layout settings
+fig.update_layout(
+    yaxis=dict(
+        type="linear",
+        title="Size",
+        visible=True,
+    ),
+    xaxis=dict(
+        title="Storage",
+        visible=True,
+    )
+)
+
+fig.update_layout(layout)
+
+# Show the plot
+fig.show()
 `;
       copyToClipboard(yourMultilineVariable);
     }
 
     function copyMultilineText4() {
-      var yourMultilineVariable = `from pyspark.sql import SparkSession
-spark=SparkSession.builder.appName("SparkSessionExample").config("SparkConfig","config-value").getOrCreate()
-from pyspark.sql import Row
-data=[Row(name="al",Age=34),Row(name="r",Age=30),Row(name="sd",Age=35)]
-df=spark.createDataFrame(data)
-df.show()
-df.printSchema()
-#user
-num_rows = int(input("Enter the number of rows: "))
-data=[]
-for i in range(num_rows):
-    name = input(f"Enter the name  : ")
-    age = int(input(f"Enter the age : "))
-    city=input(f"Enter the city : ")
-    data.append((name,age,city))
+      var yourMultilineVariable = `!pip install biopython
 
-column=["name","age","city"]
-df=spark.createDataFrame(data,schema=column)
-df.show()
-df.printSchema()
-df.filter(df.age>24).show()
-df.where(df.city=="ms").show()
-output_path="1.csv"
-df.write.option("header",True).csv(output_path)
+from  Bio import SeqIO
+import matplotlib.pyplot as plt
+fp="/content/sample.fasta"
+for seq_record in SeqIO.parse(fp, "fasta"):
+    print(seq_record.id)
+    print(repr(seq_record.seq))
+    print(len(seq_record))
+
+
+def calculate_gc_content(sequence, window_size):
+
+    gc_content = []
+    for i in range(0, len(sequence) - window_size + 1):
+        window = sequence[i:i + window_size]
+        gc_count = window.count("G") + window.count("C")
+        gc_content.append(gc_count / window_size * 100)
+    return gc_content
+
+# Example DNA sequence
+dna_sequence = "ATGCGCGTAGCTAGGCTACGCGTACGTAGCGTAGCGTAGCTAGGCTAGCGTACGTAGC"
+window_size = 10
+
+# Calculate GC content
+gc_values = calculate_gc_content(dna_sequence, window_size)
+
+# Plot GC content
+plt.figure(figsize=(10, 5))
+plt.plot(range(len(gc_values)), gc_values, marker='o', linestyle='-', color='b')
+plt.title(f"GC Content with Window Size {window_size}")
+plt.xlabel("Window Position")
+plt.ylabel("GC Content (%)")
+plt.grid()
+plt.show()
 `;
       copyToClipboard(yourMultilineVariable);
     }
@@ -399,4 +637,3 @@ word_count.show()
   </script>
 </body>
 </html>
-Page 1 of 33
