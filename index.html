@@ -365,7 +365,75 @@ plt.show()
       copyToClipboard(yourMultilineVariable);
     }
     function copyMultilineText5() {
-      var yourMultilineVariable = `# Your existing code for button 5 here...`;
+      var yourMultilineVariable = `!pip install sentinelhub numpy matplotlib geopandas shapely> /dev/null
+from sentinelhub import SHConfig, BBox, CRS, DataCollection, SentinelHubRequest, MimeType
+import numpy as np
+import matplotlib.pyplot as plt
+
+print('\033[1m Sentinel Hub API Configuration:\033[0m')
+print('\033[1m====================================\033[0m')
+# Configure Sentinel Hub API
+config = SHConfig()
+config.instance_id = 'fb89a462-8e6b-4d31-8c2b-87f6fe40471b'
+config.sh_client_id = '4120319c-6ecc-4a34-8903-ad3a76be7ba3'
+config.sh_client_secret = 'S3fZ0K23xmxTZhNDc5Zpwe70m8Wz1gcl'
+
+# Define the area of interest (latitude, longitude) for a specific region
+area_of_interest = BBox(bbox=(-74.0, 40.5, -73.8, 40.7), crs=CRS.WGS84)  # Example: NYC
+
+time_interval = ('2024-01-01', '2024-01-10')
+
+evalscript = """
+// NDVI calculation
+function setup() {
+    return {
+        input: ["B04", "B08"],
+        output: { bands: 1 }
+    };
+}
+
+function evaluatePixel(sample) {
+    let ndvi = (sample.B08 - sample.B04) / (sample.B08 + sample.B04);
+    return [ndvi];
+}
+"""
+
+request = SentinelHubRequest(
+    evalscript=evalscript,
+    input_data=[
+        SentinelHubRequest.input_data(
+            data_collection=DataCollection.SENTINEL2_L2A,
+            time_interval=time_interval
+        )
+    ],
+    responses=[
+        SentinelHubRequest.output_response('default', MimeType.TIFF)
+    ],
+    bbox=area_of_interest,
+    size=(512, 512),
+    config=config
+)
+
+# Get data (list of arrays)
+response = request.get_data()
+
+# Assign the first (and likely only) array to ndvi_data
+ndvi_data = response[0]
+
+# Convert to float and clip
+ndvi_data = ndvi_data.astype(np.float32)
+ndvi_data = np.clip(ndvi_data, -1, 1)
+
+# If the array has extra dimensions (e.g. shape [512, 512, 1]), squeeze them
+if ndvi_data.ndim == 3 and ndvi_data.shape[-1] == 1:
+    ndvi_data = ndvi_data.squeeze(-1)
+
+# Plot NDVI
+plt.figure(figsize=(10, 8))
+plt.title("NDVI Analysis")
+plt.imshow(ndvi_data, cmap='YlGn')
+plt.colorbar(label="NDVI Value")
+plt.show()`;
       copyToClipboard(yourMultilineVariable);
     }
     function copyMultilineText6() {
