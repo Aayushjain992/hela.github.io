@@ -379,12 +379,72 @@ plt.show()
     }
 
     function copyMultilineText8() {
-      var yourMultilineVariable = `# Your existing code for button 8 here...`;
+      var yourMultilineVariable = `#R
+pick_bill_song <- function(songs,num_songs){
+
+  shuffle_songs <-sample(songs)
+  bill_songs <-head(shuffle_songs,num_songs)
+  return(bill_songs)
+}
+all_songs <-c("song 1","song 2","song 3","song 4","song5","song6","song 7","song8","song 9","song 10"
+)
+num_bill_song <-4
+
+bill_songs <- pick_bill_song(all_songs,num_bill_song)
+cat("BILLBOARD SONGS ARE :\n")
+for (song in bill_songs){
+  cat(song,"\n")
+}
+#Pyhton
+import pandas as pd
+
+data = {
+    'content_id': [1, 2, 3, 4, 5, 6],
+    'title': ['Tiger 3', 'Arijit Singh Live in Concert', 'Super Bowl Ad', 'Bajrangi Bhaijaan', 'The Voice Finale', 'Coca-Cola Ad'],
+    'category': ['Entertainment', 'Music', 'Advertisement', 'Entertainment', 'TV Show', 'Advertisement'],
+    'views': [95000, 80000, 70000, 85000, 45000, 90000]
+}
+
+df = pd.DataFrame(data)
+
+billboard_data = df[(df['category'] == 'Entertainment') & (df['views'] > 50000)]
+
+# Display the filtered content
+print("Billboard Content:")
+print(billboard_data)`;
       copyToClipboard(yourMultilineVariable);
     }
 
     function copyMultilineText9() {
-      var yourMultilineVariable = `# Your existing code for button 9 here...`;
+      var yourMultilineVariable = `!pip install pygal pyspark  > /dev/null
+import pygal
+import random
+
+regions = [f'Region {i}' for i in range(1, 11)]
+months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+# Generate random sales data for 10 regions over 12 months
+sales_data = {region: [random.randint(1000, 10000) for _ in months] for region in regions}
+
+bar_chart = pygal.Bar(title='Total Sales Across 10 Regions (Yearly)')
+for region, sales in sales_data.items():
+    bar_chart.add(region, sum(sales))  # Summing up monthly sales per region
+
+# Save as SVG
+bar_chart.render_to_file('total_sales_regions.svg')
+
+top_regions = sorted(sales_data.items(), key=lambda x: sum(x[1]), reverse=True)[:3]
+
+line_chart = pygal.Line(title='Monthly Sales Trends for Top 3 Regions')
+line_chart.x_labels = months
+
+# Add monthly sales data for top 3 regions
+for region, sales in top_regions:
+    line_chart.add(region, sales)
+
+
+line_chart.render_to_file('top_regions_trends.svg')`;
       copyToClipboard(yourMultilineVariable);
     }
 
