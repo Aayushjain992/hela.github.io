@@ -366,274 +366,385 @@ plt.show()
     }
     function copyMultilineText5() {
       var yourMultilineVariable = `
-from pyspark.sql import SparkSession
-from pyspark.sql import Row
-spark=SparkSession.builder.appName('TemperoryViewExample').getOrCreate()
-data=[Row(id=1,name="ABC",age=25,city="ss"),Row(id=2,name="DEF",age=35,city="hi"),Row(id=3,name="GHI",age=15,city="ra"),Row(id=4,name="XYZ",age=38,city="js")]
-df=spark.createDataFrame(data)
-df.show()
-df.createOrReplaceTempView("Employee")
-result=spark.sql("select * from Employee")
-result.show()
-result1=spark.sql("select * from Employee where age>30")
-result1.show()
-#Sales 
-
-data=[Row(1,"Electronic",1000,"2025-03-01"),
-      Row(2,"Electronic",3000,"2025-01-01")]
-columns=["sales_id","category","amount","date"]
-df=spark.createDataFrame(data,columns)
-df.createOrReplaceTempView("Sales")
-result=spark.sql("select * from Sales")
-result2=spark.sql("select category,AVG(amount) as Avg_Amt from Sales group by category")
-result2.show()
-result3=spark.sql("select * from Sales order by amount desc limit 1")
+!pip install sentinelhub numpy matplotlib geopandas shapely> /dev/null
+from sentinelhub import SHConfig, BBox, CRS, DataCollection, SentinelHubRequest, MimeType
+import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
-df_query1=result2.toPandas()
-#barplot
-plt.figure(figsize=(8,5))
-sns.barplot(x="category",y="Avg_Amt",data=df_query1)
-plt.title("Sales Amount by Category ")
-plt.xlabel("Category")
-plt.ylabel("Sales Amount")
+
+print('\033[1m Sentinel Hub API Configuration:\033[0m')
+print('\033[1m====================================\033[0m')
+# Configure Sentinel Hub API
+config = SHConfig()
+config.instance_id = 'fb89a462-8e6b-4d31-8c2b-87f6fe40471b'
+config.sh_client_id = '4120319c-6ecc-4a34-8903-ad3a76be7ba3'
+config.sh_client_secret = 'S3fZ0K23xmxTZhNDc5Zpwe70m8Wz1gcl'
+
+# Define the area of interest (latitude, longitude) for a specific region
+area_of_interest = BBox(bbox=(-74.0, 40.5, -73.8, 40.7), crs=CRS.WGS84)  # Example: NYC
+
+time_interval = ('2024-01-01', '2024-01-10')
+
+evalscript = """
+// NDVI calculation
+function setup() {
+    return {
+        input: ["B04", "B08"],
+        output: { bands: 1 }
+    };
+}
+
+function evaluatePixel(sample) {
+    let ndvi = (sample.B08 - sample.B04) / (sample.B08 + sample.B04);
+    return [ndvi];
+}
+"""
+
+request = SentinelHubRequest(
+    evalscript=evalscript,
+    input_data=[
+        SentinelHubRequest.input_data(
+            data_collection=DataCollection.SENTINEL2_L2A,
+            time_interval=time_interval
+        )
+    ],
+    responses=[
+        SentinelHubRequest.output_response('default', MimeType.TIFF)
+    ],
+    bbox=area_of_interest,
+    size=(512, 512),
+    config=config
+)
+
+# Get data (list of arrays)
+response = request.get_data()
+
+# Assign the first (and likely only) array to ndvi_data
+ndvi_data = response[0]
+
+# Convert to float and clip
+ndvi_data = ndvi_data.astype(np.float32)
+ndvi_data = np.clip(ndvi_data, -1, 1)
+
+# If the array has extra dimensions (e.g. shape [512, 512, 1]), squeeze them
+if ndvi_data.ndim == 3 and ndvi_data.shape[-1] == 1:
+    ndvi_data = ndvi_data.squeeze(-1)
+
+# Plot NDVI
+plt.figure(figsize=(10, 8))
+plt.title("NDVI Analysis")
+plt.imshow(ndvi_data, cmap='YlGn')
+plt.colorbar(label="NDVI Value")
 plt.show()
 `;
       copyToClipboard(yourMultilineVariable);
     }
-
-
-
-    function copyMultilineText5() {
-      var yourMultilineVariable = `
-from pyspark.sql import SparkSession
-from pyspark.sql import Row
-spark=SparkSession.builder.appName('TemperoryViewExample').getOrCreate()
-data=[Row(id=1,name="ABC",age=25,city="ss"),Row(id=2,name="DEF",age=35,city="hi"),Row(id=3,name="GHI",age=15,city="ra"),Row(id=4,name="XYZ",age=38,city="js")]
-df=spark.createDataFrame(data)
-df.show()
-df.createOrReplaceTempView("Employee")
-result=spark.sql("select * from Employee")
-result.show()
-result1=spark.sql("select * from Employee where age>30")
-result1.show()
-#Sales 
-
-data=[Row(1,"Electronic",1000,"2025-03-01"),
-      Row(2,"Electronic",3000,"2025-01-01")]
-columns=["sales_id","category","amount","date"]
-df=spark.createDataFrame(data,columns)
-df.createOrReplaceTempView("Sales")
-result=spark.sql("select * from Sales")
-result2=spark.sql("select category,AVG(amount) as Avg_Amt from Sales group by category")
-result2.show()
-result3=spark.sql("select * from Sales order by amount desc limit 1")
-import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
-df_query1=result2.toPandas()
-#barplot
-plt.figure(figsize=(8,5))
-sns.barplot(x="category",y="Avg_Amt",data=df_query1)
-plt.title("Sales Amount by Category ")
-plt.xlabel("Category")
-plt.ylabel("Sales Amount")
-plt.show()
-`;
-      copyToClipboard(yourMultilineVariable);
-    }
-
     function copyMultilineText6() {
-      var yourMultilineVariable = `
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import udf
-from pyspark.sql.types import StringType
+      var yourMultilineVariable = `import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import re
 
-spark= SparkSession.builder.appName("UDF_Example").getOrCreate()
-data=[("os",65),("pa",12),("jo",45)]
-columns=["name","age"]
-df=spark.createDataFrame(data,schema=columns)
-df.printSchema()
-def age_group(age):
-  if age<18:
-    return "Minor"
-  elif age >= 18 and age <= 60:
-    return "Adult"
-  else:
-    return "Senior Citizen"
 
-age_group_udf=udf(age_group,StringType()) 
-df=df.withColumn("age_group",age_group_udf(df["age"]))
-df.show()
+# Load dataset
+df = pd.read_csv("/content/Womens Clothing E-Commerce Reviews.csv")
+
+# Drop rows with missing reviews
+df = df.dropna(subset=['Review Text'])
+
+# Function to clean text
+def clean_text(text):
+    text = text.lower()  # Convert to lowercase
+    text = re.sub(r'[^a-zA-Z\s]', '', text)  # Remove special characters
+    text = re.sub(r'\s+', ' ', text).strip()  # Remove extra spaces
+    return text
+
+# Apply text cleaning
+df['Cleaned Review'] = df['Review Text'].apply(clean_text)
+
+# Plot rating distribution
+plt.figure(figsize=(8,5))
+sns.countplot(x=df['Rating'], palette='viridis')
+plt.title('Review Rating Distribution')
+plt.xlabel('Rating')
+plt.ylabel('Count')
+
+plt.show()
+# Pie chart for recommended vs. not recommended
+plt.figure(figsize=(6,6))
+df['Recommended IND'].value_counts().plot.pie(autopct='%1.1f%%', colors=['lightblue', 'orange'])
+plt.title('Recommendation Distribution')
+plt.ylabel('')
+plt.show()
+
+# Boxplot for age distribution by rating
+plt.figure(figsize=(10,6))
+sns.boxplot(x='Rating', y='Age', data=df, palette='coolwarm')
+plt.title('Age Distribution by Rating')
+plt.xlabel('Rating')
+plt.ylabel('Age')
+plt.show()
+
+# Bar chart for top 10 most reviewed clothing items
+plt.figure(figsize=(12,6))
+top_products = df['Clothing ID'].value_counts().nlargest(10)
+top_products.plot(kind='bar', color='teal')
+plt.title('Top 10 Most Reviewed Clothing Items')
+plt.xlabel('Clothing ID')
+plt.ylabel('Number of Reviews')
+plt.show()
 `;
       copyToClipboard(yourMultilineVariable);
     }
 
     function copyMultilineText7() {
-      var yourMultilineVariable = `from pyspark.sql import SparkSession
-from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.regression import LinearRegression
+      var yourMultilineVariable = `
+!pip install wordcloud seaborn nltk > /dev/null
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from wordcloud import WordCloud
+import nltk
+from nltk.corpus import stopwords
+from collections import Counter
+import re
 
-spark = SparkSession.builder.appName("RegressionExample").getOrCreate()
-data=[(1,100),(2,110),(3,120),(4,130),(5,105)]
-columns=["feature","target"]
-df=spark.createDataFrame(data,schema=columns)
-df.show()
-assembled=VectorAssembler(inputCols=["feature"],outputCol="features")
-df=assembled.transform(df).select("features","target")
-df.show()
-lr=LinearRegression(featuresCol="features",labelCol="target")
-lr_model=lr.fit(df)
-print("Coefficients:",lr_model.coefficients)
-print("Intercept:",lr_model.intercept)
-training_summary=lr_model.summary
-print("Root Mean Squared error:",training_summary.rootMeanSquaredError)
-print("R2:",training_summary.r2)
-prediction=lr_model.transform(df)
-prediction.select("features","target","prediction").show()
+# Keras utility for the IMDb dataset
+from keras.datasets import imdb
+
+# Download NLTK resources
+nltk.download('stopwords')
+nltk.download('punkt')
+
+stop_words = set(stopwords.words('english'))
+
+
+
+def load_and_clean_data(num_words=10000):
+    """
+    Loads the IMDb dataset from Keras, decodes integer sequences back to text,
+    then cleans up duplicates and missing values.
+    Returns a pandas DataFrame with columns ['review', 'sentiment'].
+    """
+    # 1. Load IMDb data (train/test splits)
+    (train_data, train_labels), (test_data, test_labels) = imdb.load_data(num_words=num_words)
+
+    # 2. Build a reverse dictionary to decode integer sequences back to words
+    word_index = imdb.get_word_index()
+    reverse_word_index = {value: key for (key, value) in word_index.items()}
+
+    # Note: The first few indices are reserved (0, 1, 2, 3), so we shift by 3 when decoding.
+    def decode_review(encoded_review):
+        return " ".join([reverse_word_index.get(i - 3, "?") for i in encoded_review if i >= 3])
+
+    # 3. Decode reviews
+    train_reviews = [decode_review(seq) for seq in train_data]
+    test_reviews = [decode_review(seq) for seq in test_data]
+
+    # 4. Create DataFrames for train and test
+    df_train = pd.DataFrame({
+        "review": train_reviews,
+        "sentiment": train_labels
+    })
+    df_test = pd.DataFrame({
+        "review": test_reviews,
+        "sentiment": test_labels
+    })
+
+    # Combine train and test sets
+    df = pd.concat([df_train, df_test], ignore_index=True)
+
+    # 5. Convert sentiment from 0/1 to string labels (optional)
+    #    If you prefer numeric, skip this step
+    df["sentiment"] = df["sentiment"].map({0: "negative", 1: "positive"})
+
+    # 6. Drop duplicates
+    df.drop_duplicates(inplace=True)
+
+    # 7. Drop missing values (if any)
+    df.dropna(inplace=True)
+
+    # 8. Ensure 'review' and 'sentiment' columns exist
+    if "review" not in df.columns or "sentiment" not in df.columns:
+        raise ValueError("Dataset does not have required columns: 'review' and 'sentiment'")
+
+    return df
+
+# ------------------------------------------------------------------
+# Main script
+# ------------------------------------------------------------------
+df = load_and_clean_data(num_words=10000)
+
+# Check the first few rows
+print(df.head())
+
+# Check for missing values
+print("\nMissing Values:\n", df.isnull().sum())
+
+# (Optional) Check distribution of sentiments
+print("\nSentiment Distribution:\n", df["sentiment"].value_counts())
+def clean_text(text):
+    text = re.sub(r'<.*?>', '', text)  # Remove HTML tags
+    text = re.sub(r'[^a-zA-Z ]', '', text)  # Remove non-alphabetic characters
+    text = text.lower()
+    words = text.split()
+    words = [word for word in words if word not in stop_words]
+    return ' '.join(words)
+
+# Apply cleaning
+df['clean_review'] = df['review'].astype(str).apply(clean_text)
+# Sentiment Analysis Visualization
+plt.figure(figsize=(8, 5))
+sns.barplot(x=df['sentiment'].value_counts().index, y=df['sentiment'].value_counts().values, palette='coolwarm')
+plt.title("Sentiment Distribution in IMDb Reviews")
+plt.xlabel("Sentiment")
+plt.ylabel("Count")
+plt.show()
+
+# Word Frequency in Positive vs Negative Reviews
+from collections import Counter
+
+# Tokenizing words for each sentiment category
+positive_words = ' '.join(df[df['sentiment'] == 'positive']['clean_review']).split()
+negative_words = ' '.join(df[df['sentiment'] == 'negative']['clean_review']).split()
+
+# Counting word frequency
+positive_word_counts = Counter(positive_words).most_common(20)
+negative_word_counts = Counter(negative_words).most_common(20)
+
+# Converting to DataFrame
+positive_df = pd.DataFrame(positive_word_counts, columns=['Word', 'Count'])
+negative_df = pd.DataFrame(negative_word_counts, columns=['Word', 'Count'])
+
+# Plot most common words in positive reviews
+plt.figure(figsize=(8, 5))
+sns.barplot(x='Count', y='Word', data=positive_df, palette='coolwarm')
+plt.title(" Top 20 Words in Positive Reviews")
+plt.show()
+
+# Plot most common words in negative reviews
+plt.figure(figsize=(8, 5))
+sns.barplot(x='Count', y='Word', data=negative_df, palette='coolwarm')
+plt.title(" Top 20 Words negative in reviews")
+plt.show()
 `;
       copyToClipboard(yourMultilineVariable);
     }
 
     function copyMultilineText8() {
-      var yourMultilineVariable = `from pyspark.sql import SparkSession
-from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.clustering import KMeans
-spark=SparkSession.builder.appName('Kmeans').getOrCreate()
-data=[(1.0,2.0),(1.5,1.8),(5.0,8.0),(8.0,8.0),(1.0,0.6),(9.0,11.0)]
-columns=["sub1","sub2"]
-df=spark.createDataFrame(data,columns)
-df.show()
-assembler=VectorAssembler(inputCols=["sub1","sub2"],outputCol="features")
-res=assembler.transform(df)
-res.show()
-kmeans=KMeans(k=2,seed=1)
-model=kmeans.fit(res)
-prediction=model.transform(res)
-prediction.show()
-for center in model.clusterCenters():
-  print(center)
+      var yourMultilineVariable = `#R
+pick_bill_song <- function(songs,num_songs){
+
+  shuffle_songs <-sample(songs)
+  bill_songs <-head(shuffle_songs,num_songs)
+  return(bill_songs)
+}
+all_songs <-c("song 1","song 2","song 3","song 4","song5","song6","song 7","song8","song 9","song 10"
+)
+num_bill_song <-4
+
+bill_songs <- pick_bill_song(all_songs,num_bill_song)
+cat("BILLBOARD SONGS ARE :\n")
+for (song in bill_songs){
+  cat(song,"\n")
+}
+
+#Pyhton
+import pandas as pd
+
+data = {
+    'content_id': [1, 2, 3, 4, 5, 6],
+    'title': ['Tiger 3', 'Arijit Singh Live in Concert', 'Super Bowl Ad', 'Bajrangi Bhaijaan', 'The Voice Finale', 'Coca-Cola Ad'],
+    'category': ['Entertainment', 'Music', 'Advertisement', 'Entertainment', 'TV Show', 'Advertisement'],
+    'views': [95000, 80000, 70000, 85000, 45000, 90000]
+}
+
+df = pd.DataFrame(data)
+
+billboard_data = df[(df['category'] == 'Entertainment') & (df['views'] > 50000)]
+
+# Display the filtered content
+print("Billboard Content:")
+print(billboard_data)
 `;
       copyToClipboard(yourMultilineVariable);
     }
-
-
 
     function copyMultilineText9() {
-      var yourMultilineVariable = `
-from pyspark.sql import SparkSession
-from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.classification import LogisticRegression
-from pyspark.ml.feature import CountVectorizer,IDF,Tokenizer
-spark=SparkSession.builder.appName('Log').getOrCreate()
-data=[(1,"Win a free Iphone"),(1,"You won a lottery"),(0,"Hello Lets meet for lunch"),(0,"Dont forget to complete the assignment")]
-columns=["label","text"]
-df=spark.createDataFrame(data,columns)
-df.show()
-tokenizer=Tokenizer(inputCol="text",outputCol="Tokens") # Now Tokenizer should be defined
-res=tokenizer.transform(df)
-res.show()
-vectorizer=CountVectorizer(inputCol="Tokens",outputCol="features")
-Vector_model=vectorizer.fit(res)
-vec=Vector_model.transform(res)
-vec.show()
-idf=IDF(inputCol="features",outputCol="idf_features")
-idf_model=idf.fit(vec)
-res=idf_model.transform(vec)
-res.show()
-df1=res.select("label","idf_features")
-lr=LogisticRegression(featuresCol="idf_features",labelCol="label")
-model=lr.fit(df1)
-prediction=model.transform(df1)
-prediction.show()
+      var yourMultilineVariable = `!pip install pygal pyspark  > /dev/null
+import pygal
+import random
 
+regions = [f'Region {i}' for i in range(1, 11)]
+months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+# Generate random sales data for 10 regions over 12 months
+sales_data = {region: [random.randint(1000, 10000) for _ in months] for region in regions}
+
+bar_chart = pygal.Bar(title='Total Sales Across 10 Regions (Yearly)')
+for region, sales in sales_data.items():
+    bar_chart.add(region, sum(sales))  # Summing up monthly sales per region
+
+# Save as SVG
+bar_chart.render_to_file('total_sales_regions.svg')
+
+top_regions = sorted(sales_data.items(), key=lambda x: sum(x[1]), reverse=True)[:3]
+
+line_chart = pygal.Line(title='Monthly Sales Trends for Top 3 Regions')
+line_chart.x_labels = months
+
+# Add monthly sales data for top 3 regions
+for region, sales in top_regions:
+    line_chart.add(region, sales)
+
+
+line_chart.render_to_file('top_regions_trends.svg')
 `;
       copyToClipboard(yourMultilineVariable);
     }
+
+
 
     function copyMultilineText10() {
-      var yourMultilineVariable = `from pyspark.sql import SparkSession
-from pyspark.ml.classification import NaiveBayes
-from pyspark.ml.feature import VectorAssembler, StringIndexer
-from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+      var yourMultilineVariable = `
+balance_data = pd.DataFrame({
+    'Date': ['2024-01-01', '2024-01-05', '2024-01-10', '2024-01-12',
+             '2024-01-15', '2024-01-20', '2024-01-25'],
+    'Account': ['Sales', 'Purchase', 'Sales', 'Expense', 'Sales', 'Purchase', 'Salary'],
+    'Amount': [15000, -12000, 20000, -5000, 0, -8000, 10000],
+    'Status': ['Valid', 'Valid', 'Invalid', 'Valid', 'Invalid', 'Valid', 'Valid']
+})
 
-spark = SparkSession.builder.appName("NaiveBayesWeather").getOrCreate()
-data = [
-    ("Sunny", 30, 50, 10),
-    ("Rainy", 22, 85, 20),
-    ("Cloudy", 25, 70, 15),
-    ("Sunny", 35, 40, 8),
-    ("Rainy", 20, 90, 25),
-    ("Cloudy", 28, 65, 12),
-    ("Sunny", 32, 45, 7),
-    ("Rainy", 19, 95, 30),
-    ("Cloudy", 26, 75, 18),
-]
-columns = ["weather", "temperature", "humidity", "wind_speed"]
-df = spark.createDataFrame(data, columns)
-df.show()
-indexer = StringIndexer(inputCol="weather", outputCol="label")
-df = indexer.fit(df).transform(df)
-df.show()
-vector_assembler = VectorAssembler(inputCols=["temperature", "humidity", "wind_speed"], outputCol="features")
-df = vector_assembler.transform(df).select("label", "features")
-
-train_data, test_data = df.randomSplit([0.8, 0.2], seed=42)
-nb = NaiveBayes(modelType="multinomial")
-model = nb.fit(train_data)
-predictions = model.transform(test_data)
-evaluator = MulticlassClassificationEvaluator(labelCol="label", predictionCol="prediction", metricName="accuracy")
-accuracy = evaluator.evaluate(predictions)
-print(f"Test Accuracy: {accuracy:.2f}")
-predictions.select("label", "features", "prediction").show()
+valid_data = balance_data[(balance_data['Status'] == 'Valid') & (balance_data['Amount'] != 0)]
 
 
+valid_data.to_csv('cleaned_balance_sheet.csv', index=False)
+
+print("Valid balance sheet data processed and saved to 'cleaned_balance_sheet.csv'.")
 `;
       copyToClipboard(yourMultilineVariable);
     }
-
-
 
     function copyMultilineText11() {
-      var yourMultilineVariable = `from pyspark.sql import SparkSession
-spark = SparkSession.builder.appName("WordCount").getOrCreate()
-sc = spark.sparkContext  
-data = [
-    "hello world",
-    "hello pyspark",
-    "pyspark map reduce example",
-    "reduce and map are powerful",
-]
-rdd = sc.parallelize(data)
-mapped_rdd = rdd.flatMap(lambda line: line.split(" ")).map(lambda word: (word, 1))
-word_counts = mapped_rdd.reduceByKey(lambda a, b: a + b)
-result = word_counts.collect()
-for word, count in result:
-    print(f"{word}: {count}")
-spark.stop()
+      var yourMultilineVariable = `import pymongo
+
+myclient = pymongo.MongoClient("mongodb://localhost:27017")
+
+mydb=myclient["KC_DATA"]
+
+print("Database Created Successfully")
+
+mycol=mydb["ITPART2"]
+
+print(myclient.list_database_names())
+
+mydict=[{"name":"Aayush","address":"Mumbai"},{"name":"Alex","address":"byculla"}]
+
+x=mycol.insert_many(mydict)
 `;
       copyToClipboard(yourMultilineVariable);
     }
-    function copyMultilineText12() {
-      var yourMultilineVariable = `from pyspark.sql import SparkSession
-from pyspark.sql.functions import explode,split
-from pyspark.sql.functions import col
-spark=SparkSession.builder.appName('Word').getOrCreate()
-data=[("Hello World",),("Hello , How are you",),("I am fine =",)]
-columns=["text"]
-df=spark.createDataFrame(data,columns)
-df.show(truncate=False)
-word_df=df.withColumn("words",explode(split(col("text")," ")))
-word_df.show()
-word_count=word_df.groupBy("words").count().orderBy(col('count').desc())
-word_count.show()
-
-
-`;
-      copyToClipboard(yourMultilineVariable);
-    }
-
   </script>
 </body>
 </html>
